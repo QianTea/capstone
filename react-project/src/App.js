@@ -8,6 +8,7 @@ import Product from './pages/product';
 import Price from './pages/price';
 import NoPage from './pages/nopage';
 import Layout from './pages/layout';
+import Detail from './pages/detail';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="products" element={<Product />} />
+            <Route path="products/:id" element={<Detail />} />
             <Route path="pricing" element={<Price />} />
             <Route path="*" element={<NoPage />} />
           </Route>
