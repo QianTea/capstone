@@ -1,11 +1,19 @@
 import {Link, useParams} from 'react-router-dom'
+import Product from './product';
 
 const Detail = () => {
     const {id} = useParams();
     return(
         <>
-            Here is the Detail page, price is {id}
-            <button><Link to="/products">Go back</Link></button>
+            <h1>Product Detail</h1>
+            <h2>Name: </h2>
+            <p> price: ${id}</p>
+            <p> Categary: </p>
+            <p> Picture: </p>
+            <p> Description: </p>
+            <button>
+                <Link to="/products">Go back</Link>
+            </button>
         </>
     )
 }

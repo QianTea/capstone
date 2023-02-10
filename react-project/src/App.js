@@ -5,7 +5,7 @@ import { NavBar } from './components/navbar';
 import ResponsiveAppBar from './components/NavBar2';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Product from './pages/product';
-import Price from './pages/price';
+import Home from './pages/home';
 import NoPage from './pages/nopage';
 import Layout from './pages/layout';
 import Detail from './pages/detail';
@@ -18,7 +18,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="products" element={<Product />} />
             <Route path="products/:id" element={<Detail />} />
-            <Route path="pricing" element={<Price />} />
+            <Route path="home" element={<Home />} />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>

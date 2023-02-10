@@ -1,7 +1,8 @@
 const NoPage = () => {
     return(
         <>
-            404. Page Error
+            <h1>404. Page Not Found.</h1>
+            
         </>
     )
 }
