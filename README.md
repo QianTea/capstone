@@ -9,9 +9,16 @@
 - Connect online ordering website 
 
 ## Admin Panel - Management interface 
-**user information** 
+**Admin Login**
+
+**Menu** 
 > Add, delete, update 
-> - waiters login account
+> - Category 
+> - the products: name, price, category, description 
+
+**Employee information** 
+> Add, delete, update 
+> - waiters login: name, password
 
 **restaurant website** 
 > Add, delete, update 
@@ -21,9 +28,6 @@
 > - business hours (check boxes: Sun-Sat with time)
 > - supported takeaway websites and links (skipped dishes)
  
-**Menu** 
-> - Category 
-> - the products: name, price, category, description 
 
 **Report** 
 > Select, display, download
