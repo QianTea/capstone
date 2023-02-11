@@ -13,7 +13,7 @@
 
 **Menu** 
 > Add, delete, update 
-> - Category 
+> - Category : name, description
 > - the products: name, price, category, description 
 
 **Employee information** 
