@@ -22,8 +22,8 @@
 > - supported takeaway websites and links (skipped dishes)
  
 **Menu** 
-> Category 
-> the dishes: name, price, category
+> - Category 
+> - the products: name, price, category, description 
 
 **Report** 
 > Select, display, download
