@@ -9,25 +9,39 @@
 - Connect online ordering website 
 
 ## Admin Panel - Management interface 
-**Admin Login**
+# Restaurant Management System
 
-**Menu** 
-> Add, delete, update 
-> - Category : name, description
-> - the products: name, price, category, description 
+## Login
+- [x] Admin Login
+## Home
+- [x] Dashboard
+  - [x] Today's Revenue
+  - [x] Today's Order List
+## Menu
+Add, Delete, Update
+- [ ] Categories
+  - [ ] Name
+  - [ ] Description
+- [ ] Products
+  - [ ] Name
+  - [ ] Price
+  - [ ] Category
+  - [ ] Description
+
+## Website Info
+Add, Delete, Update
+  - [ ] Logo
+  - [ ] Store Name
+  - [ ] Store Description
+  - [ ] Environment Pictures
+  - [ ] Address (with Google Map API)
+  - [ ] Contact Number (Take-out Only)
+  - [ ] Business Hours (with check boxes for each day of the week)
+  - [ ] Supported Takeaway Websites and Links (Skipped Dishes)
 
 **Employee information** 
 > Add, delete, update 
 > - waiters login: name, password
-
-**restaurant website** 
-> Add, delete, update 
-> - logo, store name, store descrption, enviroment pics
-> - address (Show map: Google Map API)
-> - contact number (Take-out only)
-> - business hours (check boxes: Sun-Sat with time)
-> - supported takeaway websites and links (skipped dishes)
- 
 
 **Report** 
 > Select, display, download
