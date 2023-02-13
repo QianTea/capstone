@@ -11,7 +11,7 @@ import Layout from './shared/layout';
 import Detail from './products/detail';
 import Login from './login/login';
 import DashboardContent from './home/dashboard';
-
+import Website from './website/website';
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +19,7 @@ function App() {
           <Route path="/" element={<Layout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<DashboardContent />} />
+          <Route path="/website" element={<Website />} />
           <Route path='/products' element={<Product />} />
             <Route path="/products/:id" element={<Detail />} />
           <Route path="*" element={<NoPage />} />
