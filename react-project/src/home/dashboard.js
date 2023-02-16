@@ -39,7 +39,7 @@ function DashboardContent() {
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
-                            {/* Chart */}
+                            {/* Blank */}
                             <Grid item xs={12} md={8} lg={9}>
                                 <Paper
                                     sx={{
@@ -52,7 +52,7 @@ function DashboardContent() {
                                     {/* <Chart /> */}
                                 </Paper>
                             </Grid>
-                            {/* Recent Deposits */}
+                            {/* Today's Revenue */}
                             <Grid item xs={12} md={4} lg={3}>
                                 <Paper
                                     sx={{
@@ -65,14 +65,13 @@ function DashboardContent() {
                                     <Deposits />
                                 </Paper>
                             </Grid>
-                            {/* Recent Orders */}
+                            {/* Today's Orders */}
                             <Grid item xs={12}>
                                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                                     <Orders />
                                 </Paper>
                             </Grid>
                         </Grid>
-
                     </Container>
                 </Box>
             </Box>
