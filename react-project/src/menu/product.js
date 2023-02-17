@@ -15,6 +15,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Item from '@mui/material/Grid';
 import AddProduct from "./addProduct";
+import AddCategory from "./addCategory";
 
 const mdTheme = createTheme();
 
@@ -149,42 +150,48 @@ class Product extends React.Component {
                         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                             <h1>Menu Management</h1>
                             <Grid container spacing={1}>
+                            <Grid item xs={12} md={4} lg={4}>
+                                    <Item>
+                                        <Link to="/products/addFoodType">
+                                            <Button variant="contained" startIcon={<SendIcon />} color="success">
+                                                Add Food Type
+                                            </Button>
+                                        </Link>
+                                    </Item>
+                                </Grid>
                                 <Grid item xs={12} md={4} lg={4}>
                                     <Item>
-                                        <Box component="form"
-                                            sx={{
-                                                '& .MuiTextField-root': { m: 1, width: '30ch' },
-                                            }}
-                                            noValidate
-                                            autoComplete="off" >
-                                            <Link to="/products/addProduct">
-                                                <Button variant="contained" startIcon={<SendIcon />} color="success">
-                                                    Add Product
-                                                </Button>
-                                            </Link>
-                                        </Box>
+                                        <Link to="/products/addCategory">
+                                            <Button variant="contained" startIcon={<SendIcon />} color="success">
+                                                Add Category
+                                            </Button>
+                                        </Link>
                                     </Item>
                                 </Grid>
-                                <Grid item xs={12} md={8} lg={8}>
+                                <Grid item xs={12} md={4} lg={4}>
                                     <Item>
-                                        <h2>Current Products</h2>
-                                        {this.state.products.map(v => {
-                                            return <div>
-                                                <h3>Category: {v.category}</h3>
-                                                {v.name}: ${v.price}
-                                                {/* <button onClick={() => this.handleClick(v.price)}>open</button> */}
-                                                {/* <a><Link to={v.price}>Update</Link> </a> */}
-                                                <IconButton aria-label="edit">
-                                                    <EditIcon />
-                                                </IconButton>
-                                                <IconButton aria-label="delete">
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                            </div>
-                                        })}
-
+                                        <Link to="/products/addProduct">
+                                            <Button variant="contained" startIcon={<SendIcon />} color="success">
+                                                Add Product
+                                            </Button>
+                                        </Link>
                                     </Item>
                                 </Grid>
+
+                                <div>
+                                {this.state.products.map(v => {
+                                    return <div>
+                                        <h3>Category: {v.category}</h3>
+                                        {v.name}: ${v.price}
+                                        <IconButton aria-label="edit">
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton aria-label="delete">
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </div>
+                                })}
+                                </div>
                             </Grid>
                         </Container>
                     </Box>

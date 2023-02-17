@@ -13,6 +13,9 @@ import Login from './login/login';
 import DashboardContent from './home/dashboard';
 import Website from './website/website';
 import AddProduct from './menu/addProduct';
+import AddCategory from './menu/addCategory';
+import AddFoodType from './menu/addFoodType';
+
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +26,8 @@ function App() {
           <Route path="/website" element={<Website />} />
           <Route path='/products' element={<Product />} />
             <Route path="/products/:id" element={<Detail />} />
+            <Route path="/products/addFoodType" element={<AddFoodType />} />
+            <Route path="/products/addCategory" element={<AddCategory />} />
             <Route path="/products/addProduct" element={<AddProduct />} />
           <Route path="*" element={<NoPage />} />
           </Route>
