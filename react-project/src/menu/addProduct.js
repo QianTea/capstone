@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import Product from './product';
+import Product from './menu';
 import React from "react";
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/IconButton';
@@ -50,10 +50,22 @@ const AddProduct = () => {
                     </div>
 
                     <div>
-                        price:
+                         dine-in price:
                         <TextField
-                            id="newPrice"
-                            label="price"
+                            id="newDineInPrice"
+                            label="dine in price"
+                            variant="outlined"
+                            InputProps={{
+                                startAdornment:
+                                    <InputAdornment position="start">$</InputAdornment>,
+                            }}
+                        />
+                    </div>
+                    <div>
+                         take out price:
+                        <TextField
+                            id="newTakeOutPrice"
+                            label="take out price"
                             variant="outlined"
                             InputProps={{
                                 startAdornment:

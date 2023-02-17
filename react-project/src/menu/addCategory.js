@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import Product from './product';
+import Product from './menu';
 import React from "react";
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/IconButton';
