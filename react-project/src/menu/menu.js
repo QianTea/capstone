@@ -152,7 +152,7 @@ class Product extends React.Component {
                             <Grid container spacing={1}>
                                 <Grid item xs={12} md={4} lg={4}>
                                     <Item>
-                                        <Link to="/products/addFoodType">
+                                        <Link to="/admin/menu/addFoodType">
                                             <Button variant="contained" startIcon={<SendIcon />} color="success">
                                                 Add Food Type
                                             </Button>
@@ -161,7 +161,7 @@ class Product extends React.Component {
                                 </Grid>
                                 <Grid item xs={12} md={4} lg={4}>
                                     <Item>
-                                        <Link to="/products/addCategory">
+                                        <Link to="/admin/menu/addCategory">
                                             <Button variant="contained" startIcon={<SendIcon />} color="success">
                                                 Add Category
                                             </Button>
@@ -170,7 +170,7 @@ class Product extends React.Component {
                                 </Grid>
                                 <Grid item xs={12} md={4} lg={4}>
                                     <Item>
-                                        <Link to="/products/addProduct">
+                                        <Link to="/admin/menu/addProduct">
                                             <Button variant="contained" startIcon={<SendIcon />} color="success">
                                                 Add Product
                                             </Button>
@@ -181,8 +181,8 @@ class Product extends React.Component {
                                     <Item>
                                         <div>
                                             <h2>Take out Menu</h2>
-                                            <img src="./takeoutMenu1.png" alt="1st take out menu image" />
-                                            <img src="./takeoutMenu2.png" alt="2nd take out menu image" />
+                                            <img src="../takeoutMenu1.png" alt="1st take out menu image" />
+                                            <img src="../takeoutMenu2.png" alt="2nd take out menu image" />
                                         </div>
                                         <div>
                                             <h2>Dine In Menu</h2>

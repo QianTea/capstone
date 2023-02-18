@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import Staff from './staffs';
+import Staff from './staff';
 import React from "react";
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/IconButton';
@@ -78,7 +78,7 @@ const AddStaff = () => {
 
                 <Link
                     variant="body2"
-                    to="/staffs">
+                    to="/admin/staff">
                     Go back to Staff Management page
                 </Link>
             </Box>

@@ -44,7 +44,7 @@ const Staff = () => {
                         <Grid container spacing={1}>
                             <Grid item xs={12} md={4} lg={4}>
                                 <Item>
-                                    <Link to="/staffs/addStaff">
+                                    <Link to="/admin/staff/addStaff">
                                         <Button variant="contained" startIcon={<SendIcon />} color="success">
                                             Add Staff
                                         </Button>
@@ -54,7 +54,7 @@ const Staff = () => {
                             <Grid item xs={12} md={12} lg={12}>
                                 <Item>
                                     <div>
-                                        <h2>Current Staffs</h2>
+                                        <h2>Current Staff</h2>
 
                                         <p>Ivy Lin - Waiter
                                             <IconButton aria-label="edit">

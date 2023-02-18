@@ -38,7 +38,7 @@ const StoreInfo = () => {
                                 <Grid container spacing={1}>
                                     <Grid item xs={12} md={4} lg={4}>
                                         <Item>
-                                            <img src="./logo.png" alt="logo image" />
+                                            <img src="../logo.png" alt="logo image" />
                                             <div>
                                                 <input type="file" />
                                             </div>

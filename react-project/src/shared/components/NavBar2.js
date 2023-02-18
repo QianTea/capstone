@@ -1,32 +1,33 @@
 import * as React from 'react';
+import {Link} from 'react-router-dom';
+// mui
 import AppBar from '@mui/material/AppBar';
+import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
-import {Link} from 'react-router-dom';
 
-
-const pages = ['Login','Home', 'Store','Menu', 'Staffs','Website','no page'];
-const settings = ['Profile', 'Dashboard', 'Logout'];
+const pages = [
+  {value:'admin/login',label:'Login'},
+  {value:'admin/home',label:'Home'},
+  {value: 'admin/store',label:'StoreInfo'},
+  {value:'admin/menu',label:'Menu'},
+  {value: 'admin/staff',label:'Staff'},
+  {value:'',label:'Web'},
+  {value:'*',label:'404'}
+];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -35,10 +36,6 @@ function ResponsiveAppBar() {
 
   const clickPage = (page = 'default') => {
     alert(page);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -94,8 +91,8 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={clickPage}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.value} onClick={clickPage}>
+                  <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -127,40 +124,12 @@ function ResponsiveAppBar() {
                 // onClick={() => clickPage(page)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link to={`/${page}`}>{page}</Link>
+                <Link to={`/${page.value}`}>{page.label}</Link>
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+
         </Toolbar>
       </Container>
     </AppBar>

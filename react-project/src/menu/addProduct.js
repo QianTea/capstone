@@ -102,7 +102,7 @@ const AddProduct = () => {
 
                 <Link
                     variant="body2"
-                    to="/products">
+                    to="/admin/menu">
                     Go back to Menu
                 </Link>
             </Box>
