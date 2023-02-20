@@ -160,7 +160,29 @@ const sliderSettings = {
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: '60px',
-    
+
+};
+// special dishes
+const special = {
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    item: {
+        width: '50%',
+    },
+    image: {
+        maxWidth: '100%',
+        height: 'auto',
+    },
+    title: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        marginBottom: '10px',
+    },
+    description: {
+        fontSize: '16px',
+    },
 };
 
 const WebDemo = () => {
@@ -223,33 +245,54 @@ const WebDemo = () => {
                 <div>
                     <p style={about.title}> OUR FOOD </p>
                     <p >Savor The Flavor</p>
-                    <h3>Lunch Special</h3>
-                    <p>
-                        The Valued Choice.
-                        Avaliable before 3 pm.
-                        Lunch Special (2 pcs): Two pieces of whitefish and chips.
-                        $10.39
-                    </p>
-                    <h3>Shrimp Special</h3>
-                    <p>
-                        Served All Day
-                        Shrimp Special
-                        Eight pieces of shrimp and chips.
-                        $14.89
-                    </p>
+
+                    <div style={special.container}>
+                        <div style={special.item}>
+                            <img src="..\homeTreat.png" alt="Image 1" style={special.image} />
+                        </div>
+                        <div style={special.item}>
+                            <div style={special.title}>Lunch Special</div>
+                            <div style={special.description}>
+                                <p>The Valued Choice.</p>
+                                <p>Avaliable before 3 pm.</p>
+                                <p>Lunch Special (2 pcs): Two pieces of whitefish and chips.</p>
+                                <p>$10.39</p>
+                            </div>
+                        </div>
+
+                        <div style={special.item}>
+                            <div style={special.title}>Shrimp Special</div>
+                            <div style={special.description}>
+                            <p>Served All Day</p>
+                                <p>Shrimp Special</p>
+                                <p>Eight pieces of shrimp and chips.</p>
+                                <p>$14.89</p>
+                            </div>
+
+                        </div>
+                        <div style={special.item}>
+                            <img src="../homeTreat.png" alt="Image 2" style={special.image} />
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h2>Google Map API</h2>
-                    <h2>Find Us</h2>
-                    <p>
-                        Monday                         Closed
-                        Tuesday                   11:30am - 7:30pm
-                        Wednesday                 11:30am - 7:30pm
-                        Thursday                  11:30am - 7:30pm
-                        Friday                    11:30am - 7:30pm
-                        Saturday                  11:30am - 7:30pm
-                        Sunday                         Closed
-                    </p>
+
+                <div style={special.container}>
+                    <div style={special.item}>
+                        <h2>Google Map API</h2>
+                        <img src="../map.png" alt="Image 2" style={special.image} />
+                    </div>
+                    <div style={special.item}>
+                        <h2>Find Us</h2>
+                        <p>
+                            Monday                         Closed
+                            Tuesday                   11:30am - 7:30pm
+                            Wednesday                 11:30am - 7:30pm
+                            Thursday                  11:30am - 7:30pm
+                            Friday                    11:30am - 7:30pm
+                            Saturday                  11:30am - 7:30pm
+                            Sunday                         Closed
+                        </p>
+                    </div>
                 </div>
 
                 {/* footer */}
