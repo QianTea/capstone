@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // mui
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -14,13 +14,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = [
-  {value:'admin/login',label:'Login'},
-  {value:'admin/home',label:'Home'},
-  {value: 'admin/store',label:'StoreInfo'},
-  {value:'admin/menu',label:'Menu'},
-  {value: 'admin/staff',label:'Staff'},
-  {value:'',label:'Web'},
-  {value:'*',label:'404'}
+  { value: 'admin/login', label: 'Login' },
+  { value: 'admin/home', label: 'Home' },
+  { value: 'admin/store', label: 'StoreInfo' },
+  { value: 'admin/menu', label: 'Menu' },
+  { value: 'admin/staff', label: 'Staff' },
+  { value: '', label: 'Web' },
+  { value: '*', label: '404' }
 ];
 
 function ResponsiveAppBar() {
@@ -97,7 +97,7 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          
+
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -119,13 +119,17 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                // onClick={() => clickPage(page)}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                <Link to={`/${page.value}`}>{page.label}</Link>
-              </Button>
+
+              <Link to={`/${page.value}`}>
+                <Button
+                  key={page}
+                  // onClick={() => clickPage(page)}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page.label}
+                </Button>
+              </Link>
+
             ))}
           </Box>
 
