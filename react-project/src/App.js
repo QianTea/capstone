@@ -15,7 +15,11 @@ import Staff from './staff/staff';
 import AddStaff from "./staff/addStaff";
 import NoPage from './shared/nopage';
 // Restaurant Website
-import WebDemo from './webdemo/webDemo';
+import WebHome from './web/homePage';
+import WebMenu from './web/menuPage';
+import WebContact from './web/contactPage';
+
+import WebLayout from './web/webLayout';
 
 function App() {
   return (
@@ -33,7 +37,14 @@ function App() {
           <Route path="/admin/staff" element={<Staff />} />
           <Route path="/admin/staff/addStaff" element={<AddStaff />} />
         </Route>
-        <Route path="/" element={<WebDemo />} />
+        <Route path="/" element={<WebLayout />} >
+          <Route path="/home" element={<WebHome />} />
+          <Route path="/menu" element={<WebMenu />} />
+          <Route path="/contact" element={<WebContact />} />
+        </Route>
+
+
+
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
