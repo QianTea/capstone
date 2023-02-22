@@ -2,6 +2,7 @@
  A restaurant website that includes an admin panel, through which customers can upload and customize store name, logo, menu, price, and online order links (such as skipp/uber eat)
 
 ## Restaurant website 
+UI: https://github.com/users/QianTea/projects/1/views/1?pane=issue&itemId=21166867
 - Restaurant information 
 - View menu 
 - Restaurant location 
@@ -9,45 +10,60 @@
 - Connect online ordering website 
 
 ## Admin Panel - Management interface 
-# Restaurant Management System
+UI: https://github.com/users/QianTea/projects/1/views/1?pane=issue&itemId=19259998
+### Login
+- Admin Login
 
-## Login
-- [x] Admin Login
-## Home
-- [x] Dashboard
-  - [x] Today's Revenue
-  - [x] Today's Order List
-## Menu
-Add, Delete, Update
-- [ ] Categories
-  - [ ] Name
-  - [ ] Description
-- [ ] Products
-  - [ ] Name
-  - [ ] Price
-  - [ ] Category
-  - [ ] Description
+### Home-Dashboard
+- Today's Revenue
+- Today's Order List
 
-## Website Info
-Add, Delete, Update
-  - [ ] Logo
-  - [ ] Store Name
-  - [ ] Store Description
-  - [ ] Environment Pictures
-  - [ ] Address (with Google Map API)
-  - [ ] Contact Number (Take-out Only)
-  - [ ] Business Hours (with check boxes for each day of the week)
-  - [ ] Supported Takeaway Websites and Links (Skipped Dishes)
+### Store Info
+- Logo
+- Store Name
+- Store Description
+- Address
+- Contact Number 
+- Supported Takeaway Websites and Links
+- Business Hours
 
-**Employee information** 
-> Add, delete, update 
-> - waiters login: name, password
+### Menu
+Food Types
+- Name
+- Description
 
-**Report** 
+Categories
+- Name
+- Food Type 
+- Description
+
+Products
+- Name
+- Dine-In Price
+- Take Out Price
+- Category
+
+### Staff
+Role/position
+- name
+- description
+
+Staff  
+- name
+- position/role (uncategorized/waiter/kitchen)
+- login password
+
+---
+## Iteration 3
+**Add these in Store Info**
+> - [ ] Business Hours [need check boxes for each day of the week]
+> - [ ] Environment Pictures -> website/home-gallery [if have time]
+  
+**Add Report Page** 
 > Select, display, download
-> - Day/month/product summary  
-> - Query from order history: database
-
+> - [ ] Day/month/product summary  
+> - [ ] Query from order history: database
+---
 ## Ordering System
 ### Waiter's Interface
 - **Login** system 
