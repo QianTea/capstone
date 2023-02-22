@@ -1,25 +1,30 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// Admin Panel
-import Layout from './shared/layout';
-import Login from './login/login';
-import DashboardContent from './home/dashboard';
-import StoreInfo from './store/storeInfo';
-import Product from './menu/menu';
-import Detail from './menu/detail';
-import AddFoodType from './menu/addFoodType';
-import AddCategory from './menu/addCategory';
-import AddProduct from './menu/addProduct';
-import Staff from './staff/staff';
-import AddStaff from "./staff/addStaff";
-import NoPage from './shared/nopage';
-// Restaurant Website
-import WebHome from './web/homePage';
-import WebMenu from './web/menuPage';
-import WebContact from './web/contactPage';
 
-import WebLayout from './web/webLayout';
+import NoPage from './nopage';
+
+// Admin Panel
+import Layout from './adminPanel/shared/layout';
+import Login from './adminPanel/login/login';
+import DashboardContent from './adminPanel/home/dashboard';
+import StoreInfo from './adminPanel/store/storeInfo';
+import Product from './adminPanel/menu/menu';
+import Detail from './adminPanel/menu/detail';
+import AddFoodType from './adminPanel/menu/addFoodType';
+import AddCategory from './adminPanel/menu/addCategory';
+import AddProduct from './adminPanel/menu/addProduct';
+import Staff from './adminPanel/staff/staff';
+import AddStaff from "./adminPanel/staff/addStaff";
+import AddRole from "./adminPanel/staff/addRole";
+
+// Restaurant Website
+import WebLayout from './website/webLayout';
+import WebHome from './website/homePage';
+import WebMenu from './website/menuPage';
+import WebContact from './website/contactPage';
+
+
 
 function App() {
   return (
@@ -35,6 +40,7 @@ function App() {
           <Route path="/admin/menu/addCategory" element={<AddCategory />} />
           <Route path="/admin/menu/addProduct" element={<AddProduct />} />
           <Route path="/admin/staff" element={<Staff />} />
+          <Route path="/admin/staff/addRole" element={<AddRole />} />
           <Route path="/admin/staff/addStaff" element={<AddStaff />} />
         </Route>
         <Route path="/" element={<WebLayout />} >
