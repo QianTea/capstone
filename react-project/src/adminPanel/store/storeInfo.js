@@ -9,14 +9,18 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Item from '@mui/material/Grid';
+import { IconButton } from "@mui/material";
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 const mdTheme = createTheme();
 
 const StoreInfo = () => {
     return (
         <ThemeProvider theme={mdTheme}>
-            <Box sx={{ display: 'flex' ,
-        '& .MuiTextField-root': { m: 1, width: '55ch' },}}>
+            <Box sx={{
+                display: 'flex',
+                '& .MuiTextField-root': { m: 1, width: '55ch' },
+            }}>
                 <Box
                     component="form"
                     sx={{
@@ -40,7 +44,14 @@ const StoreInfo = () => {
                                         <Item>
                                             <img src="../logo.png" alt="logo image" />
                                             <div>
-                                                <input type="file" />
+                                                <Button variant="contained" component="label">
+                                                    Upload
+                                                    <input hidden accept="image/*" multiple type="file" />
+                                                </Button>
+                                                <IconButton color="primary" aria-label="upload picture" component="label">
+                                                <PhotoCamera />
+                                                    <input hidden accept="image/*" type="file" />     
+                                                </IconButton>
                                             </div>
                                         </Item>
                                     </Grid>

@@ -3,17 +3,21 @@ import { Link } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
+
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { IconButton } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
+import Button from '@mui/material/Button';
 
 const theme = createTheme();
 const styles = {
     backIcon: {
         color: '#fff',
+    },
+    bottom: {
+        paddingTop: '20px',
     },
 };
 
@@ -114,6 +118,23 @@ const OrderDisplay = () => {
                             <TableCell align="right">Total:</TableCell>
                             <TableCell align="right">$23.16</TableCell>
                         </TableRow>
+                    </Grid>
+                </Grid>
+                {/* buttons */}
+                <Grid container style={styles.bottom}>
+                    <Grid item xs={3}>
+                        <Button variant="contained" color="success">Send</Button>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button variant="outlined" color="warning">Cancel</Button>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button variant="outlined">Separate</Button>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Button variant="contained" size="large" multiline >
+                            $23.16<br/>Pay
+                        </Button>
                     </Grid>
                 </Grid>
             </ThemeProvider>
