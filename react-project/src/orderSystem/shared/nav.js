@@ -14,17 +14,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = [
-  { value: 'admin/login', label: 'Login' },
-  { value: 'admin/home', label: 'Home' },
-  { value: 'admin/store', label: 'StoreInfo' },
-  { value: 'admin/menu', label: 'Menu' },
-  { value: 'admin/staff', label: 'Staff' },
+  { value: 'order/login', label: 'Login' },
+  { value: 'order/home', label: 'Home' },
+  { value: 'order/currentorder', label: 'Current ' },
+  { value: 'order/orderhistory', label: 'History' },
+  
   { value: '', label: 'Web' },
-  { value: '../order', label: 'Order' },
+  { value: '../admin', label: 'Admin' },
   { value: '*', label: '404' }
 ];
 
-function ResponsiveAppBar() {
+function OrderNav() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -140,4 +140,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default OrderNav;

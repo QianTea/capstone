@@ -1,8 +1,14 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css';
 
 import NoPage from './nopage';
+
+// Restaurant Website
+import WebLayout from './website/webLayout';
+import WebHome from './website/homePage';
+import WebMenu from './website/menuPage';
+import WebContact from './website/contactPage';
 
 // Admin Panel
 import Layout from './adminPanel/shared/layout';
@@ -18,18 +24,22 @@ import Staff from './adminPanel/staff/staff';
 import AddStaff from "./adminPanel/staff/addStaff";
 import AddRole from "./adminPanel/staff/addRole";
 
-// Restaurant Website
-import WebLayout from './website/webLayout';
-import WebHome from './website/homePage';
-import WebMenu from './website/menuPage';
-import WebContact from './website/contactPage';
-
-
+// Order System
+import OrderLayout from './orderSystem/shared/layout';
+import StaffLogin from './orderSystem/staffLogin/staffLogin';
+import OrderHome from './orderSystem/order/home';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Store Website */}
+        <Route path="/" element={<WebLayout />} >
+          <Route path="/home" element={<WebHome />} />
+          <Route path="/menu" element={<WebMenu />} />
+          <Route path="/contact" element={<WebContact />} />
+        </Route>
+        {/* Admin Panel */}
         <Route path="/admin" element={<Layout />}>
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/home" element={<DashboardContent />} />
@@ -43,13 +53,11 @@ function App() {
           <Route path="/admin/staff/addRole" element={<AddRole />} />
           <Route path="/admin/staff/addStaff" element={<AddStaff />} />
         </Route>
-        <Route path="/" element={<WebLayout />} >
-          <Route path="/home" element={<WebHome />} />
-          <Route path="/menu" element={<WebMenu />} />
-          <Route path="/contact" element={<WebContact />} />
+        {/*  Order System */}
+        <Route path='/order' element={<OrderLayout />} >
+          <Route path="/order/login" element={<StaffLogin />} />
+          <Route path='/order/home' element={<OrderHome />} />
         </Route>
-
-
 
         <Route path="*" element={<NoPage />} />
       </Routes>
