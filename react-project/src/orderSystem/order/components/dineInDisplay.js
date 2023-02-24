@@ -10,6 +10,9 @@ import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow } from
 import { IconButton } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 const theme = createTheme();
 const styles = {
@@ -28,7 +31,9 @@ const styles = {
         paddingTop: 2,
         paddingBottom: 2,
     },
-
+    dropdown:{
+        color:'white',
+    },
     button: {
         paddingTop: 0,
         paddingBottom: 0,
@@ -49,7 +54,7 @@ const styles = {
     },
 };
 
-const OrderDisplay = () => {
+const DineInDisplay = () => {
 
     return (
 
@@ -65,7 +70,25 @@ const OrderDisplay = () => {
                     </Grid>
                     {/* Head: Order Type: Take out/ Dine in */}
                     <Grid item xs={4} >
-                        <p>Take Out</p>
+                        <h3>Dine in</h3>
+                    </Grid>
+                    {/* Head: Table Number */}
+                    <Grid item xs={4} >
+                        <Select style={styles.dropdown}>
+                            <MenuItem value={0}>Table 0</MenuItem>
+                            <MenuItem value={1}>Table 1</MenuItem>
+                            <MenuItem value={2}>Table 2</MenuItem>
+                            <MenuItem value={3}>Table 3</MenuItem>
+                            <MenuItem value={4}>Table 4</MenuItem>
+                            <MenuItem value={5}>Table 5</MenuItem>
+                            <MenuItem value={6}>Table 6</MenuItem>
+                            <MenuItem value={7}>Table 7</MenuItem>
+                            <MenuItem value={8}>Table 8</MenuItem>
+                            <MenuItem value={9}>Table 9</MenuItem>
+                            <MenuItem value={10}>Table 10</MenuItem>
+                            <MenuItem value={11}>Table 11</MenuItem>
+                            <MenuItem value={12}>Table 12</MenuItem>
+                        </Select>
                     </Grid>
                 </Grid>
                 {/* Order detail list */}
@@ -207,8 +230,8 @@ const OrderDisplay = () => {
                                         <TableCell style={styles.lesspad} align="center">2</TableCell>
                                         <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
                                         <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>  
-                                    <TableRow>                                
+                                    </TableRow>
+                                    <TableRow>
                                         <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
                                         <TableCell style={styles.lesspad} align="center">2</TableCell>
                                         <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
@@ -238,6 +261,7 @@ const OrderDisplay = () => {
                         </TableRow>
                     </Grid>
                 </Grid>
+                
                 {/* buttons */}
                 <Grid container style={styles.bottom}>
                     <Grid item xs={3}>
@@ -260,4 +284,4 @@ const OrderDisplay = () => {
     )
 }
 
-export default OrderDisplay;
+export default DineInDisplay;

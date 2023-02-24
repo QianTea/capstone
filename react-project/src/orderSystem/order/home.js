@@ -3,8 +3,10 @@ import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 
-import OrderDisplay from './components/orderDisplay';
-import OrderMenu from './components/orderMenu';
+import TakeoutDisplay from './components/takeoutDisplay';
+import DineInDisplay from './components/dineInDisplay';
+import TakeOutMenu from './components/takeoutMenu';
+import DineInMenu from './components/dineInMenu';
 
 const theme = createTheme();
 const styles = {
@@ -29,10 +31,12 @@ const OrderHome = () => {
                 <Grid container >
 
                     <Grid item xs={4} style={styles.leftContainer}>
-                        <OrderDisplay />
+                        <TakeoutDisplay />
+                        {/* <DineInDisplay /> */}
                     </Grid>
                     <Grid item xs={8} style={styles.rightContainer}>
-                        <OrderMenu />
+                        <TakeOutMenu />
+                        {/* <DineInMenu/> */}
                     </Grid>
                 </Grid>
             </ThemeProvider>
