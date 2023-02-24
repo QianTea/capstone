@@ -28,6 +28,10 @@ import AddRole from "./adminPanel/staff/addRole";
 import OrderLayout from './orderSystem/shared/layout';
 import StaffLogin from './orderSystem/staffLogin/staffLogin';
 import OrderHome from './orderSystem/order/home';
+import DineInOrderInterface from './orderSystem/order/components/dineInOrder';
+import TakeOutOrderInterface from './orderSystem/order/components/takeOutOrder';
+import OrdersHistory from './orderSystem/orderHistory/orderHistory';
+import CurrentOrders from './orderSystem/currentOrder/currentOrder';
 
 function App() {
   return (
@@ -57,6 +61,11 @@ function App() {
         <Route path='/order' element={<OrderLayout />} >
           <Route path="/order/login" element={<StaffLogin />} />
           <Route path='/order/home' element={<OrderHome />} />
+          <Route path='/order/dine-in-order' element={<DineInOrderInterface />} />
+          <Route path='/order/take-out-order' element={<TakeOutOrderInterface />} />
+          <Route path='/order/orders-history' element={<OrdersHistory />} />
+          <Route path='/order/current-orders' element={<CurrentOrders />} />
+          
         </Route>
 
         <Route path="*" element={<NoPage />} />

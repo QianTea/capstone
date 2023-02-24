@@ -13,49 +13,75 @@ import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const theme = createTheme();
 const styles = {
+    space: {
+        paddingTop: '12px',
+    },
     backIcon: {
         color: '#fff',
+        paddingTop: '15px',
     },
-    bottom: {
-        paddingTop: '20px',
+    dropdown: {
+        color: 'white',
+        paddingTop: '10px',
+        paddingLeft: '25px',
     },
-    nopad: {
+    tableH:{
+        fontSize:'20px',
+        fontWeight: 'bold',
+    },
+    tableB: {
+        paddingTop: 3,
+        paddingBottom: 3,
+        fontSize:'18px',
+    },
+    subtotal: {
         paddingTop: 0,
         paddingBottom: 0,
         border: 'none ',
-    },
-    lesspad: {
-        paddingTop: 2,
-        paddingBottom: 2,
-    },
-    dropdown:{
-        color:'white',
+        fontSize: '20px',
     },
     button: {
         paddingTop: 0,
         paddingBottom: 0,
         paddingLeft: 0,
         paddingRight: 0,
-        height: '40px',
+        height: '50px',
         width: '80px',
         margin: 10,
+        fontSize: '15px',
     },
     pay: {
         paddingTop: 0,
         paddingBottom: 0,
         paddingLeft: 0,
         paddingRight: 0,
-        height: '60px',
+        height: '80px',
         width: '80px',
+        fontSize: '20px',
+        fontWeight: 'bold',
         margin: 2,
     },
 };
-
+const orders = [
+    { item: 'Lunch Special', quatity: '2', single: '$7.00', total: '$14.00' },
+    { item: 'SFP', quatity: '1', single: '$21.00', total: '$21.00' },
+    { item: 'Gravy', quatity: '1', single: '$1.99', total: '$1.99' },
+    { item: 'M-P', quatity: '1', single: '$1.5', total: '$1.5' },
+    { item: 'POP', quatity: '1', single: '$1.50', total: '$1.5' },
+];
 const DineInDisplay = () => {
+    const link = useNavigate();
 
+    const handleBackClick = () => {
+        link('/order/home');
+    };
     return (
 
         <div>
@@ -64,13 +90,13 @@ const DineInDisplay = () => {
                 <Grid container>
                     {/* back icon */}
                     <Grid item xs={4} >
-                        <IconButton>
+                        <IconButton onClick={handleBackClick}>
                             <ArrowBackIosNewIcon style={styles.backIcon} />
                         </IconButton>
                     </Grid>
                     {/* Head: Order Type: Take out/ Dine in */}
                     <Grid item xs={4} >
-                        <h3>Dine in</h3>
+                        <h2>Dine in</h2>
                     </Grid>
                     {/* Head: Table Number */}
                     <Grid item xs={4} >
@@ -98,145 +124,21 @@ const DineInDisplay = () => {
                             <Table>
                                 <TableHead style={{ position: 'sticky', top: 0 }}>
                                     <TableRow>
-                                        <TableCell style={styles.lesspad}>Item</TableCell>
-                                        <TableCell style={styles.lesspad}>Quantity</TableCell>
-                                        <TableCell style={styles.lesspad}>Single</TableCell>
-                                        <TableCell style={styles.lesspad}>Total</TableCell>
+                                        <TableCell style={styles.tableH}>Item</TableCell>
+                                        <TableCell style={styles.tableH}>Quantity</TableCell>
+                                        <TableCell style={styles.tableH}>Single</TableCell>
+                                        <TableCell style={styles.tableH}>Total</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad}>Lunch special</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >Lunch special</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >Lunch special</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >HB/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell style={styles.lesspad} >1pc HD/C</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">2</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$7.00</TableCell>
-                                        <TableCell style={styles.lesspad} align="center">$14.00</TableCell>
-                                    </TableRow>
+                                    {orders.map((v) => (
+                                        <TableRow>
+                                            <TableCell style={styles.tableB}>{v.item}</TableCell>
+                                            <TableCell style={styles.tableB} align="center">{v.quatity}</TableCell>
+                                            <TableCell style={styles.tableB} align="center">{v.single}</TableCell>
+                                            <TableCell style={styles.tableB} align="center">{v.total}</TableCell>
+                                        </TableRow>
+                                    ))}
                                 </TableBody>
                             </Table>
                         </TableContainer>
@@ -244,26 +146,26 @@ const DineInDisplay = () => {
                 </Grid>
 
                 {/* Order subtotal list */}
-                <Grid container style={styles.bottom}>
+                <Grid container style={styles.space}>
                     <Grid item xs={5}></Grid>
                     <Grid item xs={7}>
                         <TableRow>
-                            <TableCell style={styles.nopad} align="right">Sub Total:</TableCell>
-                            <TableCell style={styles.nopad} align="right">$20.66</TableCell>
+                            <TableCell style={styles.subtotal} align="right">Sub Total:</TableCell>
+                            <TableCell style={styles.subtotal} align="right">$20.66</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell style={styles.nopad} align="right">Tax:</TableCell>
-                            <TableCell style={styles.nopad} align="right">$2.50</TableCell>
+                            <TableCell style={styles.subtotal} align="right">Tax:</TableCell>
+                            <TableCell style={styles.subtotal} align="right">$2.50</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell style={styles.nopad} align="right">Total:</TableCell>
-                            <TableCell style={styles.nopad} align="right">$23.16</TableCell>
+                            <TableCell style={styles.subtotal} align="right">Total:</TableCell>
+                            <TableCell style={styles.subtotal} align="right">$23.16</TableCell>
                         </TableRow>
                     </Grid>
                 </Grid>
-                
+
                 {/* buttons */}
-                <Grid container style={styles.bottom}>
+                <Grid container style={styles.space}>
                     <Grid item xs={3}>
                         <Button style={styles.button} variant="contained" color="success">Send</Button>
                     </Grid>

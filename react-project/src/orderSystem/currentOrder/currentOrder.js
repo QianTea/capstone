@@ -56,7 +56,7 @@ const styles = {
     },
 };
 
-const OrderHome = () => {
+const CurrentOrders = () => {
     const link = useNavigate();
 
     const handleDineInOrderClick = () => {
@@ -68,11 +68,11 @@ const OrderHome = () => {
     };
 
     const handleCurrentOrdersClick = () => {
-        link('/order/current-orders');
+        link('/current-orders');
     };
 
-    const handleOrdersHistoryClick = () => {
-        link('/order/orders-history');
+    const handleOrderHistoryClick = () => {
+        link('/order-history');
     };
 
     return (
@@ -88,36 +88,10 @@ const OrderHome = () => {
                         </div>
                     </Grid>
 
-                    <Grid item xs={6}>
-                        <div style={styles.buttonWrapper}>
-                            <ButtonBase style={{ ...styles.button, backgroundColor: '#ffd700' }} onClick={handleTakeoutOrderClick}>
-                                <TakeoutDiningIcon style={styles.icon} />
-                                <div style={styles.buttonText}>Takeout Order</div>
-                            </ButtonBase>
-                        </div>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <div style={styles.buttonWrapper}>
-                            <ButtonBase style={{ ...styles.button, backgroundColor: '#00bfff' }} onClick={handleCurrentOrdersClick}>
-                                <AssignmentIcon style={styles.icon} />
-                                <div style={styles.buttonText}>Current Orders</div>
-                            </ButtonBase>
-                        </div>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <div style={styles.buttonWrapper}>
-                            <ButtonBase style={{ ...styles.button, backgroundColor: '#7cfc00' }} onClick={handleOrdersHistoryClick}>
-                                <HistoryIcon style={styles.icon} />
-                                <div style={styles.buttonText}>Order History</div>
-                            </ButtonBase>
-                        </div>
-                    </Grid>
                 </Grid>
             </ThemeProvider>
         </>
     );
 };
 
-export default OrderHome;
+export default CurrentOrders;

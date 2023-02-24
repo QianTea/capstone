@@ -30,7 +30,7 @@ const styles = {
         paddingBottom: 2,
     },
     categoryH: {
-        color: '#FFD700',
+        color: '#fff',
         fontSize: '25px',
         paddingTop: 0,
         paddingBottom: 0,
@@ -45,15 +45,17 @@ const styles = {
         backgroundColor: 'rgba(0, 0, 0, 0.4)',
         color: '#fff',
         margin: '5px',
+        paddingLeft:'5px',
+        paddingRight:'5px',
         borderRadius: '10px',
         boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         verticalAlign: 'middle',
-        padding: '0',
-        width: '80px',
-        height: '80px',
+      
+        width: '110px',
+        height: '110px',
 
     },
     title: {
@@ -101,7 +103,9 @@ const products = [
     { name: 'Tea', price: '11.49', category: 'Beverages' },
     { name: 'POP', price: '11.49', category: 'Beverages' },
 ];
-
+const orders = [
+    {item:'Lunch Special', quatity:'2',single:'$7.00',total:'$14.00'},
+];
 const DineInMenu = () => {
 
     return (

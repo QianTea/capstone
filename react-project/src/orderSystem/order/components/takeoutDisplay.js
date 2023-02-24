@@ -12,6 +12,12 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 
+import { useNavigate } from 'react-router-dom';
+
+
+
+
+
 const theme = createTheme();
 const styles = {
     backIcon: {
@@ -51,7 +57,11 @@ const styles = {
 };
 
 const TakeoutDisplay = () => {
+    const link = useNavigate();
 
+    const handleBackClick = () => {
+        link('/order/home');
+    };
     return (
 
         <div>
@@ -60,7 +70,7 @@ const TakeoutDisplay = () => {
                 <Grid container>
                     {/* back icon */}
                     <Grid item xs={4} >
-                        <IconButton>
+                        <IconButton onClick={handleBackClick}>
                             <ArrowBackIosNewIcon style={styles.backIcon} />
                         </IconButton>
                     </Grid>
