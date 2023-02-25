@@ -19,24 +19,14 @@ const styles = {
         paddingBottom: '20px',
         paddingLeft: '80px',
         paddingRight: '80px',
-    },
-    leftContainer: {
-        backgroundColor: '#262626',
-        display: 'inline-block',
-        height: '100vh',
-        color: '#f6f6ef',
-    },
-    rightContainer: {
-        backgroundColor: '#b3b3b3',
-        display: 'inline-block',
-        height: '100vh',
+        backgroundColor:'#ffffe5',
     },
     buttonWrapper: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: '280px',
+        height: '300px',
         width: '880px',
         margin: 10,
     },
@@ -81,36 +71,64 @@ const OrderHome = () => {
                 <Grid container style={styles.page}>
                     <Grid item xs={6}>
                         <div style={styles.buttonWrapper}>
-                            <ButtonBase style={{ ...styles.button, backgroundColor: '#dc143c' }} onClick={handleDineInOrderClick}>
+                            <ButtonBase
+                                style={{
+                                    ...styles.button,
+                                    backgroundColor: '#e8ba30'
+                                }}
+                                onClick={handleDineInOrderClick}>
                                 <RestaurantIcon style={styles.icon} />
-                                <div style={styles.buttonText}>Dine-in Order</div>
+                                <div style={styles.buttonText}>
+                                    Dine-in Order
+                                </div>
                             </ButtonBase>
                         </div>
                     </Grid>
 
                     <Grid item xs={6}>
                         <div style={styles.buttonWrapper}>
-                            <ButtonBase style={{ ...styles.button, backgroundColor: '#ffd700' }} onClick={handleTakeoutOrderClick}>
+                            <ButtonBase
+                                style={{
+                                    ...styles.button,
+                                    backgroundColor: '#538cc6'
+                                }}
+                                onClick={handleTakeoutOrderClick}>
                                 <TakeoutDiningIcon style={styles.icon} />
-                                <div style={styles.buttonText}>Takeout Order</div>
+                                <div style={styles.buttonText}>
+                                    Takeout Order
+                                </div>
                             </ButtonBase>
                         </div>
                     </Grid>
 
                     <Grid item xs={6}>
                         <div style={styles.buttonWrapper}>
-                            <ButtonBase style={{ ...styles.button, backgroundColor: '#00bfff' }} onClick={handleCurrentOrdersClick}>
+                            <ButtonBase
+                                style={{
+                                    ...styles.button,
+                                    backgroundColor: '#53c653'
+                                }}
+                                onClick={handleCurrentOrdersClick}>
                                 <AssignmentIcon style={styles.icon} />
-                                <div style={styles.buttonText}>Current Orders</div>
+                                <div style={styles.buttonText}>
+                                    Current Orders
+                                </div>
                             </ButtonBase>
                         </div>
                     </Grid>
 
                     <Grid item xs={6}>
                         <div style={styles.buttonWrapper}>
-                            <ButtonBase style={{ ...styles.button, backgroundColor: '#7cfc00' }} onClick={handleOrdersHistoryClick}>
+                            <ButtonBase
+                                style={{
+                                    ...styles.button,
+                                    backgroundColor: '#a6a6a6'
+                                }}
+                                onClick={handleOrdersHistoryClick}>
                                 <HistoryIcon style={styles.icon} />
-                                <div style={styles.buttonText}>Order History</div>
+                                <div style={styles.buttonText}>
+                                    Order History
+                                </div>
                             </ButtonBase>
                         </div>
                     </Grid>

@@ -11,15 +11,19 @@ const theme = createTheme();
 const styles = {
 
     leftContainer: {
-      backgroundColor: '#262626',
+    //   backgroundColor: '#262626',
+    backgroundColor: '#a6a6a6',
       display: 'inline-block',
       height: '100vh',
-      color:'#f6f6ef',
+    //   color:'#f6f6ef',
+    color: 'black',
     },
     rightContainer: {
-        backgroundColor: '#b3b3b3',
+        // backgroundColor: '#b3b3b3',
+        backgroundColor: '#e8ba30',
       display: 'inline-block',
       height: '100vh',
+      overflow: 'auto',
     },
   };
 

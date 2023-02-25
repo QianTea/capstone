@@ -1,16 +1,7 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import Slider from 'react-slick';
 
-import { Box, style } from "@mui/system";
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-import Item from '@mui/material/Grid';
 
 const mdTheme = createTheme();
 const styles = {
@@ -30,7 +21,7 @@ const styles = {
         paddingBottom: 2,
     },
     categoryH: {
-        color: '#FFD700',
+        color: '#fff',
         fontSize: '25px',
         paddingTop: 0,
         paddingBottom: 0,
@@ -45,16 +36,17 @@ const styles = {
         backgroundColor: 'rgba(0, 0, 0, 0.4)',
         color: '#fff',
         margin: '5px',
+        paddingLeft: '5px',
+        paddingRight: '5px',
         borderRadius: '10px',
         boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         verticalAlign: 'middle',
-        padding: '0',
-        width: '80px',
-        height: '80px',
 
+        width: '110px',
+        height: '110px',
     },
     title: {
         fontSize: '1.3rem',
@@ -132,7 +124,7 @@ const TakeOutMenu = () => {
                                 ))}
                             </div>
                         </Grid>
-                        </Grid>
+                    </Grid>
                 </div>
             </ThemeProvider >
         </>

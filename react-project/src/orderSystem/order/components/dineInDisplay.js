@@ -1,16 +1,13 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 
-import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import { Table, TableContainer, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { IconButton } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Button from '@mui/material/Button';
-import { TextField } from '@mui/material';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
@@ -24,28 +21,30 @@ const styles = {
         paddingTop: '12px',
     },
     backIcon: {
-        color: '#fff',
         paddingTop: '15px',
     },
-    dropdown: {
-        color: 'white',
+    dropdownTxt:{
         paddingTop: '10px',
-        paddingLeft: '25px',
+        fontSize: '20px',
     },
-    tableH:{
-        fontSize:'20px',
+    dropdown: {
+        fontSize: '20px',
+        fontWeight: 'bold',
+    },
+    tableH: {
+        fontSize: '20px',
         fontWeight: 'bold',
     },
     tableB: {
         paddingTop: 3,
         paddingBottom: 3,
-        fontSize:'18px',
+        fontSize: '18px',
     },
     subtotal: {
         paddingTop: 0,
         paddingBottom: 0,
         border: 'none ',
-        fontSize: '20px',
+        fontSize: '21px',
     },
     button: {
         paddingTop: 0,
@@ -53,20 +52,20 @@ const styles = {
         paddingLeft: 0,
         paddingRight: 0,
         height: '50px',
-        width: '80px',
+        width: '120px',
         margin: 10,
-        fontSize: '15px',
+        fontSize: '20px',
+        fontWeight: 'bold',
     },
     pay: {
         paddingTop: 0,
         paddingBottom: 0,
         paddingLeft: 0,
         paddingRight: 0,
-        height: '80px',
-        width: '80px',
-        fontSize: '20px',
+        height: '100px',
+        width: '160px',
+        fontSize: '25px',
         fontWeight: 'bold',
-        margin: 2,
     },
 };
 const orders = [
@@ -76,6 +75,19 @@ const orders = [
     { item: 'M-P', quatity: '1', single: '$1.5', total: '$1.5' },
     { item: 'POP', quatity: '1', single: '$1.50', total: '$1.5' },
 ];
+const tables = [
+    { name: '0', value: '0' },
+    { name: '1', value: '1' },
+    { name: '2', value: '2' },
+    { name: '3', value: '3' },
+    { name: '4', value: '4' },
+    { name: '5', value: '5' },
+    { name: '6', value: '6' },
+    { name: '7', value: '7' },
+    { name: '8', value: '8' },
+    { name: '9', value: '9' },
+    { name: '10', value: '10' },
+];
 const DineInDisplay = () => {
     const link = useNavigate();
 
@@ -83,15 +95,16 @@ const DineInDisplay = () => {
         link('/order/home');
     };
     return (
-
         <div>
             <ThemeProvider theme={theme}>
                 {/* Order Head */}
                 <Grid container>
                     {/* back icon */}
                     <Grid item xs={4} >
-                        <IconButton onClick={handleBackClick}>
-                            <ArrowBackIosNewIcon style={styles.backIcon} />
+                        <IconButton
+                            onClick={handleBackClick}>
+                            <ArrowBackIosNewIcon
+                                style={styles.backIcon} />
                         </IconButton>
                     </Grid>
                     {/* Head: Order Type: Take out/ Dine in */}
@@ -99,30 +112,27 @@ const DineInDisplay = () => {
                         <h2>Dine in</h2>
                     </Grid>
                     {/* Head: Table Number */}
-                    <Grid item xs={4} >
+                    <Grid item xs={4} style={styles.dropdownTxt}>
+                        Table:
                         <Select style={styles.dropdown}>
-                            <MenuItem value={0}>Table 0</MenuItem>
-                            <MenuItem value={1}>Table 1</MenuItem>
-                            <MenuItem value={2}>Table 2</MenuItem>
-                            <MenuItem value={3}>Table 3</MenuItem>
-                            <MenuItem value={4}>Table 4</MenuItem>
-                            <MenuItem value={5}>Table 5</MenuItem>
-                            <MenuItem value={6}>Table 6</MenuItem>
-                            <MenuItem value={7}>Table 7</MenuItem>
-                            <MenuItem value={8}>Table 8</MenuItem>
-                            <MenuItem value={9}>Table 9</MenuItem>
-                            <MenuItem value={10}>Table 10</MenuItem>
-                            <MenuItem value={11}>Table 11</MenuItem>
-                            <MenuItem value={12}>Table 12</MenuItem>
+                            {tables.map((v) => (
+                                <MenuItem value={v.value}>
+                                    {v.name}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </Grid>
                 </Grid>
                 {/* Order detail list */}
                 <Grid container>
-                    <Grid item xs={12} style={{ height: '550px' }}>
-                        <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
+                    <Grid item xs={12}
+                        style={{ height: '550px' }}>
+                        <TableContainer
+                            component={Paper}
+                            style={{ maxHeight: '100%' }}>
                             <Table>
-                                <TableHead style={{ position: 'sticky', top: 0 }}>
+                                <TableHead
+                                    style={{ position: 'sticky', top: 0 }}>
                                     <TableRow>
                                         <TableCell style={styles.tableH}>Item</TableCell>
                                         <TableCell style={styles.tableH}>Quantity</TableCell>
@@ -147,36 +157,80 @@ const DineInDisplay = () => {
 
                 {/* Order subtotal list */}
                 <Grid container style={styles.space}>
-                    <Grid item xs={5}></Grid>
+                    <Grid item xs={5}>
+                    </Grid>
                     <Grid item xs={7}>
                         <TableRow>
-                            <TableCell style={styles.subtotal} align="right">Sub Total:</TableCell>
-                            <TableCell style={styles.subtotal} align="right">$20.66</TableCell>
+                            <TableCell
+                                style={styles.subtotal}
+                                align="right">
+                                Sub Total:
+                            </TableCell>
+                            <TableCell
+                                style={styles.subtotal}
+                                align="right">
+                                $20.66
+                            </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell style={styles.subtotal} align="right">Tax:</TableCell>
-                            <TableCell style={styles.subtotal} align="right">$2.50</TableCell>
+                            <TableCell
+                                style={styles.subtotal}
+                                align="right">
+                                Tax:
+                            </TableCell>
+                            <TableCell
+                                style={styles.subtotal}
+                                align="right">
+                                $2.50
+                            </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell style={styles.subtotal} align="right">Total:</TableCell>
-                            <TableCell style={styles.subtotal} align="right">$23.16</TableCell>
+                            <TableCell
+                                style={styles.subtotal}
+                                align="right">
+                                Total:
+                            </TableCell>
+                            <TableCell
+                                style={styles.subtotal}
+                                align="right">
+                                $23.16
+                            </TableCell>
                         </TableRow>
                     </Grid>
                 </Grid>
 
                 {/* buttons */}
                 <Grid container style={styles.space}>
-                    <Grid item xs={3}>
-                        <Button style={styles.button} variant="contained" color="success">Send</Button>
+                    <Grid item xs={4}>
+                        <Button
+                            style={styles.button}
+                            variant="contained"
+                            color="success">
+                            Send
+                        </Button>
                     </Grid>
-                    <Grid item xs={3}>
-                        <Button style={styles.button} variant="outlined" color="warning">Cancel</Button>
+                    <Grid item xs={4}>
+                        <Button
+                            style={styles.button}
+                            variant="outlined"
+                            color="warning">
+                            Cancel
+                        </Button>
                     </Grid>
-                    <Grid item xs={3}>
-                        <Button style={styles.button} variant="outlined">Separate</Button>
+                    <Grid item xs={4}>
+                        <Button
+                            style={styles.button}
+                            variant="outlined">
+                            Separate
+                        </Button>
                     </Grid>
+                    <Grid item xs={7}></Grid>
                     <Grid item xs={3}>
-                        <Button style={styles.pay} variant="contained" size="large" multiline >
+                        <Button
+                            style={styles.pay}
+                            variant="contained"
+                            size="large"
+                            multiline >
                             $23.16<br />Pay
                         </Button>
                     </Grid>

@@ -16,9 +16,11 @@ const styles = {
       color:'#f6f6ef',
     },
     rightContainer: {
-        backgroundColor: '#b3b3b3',
+        // backgroundColor: '#b3b3b3',
+        backgroundColor: '#538cc6',
       display: 'inline-block',
       height: '100vh',
+      overflow: 'auto',
     },
   };
 
