@@ -12,14 +12,14 @@ import { TextField } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
-import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
-import Stack from '@mui/material/Stack';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+// import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
+// import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
+// import Stack from '@mui/material/Stack';
 
 const theme = createTheme();
 const styles = {
@@ -73,7 +73,7 @@ const orders = [
     { item: 'POP', quatity: '1', single: '$1.50', total: '$1.5' },
 ];
 
-const [value, setValue] = React.useState(dayjs('2018-01-01T00:00:00.000Z'));
+// const [value, setValue] = React.useState(dayjs('2018-01-01T00:00:00.000Z'));
 
 const TakeoutDisplay = () => {
     const link = useNavigate();
@@ -203,7 +203,7 @@ const TakeoutDisplay = () => {
                             />
                         </Grid>
                         <Grid item xs={8}>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <Stack spacing={3}>
                                     <MobileDateTimePicker
                                         label="For mobile"
@@ -230,7 +230,7 @@ const TakeoutDisplay = () => {
                                         }}
                                     />
                                 </Stack>
-                            </LocalizationProvider>
+                            </LocalizationProvider> */}
 
                         </Grid>
                     </Grid>

@@ -1,21 +1,11 @@
 import React from "react";
-import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
+// mui
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { Box, style } from "@mui/system";
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Item from '@mui/material/Grid';
-
-
+// style
 const mdTheme = createTheme();
 const styles = {
-    //nav
     header: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -33,7 +23,15 @@ const styles = {
         flex: 1,
         height: '60px',
     },
-
+    name: {
+        color: '#FFD700',
+        textDecoration: 'none',
+        textAlign: 'left',
+        fontSize: '50px',
+        paddingLeft: '10px',
+        marginBottom: '20px',
+        
+    },
     li: {
         display: 'flex',
         flex: 1,
@@ -45,25 +43,53 @@ const styles = {
         color: '#fff',
         textDecoration: 'none',
         fontSize: '24px',
-        // fontWeight: 'bold',
     },
 }
+//data-give me link for the img, not base64
+const storeInfo = {
+    name: 'Riverside Fish Hut',
+    logo: ' logo.png',
+};
 
+// top navigation bar of store website
 const WebNav = () => {
     return (
         <ThemeProvider theme={mdTheme}>
-            {/* nav */}
             <div>
                 <nav style={styles.header}>
-                    <div style={styles.logo}>
+                    {/* logo image - link to home page*/}
+                    <span style={styles.logo}>
                         <Link to="/home">
-                            <img src="logo.png" alt="Logo" style={styles.logo} />
+                            <img style={styles.logo}
+                                alt={storeInfo.name}
+                                src={storeInfo.logo} />
                         </Link>
-                    </div>
+                        <Link to="/home" style={styles.name}>
+                            {storeInfo.name}
+                        </Link>
+                    </span>
+
+
                     <ul className="nav-links">
-                        <li style={styles.li}><Link to="/home" style={styles.a}>Home</Link></li>
-                        <li style={styles.li}><Link to="/menu" style={styles.a}>Menu</Link></li>
-                        <li style={styles.li}><Link to="/contact" style={styles.a}>Contact</Link></li>
+
+                        {/* link to home page */}
+                        <li style={styles.li}>
+                            <Link to="/home" style={styles.a}>
+                                Home
+                            </Link>
+                        </li>
+                        {/* link to menu page */}
+                        <li style={styles.li}>
+                            <Link to="/menu" style={styles.a}>
+                                Menu
+                            </Link>
+                        </li>
+                        {/* link to contact page */}
+                        <li style={styles.li}>
+                            <Link to="/contact" style={styles.a}>
+                                Contact
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
             </div>

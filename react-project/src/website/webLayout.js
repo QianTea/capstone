@@ -1,7 +1,9 @@
 import { Outlet } from "react-router-dom";
+// Components
 import WebNav from "./webNav";
 import WebFooter from "./webFooter";
 
+// style
 const styles = {
     page: {
         backgroundColor: '#24242D',
@@ -14,6 +16,7 @@ const styles = {
     },
 };
 
+// layout of store website
 const WebLayout = () => {
     return (
         < div style={styles.page}>

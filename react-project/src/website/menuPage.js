@@ -1,17 +1,8 @@
 import React from "react";
-import Slider from 'react-slick';
+//mui
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { Box, style } from "@mui/system";
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Item from '@mui/material/Grid';
-
-
+// style
 const mdTheme = createTheme();
 const styles = {
     page: {
@@ -26,7 +17,14 @@ const styles = {
     },
     categoryH: {
         color: '#FFD700',
-        fontSize: '25px',
+        fontSize: '30px',
+        marginBottom:0,
+    },
+    categoryD:{
+        // color: '#FFD700',
+        fontSize: '20px',
+        marginTop:0,
+        top:0,
     },
     menu: {
         display: 'flex',
@@ -51,11 +49,16 @@ const styles = {
         borderRadius: '10px',
         marginBottom: '5px',
     },
-    title: {
+    name: {
         fontSize: '1.5rem',
         marginBottom: '6px',
         position: 'relative',
         padding: '0 20px',
+    },
+    description:{
+        fontSize: '1rem',
+        color:'grey',
+        marginTop: '5px',
     },
     price: {
         fontSize: '1.2rem',
@@ -67,25 +70,94 @@ const styles = {
         left: 0,
         right: 0,
         height: '1px',
-        borderBottom: '1px solid #6C7A9D',
+        borderBottom: '1px solid grey',
     },
 };
-
-const MenuItem = ({ title, price, image }) => {
+// data
+const menuItems = [
+    {
+        cateName: '2pc Fish and Chip Dinners', description: '',
+        products: [
+            { name: '2pc Wihtefish & chips', price: '$10.19', description: '', image: '../homeTreat.png' },
+            { name: '2pc Cod & chips', price: '$11.99', description: '', image: '../homeTreat.png' },
+            { name: '2pc haddock & chips', price: '$11.99', description: '', image: '../homeTreat.png' },
+            { name: '2pc Halibut & chips', price: '$14.19', description: '', image: '../homeTreat.png' },
+        ],
+    },
+    {
+        cateName: 'Family Packs', description: '10pc of Fish & a 4-pack of Chips',
+        products: [
+            { name: 'Wihtefish Family', price: '$10.19', description: '', image: '' },
+            { name: 'Cod Family', price: '$11.99', description: '', image: '' },
+            { name: 'Haddock Family', price: '$11.99', description: '', image: '' },
+            { name: 'Halibut Family', price: '$14.19', description: '', image: '' }
+        ],
+    },
+    {
+        cateName: 'Lunch Special', description: 'served before 3pm',
+        products: [
+            { name: '2pc Fish and Chip Dinners', price: '$7.99', description: '', image: '../homeTreat.png' },
+        ],
+    },
+    {
+        cateName: 'Sea Food Platter', description: 'served all day',
+        products: [
+            {
+                name: 'Sea Food Platter', price: '$27.99',
+                description: '1pc Halibut, 4pc Scallops, 4pc Shrimps, 1 pack fries',
+                image: '../homeTreat.png'
+            },
+        ],
+    },
+    {
+        cateName: 'Side Orders', description: '',
+        products: [
+            { name: 'Onion Rings', price: '$4.19', description: '', image: '' },
+            { name: 'Poutine', price: '$5.99', description: '', image: '' },
+            { name: 'Chicken Fingers', price: '$5.99', description: '', image: '' },
+            { name: 'Chicken Chips', price: '$8.19', description: '', image: '' },
+            { name: 'Onion Rings', price: '$4.19', description: '', image: '' },
+            { name: 'Poutine', price: '$5.99', description: '', image: '' },
+            { name: 'Chicken Fingers', price: '$5.99', description: '', image: '' },
+            { name: 'Chicken Chips', price: '$8.19', description: '', image: '' },
+            { name: 'Onion Rings', price: '$4.19', description: '', image: '' },
+            { name: 'Poutine', price: '$5.99', description: '', image: '' },
+        ],
+    },
+];
+// show products, group by categories
+function ProductList() {
     return (
-        <div style={styles.item}>
-            <img src={image} alt={title} style={styles.image} />
-            <div style={styles.details}>
-
-                <p style={styles.title}>
-                    {title}
-                    <span style={styles.priceStrike}></span>
-                </p>
-                <p style={styles.price}>{price}</p>
-            </div>
-        </div>
+        <div>
+            {menuItems.map(m => (
+                <div>
+                    {/* category name & description */}
+                    <h2 style={styles.categoryH}>{m.cateName}</h2>
+                    <p style={styles.categoryD}>{m.description}</p>
+                    {/* products list under the category */}
+                    <div style={styles.menu}>
+                        {(m.products).map(p => (
+                            // each product
+                            <div style={styles.item}>
+                                {/* && = if 前为true，运行&&后的代码 */}
+                                {p.image && <img src={p.image} alt={p.name} style={styles.image} />}
+                                <div style={styles.details}>
+                                    <p style={styles.name}>
+                                        {p.name} 
+                                        <p style={styles.description}>{p.description}</p>
+                                        <span style={styles.priceStrike}></span>
+                                    </p>
+                                    <p style={styles.price}>{p.price}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div >
     );
 };
+
 
 const WebMenu = () => {
     return (
@@ -93,56 +165,10 @@ const WebMenu = () => {
             <div style={styles.page}>
                 <h1 style={styles.heading}>Take Out Menu</h1>
                 <p>All Fries are Hand Cut Fresh Fires</p>
-                <p style={styles.categoryH}>Lunch Special</p>
-                <div style={styles.menu}>
-                    <MenuItem title="2pc Wihtefish & Chips" price="$7.99" image="../homeTreat.png" />
-                </div>
-                <p style={styles.categoryH}>2pc Fish and Chip Dinners</p>
-                <div style={styles.menu}>
-                    <MenuItem title="2pc Wihtefish & chips" price="$10.19" image="../homeTreat.png" />
-                    <MenuItem title="2pc Cod & chips" price="$11.99" image="../homeTreat.png" />
-                    <MenuItem title="2pc haddock & chips" price="$11.99" image="../homeTreat.png" />
-                    <MenuItem title="2pc Halibut & chips" price="$18" image="../homeTreat.png" />
-                </div>
-                <p style={styles.categoryH}>Family Packs</p>
-                <p>10pc of FIsh & a 4-pack of Chips</p>
-                <div style={styles.menu}>
-                    <MenuItem title="Wihtefish Family" price="$43.19" image="../homeTreat.png" />
-                    <MenuItem title="Cod Family" price="$53.99" image="../homeTreat.png" />
-                    <MenuItem title="haddock Family" price="$63.99" image="../homeTreat.png" />
-                    <MenuItem title="Halibut Family" price="$70" image="../homeTreat.png" />
-                </div>
-                <p style={styles.categoryH}>Sea Food Platter</p>
-                <p>All Day Special</p>
-                <div style={styles.menu}>
-                    <MenuItem title="Wihtefish Family" price="$43.19" image="../homeTreat.png" />
-                </div>
-                <p style={styles.categoryH}>Shrimp Special</p>
-                <p>All Day Special</p>
-                <div style={styles.menu}>
-                    <MenuItem title="8pc Shrimp & Chips" price="$11.49" image="../homeTreat.png" />
-                </div>
-                <p style={styles.categoryH}>Homemade Fries</p>
-                <div style={styles.menu}>
-                    <MenuItem title="Single" price="$3.39" image="../homeTreat.png" />
-                    <MenuItem title="2-pack" price="$3.39" image="../homeTreat.png" />
-                    <MenuItem title="3-pack" price="$3.39" image="../homeTreat.png" />
-                    <MenuItem title="4-pack" price="$3.39" image="../homeTreat.png" />
-                </div>
+
+                <ProductList />
+
             </div>
-            <p style={styles.categoryH}>Side Orders</p>
-                <div style={styles.menu}>
-                    <MenuItem title="Wihtefish Family" price="$43.19" image="../homeTreat.png" />
-                    <MenuItem title="Cod Family" price="$53.99" image="../homeTreat.png" />
-                    <MenuItem title="haddock Family" price="$63.99" image="../homeTreat.png" />
-                    <MenuItem title="Halibut Family" price="$70" image="../homeTreat.png" />
-                    <MenuItem title="Wihtefish Family" price="$43.19" image="../homeTreat.png" />
-                    <MenuItem title="Cod Family" price="$53.99" image="../homeTreat.png" />
-                    <MenuItem title="haddock Family" price="$63.99" image="../homeTreat.png" />
-                    <MenuItem title="Halibut Family" price="$70" image="../homeTreat.png" />
-                    <MenuItem title="Wihtefish Family" price="$43.19" image="../homeTreat.png" />
-                    <MenuItem title="Cod Family" price="$53.99" image="../homeTreat.png" />
-                </div>
         </ThemeProvider >
     )
 }

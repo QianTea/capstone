@@ -6,13 +6,44 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Item from '@mui/material/Grid';
 import { IconButton } from "@mui/material";
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+// business time
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { Table, TableRow, TableCell } from '@mui/material';
+
 
 const mdTheme = createTheme();
+//data
+const WeekDayTimePicker = () => {
+    const [value, setValue] = React.useState(new Date());
+
+    const handleTimeChange = (newValue) => {
+        setValue(newValue);
+    };
+
+    return (
+        <TableRow>
+            <TableCell component="th" scope="row">
+                Monday
+            </TableCell>
+            <TableCell align="center">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <TimePicker
+                        ampm={false}
+                        value={value}
+                        onChange={handleTimeChange}
+                        renderInput={(params) => <input {...params} style={{ width: '80px' }} />}
+                    />
+                </LocalizationProvider>
+            </TableCell>
+        </TableRow>
+    );
+};
+
 
 const StoreInfo = () => {
     return (
@@ -40,6 +71,7 @@ const StoreInfo = () => {
                             <h1>Store Info</h1>
                             <form name="addItem" >
                                 <Grid container spacing={1}>
+                                    {/* upload logo img */}
                                     <Grid item xs={12} md={4} lg={4}>
                                         <Item>
                                             <img src="../logo.png" alt="logo image" />
@@ -49,12 +81,13 @@ const StoreInfo = () => {
                                                     <input hidden accept="image/*" multiple type="file" />
                                                 </Button>
                                                 <IconButton color="primary" aria-label="upload picture" component="label">
-                                                <PhotoCamera />
-                                                    <input hidden accept="image/*" type="file" />     
+                                                    <PhotoCamera />
+                                                    <input hidden accept="image/*" type="file" />
                                                 </IconButton>
                                             </div>
                                         </Item>
                                     </Grid>
+                                    {/* input store info */}
                                     <Grid item xs={12} md={8} lg={8}>
                                         <Item>
                                             <div>
@@ -118,6 +151,12 @@ const StoreInfo = () => {
                                                     size="small"
                                                     defaultValue="Monday closed"
                                                 />
+                                                <table>
+                                                    <tbody>
+                                                        <WeekDayTimePicker />
+                                                        {/* Add additional weekday time pickers as necessary */}
+                                                    </tbody>
+                                                </table>
                                             </div>
                                             <p></p>
                                             <Button
