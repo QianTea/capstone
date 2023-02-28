@@ -40,16 +40,24 @@ const styles = {
 const storeInfo = {
     img: '../logo.png',
     name: 'Riverside Fish Hut',
-    phone: ' (519) 653-0788',
-    address: 'Unit-B 157 King Street West,Cambridge, ON N3H 1B5,Canada',
-    description: 'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
+    introduction: 'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
     phone: '(519) 653-0788',
     onlineLink: 'https://riversidefishhutmenu.ca/',
     address: {
         Street: 'Unit-B 157 King Street West',
         City: 'Cambridge', Province: 'ON',
         PostalCode: 'N3H 1B5', Country: 'Canada',
-    }
+    },
+    businessHour:{
+        monTime:'Closed',
+        tueTime:'11:30 - 19:00',
+        wedTime:'Closed',
+        thuTime:'Closed',
+        friTime:'Closed',
+        satTime:'Closed',
+        sunTime:'Closed',
+    },
+
 };
 
 const BusinessHour = () => {
@@ -68,7 +76,7 @@ const BusinessHour = () => {
                         id="monTime"
                         label="Monday Time"
                         variant="filled"
-                        defaultValue="Closed"
+                        defaultValue={storeInfo.businessHour.monTime}
                     />
                 </TableCell>
             </TableRow>
@@ -83,7 +91,8 @@ const BusinessHour = () => {
                         id="tueTime"
                         label="Tuesday Time"
                         variant="filled"
-                        defaultValue="Closed"
+                        defaultValue={storeInfo.businessHour.tueTime}
+
                     />
                 </TableCell>
             </TableRow>
@@ -98,7 +107,8 @@ const BusinessHour = () => {
                         id="wedTime"
                         label="Wednesday Time"
                         variant="filled"
-                        defaultValue="Closed"
+                        defaultValue={storeInfo.businessHour.wedTime}
+
                     />
                 </TableCell>
             </TableRow>
@@ -113,7 +123,8 @@ const BusinessHour = () => {
                         id="thuTime"
                         label="Thursday Time"
                         variant="filled"
-                        defaultValue="Closed"
+                        defaultValue={storeInfo.businessHour.thuTime}
+
                     />
                 </TableCell>
             </TableRow>
@@ -128,7 +139,8 @@ const BusinessHour = () => {
                         id="friTime"
                         label="Friday Time"
                         variant="filled"
-                        defaultValue="Closed"
+                        defaultValue={storeInfo.businessHour.friTime}
+
                     />
                 </TableCell>
             </TableRow>
@@ -143,7 +155,8 @@ const BusinessHour = () => {
                         id="satTime"
                         label="Saturday Time"
                         variant="filled"
-                        defaultValue="Closed"
+                        defaultValue={storeInfo.businessHour.satTime}
+
                     />
                 </TableCell>
             </TableRow>
@@ -158,7 +171,8 @@ const BusinessHour = () => {
                         id="sunTime"
                         label="Sunday Time"
                         variant="filled"
-                        defaultValue="Closed"
+                        defaultValue={storeInfo.businessHour.sunTime}
+
                     />
                 </TableCell>
             </TableRow>
@@ -231,11 +245,11 @@ const StoreInfo = () => {
                                                     defaultValue="Riverside Fish Hut"
                                                 />
                                             </div>
-                                            {/* store description */}
+                                            {/* store  introduction */}
                                             <div>
                                                 <TextField
-                                                    id="storeDescription"
-                                                    label="Description"
+                                                    id="storeIntroduction"
+                                                    label=" Introduction"
                                                     multiline
                                                     rows={5}
                                                     variant="filled"

@@ -48,7 +48,15 @@ const AddProduct = () => {
                             variant="outlined"
                         />
                     </div>
-
+                    {/* use alter name in order system */}
+                    <div>
+                        alter name:
+                        <TextField
+                            id="newAltName"
+                            label="alter name"
+                            variant="outlined"
+                        />
+                    </div>
                     <div>
                          dine-in price:
                         <TextField

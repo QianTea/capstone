@@ -62,27 +62,6 @@ const ProductAdd = () => {
     )
 }
 
-// const Product = () => {
-//     const handleClick = (value) =>{
-//         console.log('my price:', value);
-//     }
-
-//     // const handleClick2 = function() { }
-//     // const handleClick2 = () => {}
-
-
-//     return(
-//         <>
-//             Here is the Product page
-//             {products.map(v => {
-//                 return <div>{v.name}:{v.price} <button onClick={() => handleClick(v.price)}>open</button>
-//                     <Link to={v.price}>jump to</Link>                
-//                 </div>
-//             })}
-//             <ProductAdd />
-//         </>
-//     )
-// }
 
 
 class Product extends React.Component {
@@ -149,6 +128,27 @@ class Product extends React.Component {
                     >
                         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                             <h1>Menu Management</h1>
+                            <Grid container spacing={1}>
+                                <Grid item xs={12} md={6} lg={6}>
+                                    <Item>
+                                        <Link to="/admin/menu/addFoodType">
+                                            <Button variant="contained" startIcon={<SendIcon />} color="warning">
+                                                Modify Take Out Menu
+                                            </Button>
+                                        </Link>
+                                    </Item>
+                                </Grid>
+                                <Grid item xs={12} md={6} lg={6}>
+                                    <Item>
+                                        <Link to="/admin/menu/addFoodType">
+                                            <Button variant="contained" startIcon={<SendIcon />} color="warning">
+                                                Modify Dine-In Menu
+                                            </Button>
+                                        </Link>
+                                    </Item>
+                                </Grid>
+                            </Grid>
+                            <h2>Products Management</h2>
                             <Grid container spacing={1}>
                                 <Grid item xs={12} md={4} lg={4}>
                                     <Item>

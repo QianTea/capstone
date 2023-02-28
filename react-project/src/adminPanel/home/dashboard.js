@@ -7,19 +7,12 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
-
-
 import Deposits from './components/deposits';
 import Orders from './components/orders';
 
 const mdTheme = createTheme();
 
 function DashboardContent() {
-    const [open, setOpen] = React.useState(true);
-    const toggleDrawer = () => {
-        setOpen(!open);
-    };
-
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -40,7 +33,7 @@ function DashboardContent() {
                     <Toolbar />
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
-                            {/* Blank */}
+                            {/* Blank-Avaliable Tables*/}
                             <Grid item xs={12} md={8} lg={9}>
                                 <Paper
                                     sx={{

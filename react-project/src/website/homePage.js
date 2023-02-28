@@ -50,7 +50,7 @@ const about = {
         textTransform: 'uppercase',
         lineHeight: '0.8',
     },
-    description: {
+     introduction: {
         fontSize: '30px',
         lineHeight: '1',
     },
@@ -100,7 +100,7 @@ const table = {
 // data
 const storeInfo = {
     name:'Riverside Fish Hut',
-    description:'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
+     introduction:'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
 };
 const WebHome = () => {
 
@@ -121,8 +121,8 @@ const WebHome = () => {
                 <div >
                     <p style={about.title}>About</p>
                     <div >
-                        <p style={about.description}>
-                            {storeInfo.description}
+                        <p style={about. introduction}>
+                            {storeInfo. introduction}
                         </p>
                     </div>
                 </div>
