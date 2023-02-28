@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Box } from "@mui/system";
 import TextField from '@mui/material/TextField';
@@ -11,41 +11,169 @@ import Item from '@mui/material/Grid';
 import { IconButton } from "@mui/material";
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 // business time
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { Table, TableRow, TableCell } from '@mui/material';
 
 
 const mdTheme = createTheme();
+// styles
+const styles = {
+    img: {
+        width: '200px',
+        height: '100%',
+    },
+    TableCellLeft: {
+        padding: '0px',
+        width: '100px',
+        border: 'none',
+    },
+    TableCellRight: {
+        padding: '0px',
+        width: '100px',
+        border: 'none',
+    },
+    TableCell: {
+        padding: '0px',
+        width: '200px',
+    },
+};
 //data
-const WeekDayTimePicker = () => {
-    const [value, setValue] = React.useState(new Date());
+const storeInfo = {
+    img: '../logo.png',
+    name: 'Riverside Fish Hut',
+    phone: ' (519) 653-0788',
+    address: 'Unit-B 157 King Street West,Cambridge, ON N3H 1B5,Canada',
+    description: 'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
+    phone: '(519) 653-0788',
+    onlineLink: 'https://riversidefishhutmenu.ca/',
+    address: {
+        Street: 'Unit-B 157 King Street West',
+        City: 'Cambridge', Province: 'ON',
+        PostalCode: 'N3H 1B5', Country: 'Canada',
+    }
+};
 
-    const handleTimeChange = (newValue) => {
-        setValue(newValue);
-    };
+const BusinessHour = () => {
 
     return (
-        <TableRow>
-            <TableCell component="th" scope="row">
-                Monday
-            </TableCell>
-            <TableCell align="center">
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <TimePicker
-                        ampm={false}
-                        value={value}
-                        onChange={handleTimeChange}
-                        renderInput={(params) => <input {...params} style={{ width: '80px' }} />}
+        <div >
+            <h2>Business Hours</h2>
+            {/* Monday */}
+            <TableRow  >
+                <TableCell style={styles.TableCellLeft} component="th" scope="row" >
+                    Monday
+                </TableCell>
+                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+                    <TextField
+                        style={styles.TableCell}
+                        id="monTime"
+                        label="Monday Time"
+                        variant="filled"
+                        defaultValue="Closed"
                     />
-                </LocalizationProvider>
-            </TableCell>
-        </TableRow>
+                </TableCell>
+            </TableRow>
+            {/* Tuesday */}
+            <TableRow  >
+                <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Tuesday
+                </TableCell>
+                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+                    <TextField
+                        style={styles.TableCell}
+                        id="tueTime"
+                        label="Tuesday Time"
+                        variant="filled"
+                        defaultValue="Closed"
+                    />
+                </TableCell>
+            </TableRow>
+            {/* Wednesday */}
+            <TableRow  >
+                <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Wednesday
+                </TableCell>
+                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+                    <TextField
+                        style={styles.TableCell}
+                        id="wedTime"
+                        label="Wednesday Time"
+                        variant="filled"
+                        defaultValue="Closed"
+                    />
+                </TableCell>
+            </TableRow>
+            {/* Thursday */}
+            <TableRow  >
+                <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Thursday
+                </TableCell>
+                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+                    <TextField
+                        style={styles.TableCell}
+                        id="thuTime"
+                        label="Thursday Time"
+                        variant="filled"
+                        defaultValue="Closed"
+                    />
+                </TableCell>
+            </TableRow>
+            {/* Friday */}
+            <TableRow  >
+                <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Friday
+                </TableCell>
+                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+                    <TextField
+                        style={styles.TableCell}
+                        id="friTime"
+                        label="Friday Time"
+                        variant="filled"
+                        defaultValue="Closed"
+                    />
+                </TableCell>
+            </TableRow>
+            {/* Saturday */}
+            <TableRow  >
+                <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Saturday
+                </TableCell>
+                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+                    <TextField
+                        style={styles.TableCell}
+                        id="satTime"
+                        label="Saturday Time"
+                        variant="filled"
+                        defaultValue="Closed"
+                    />
+                </TableCell>
+            </TableRow>
+            {/* Sunday */}
+            <TableRow  >
+                <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Sunday
+                </TableCell>
+                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+                    <TextField
+                        style={styles.TableCell}
+                        id="sunTime"
+                        label="Sunday Time"
+                        variant="filled"
+                        defaultValue="Closed"
+                    />
+                </TableCell>
+            </TableRow>
+        </div>
     );
 };
 
 
 const StoreInfo = () => {
+    // upload log img
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileChange = (event) => {
+        setSelectedFile(URL.createObjectURL(event.target.files[0]));
+    };
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{
@@ -68,28 +196,33 @@ const StoreInfo = () => {
                 >
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid >
-                            <h1>Store Info</h1>
                             <form name="addItem" >
                                 <Grid container spacing={1}>
-                                    {/* upload logo img */}
+                                    {/* Left - logo & business hours*/}
                                     <Grid item xs={12} md={4} lg={4}>
-                                        <Item>
-                                            <img src="../logo.png" alt="logo image" />
-                                            <div>
-                                                <Button variant="contained" component="label">
-                                                    Upload
-                                                    <input hidden accept="image/*" multiple type="file" />
-                                                </Button>
-                                                <IconButton color="primary" aria-label="upload picture" component="label">
-                                                    <PhotoCamera />
-                                                    <input hidden accept="image/*" type="file" />
-                                                </IconButton>
-                                            </div>
+                                        {/* upload logo img */}
+                                        <Item >
+                                            <img style={styles.img}
+                                                src={selectedFile || storeInfo.img}
+                                                alt={storeInfo.name} />
+
+                                            <Button variant="contained" component="label">
+                                                Upload Logo
+                                                <input hidden accept="image/*" multiple type="file" onChange={handleFileChange} />
+                                            </Button>
+                                            <IconButton color="primary" aria-label="upload picture" component="label">
+                                                <PhotoCamera />
+                                                <input hidden accept="image/*" type="file" onChange={handleFileChange} />
+                                            </IconButton>
                                         </Item>
+                                        {/* Business Hours */}
+                                        <Item><BusinessHour /></Item>
                                     </Grid>
-                                    {/* input store info */}
+                                    {/* Right - input store info */}
                                     <Grid item xs={12} md={8} lg={8}>
+                                        <h1>Store Info</h1>
                                         <Item>
+                                            {/* store name */}
                                             <div>
                                                 <TextField
                                                     id="storeName"
@@ -98,6 +231,7 @@ const StoreInfo = () => {
                                                     defaultValue="Riverside Fish Hut"
                                                 />
                                             </div>
+                                            {/* store description */}
                                             <div>
                                                 <TextField
                                                     id="storeDescription"
@@ -112,6 +246,7 @@ const StoreInfo = () => {
                                                     with a patio during the summer! Follow us on Facebook!"
                                                 />
                                             </div>
+                                            {/* phone number */}
                                             <div>
                                                 <TextField
                                                     id="phone"
@@ -122,6 +257,7 @@ const StoreInfo = () => {
                                                     defaultValue="(519) 653-0788"
                                                 />
                                             </div>
+                                            {/* link of online order */}
                                             <div>
                                                 <TextField
                                                     id="orderLink"
@@ -133,30 +269,35 @@ const StoreInfo = () => {
                                                     defaultValue="https://www.skipthedishes.com/riverside-fish-hut"
                                                 />
                                             </div>
+                                            {/* Address */}
                                             <div>
-                                                <TextField
-                                                    id="address"
-                                                    label="Address"
+                                                <h3>Address</h3>
+                                                <TextField id="street" label="Street"
                                                     variant="filled"
                                                     multiline
                                                     fullWidth
-                                                    defaultValue="Unit-B 157 King Street West,Cambridge, ON N3H 1B5,Canada"
+                                                    defaultValue={storeInfo.address.Street}
                                                 />
-                                            </div>
-                                            <div>Business Hours:
-                                                <TextField
-                                                    id="businessHour"
-                                                    label="Business Hours"
+                                                <TextField id="city" label="City"
                                                     variant="filled"
-                                                    size="small"
-                                                    defaultValue="Monday closed"
+                                                    multiline
+                                                    fullWidth
+                                                    defaultValue={storeInfo.address.City}
                                                 />
-                                                <table>
-                                                    <tbody>
-                                                        <WeekDayTimePicker />
-                                                        {/* Add additional weekday time pickers as necessary */}
-                                                    </tbody>
-                                                </table>
+                                                <TextField id="province" label="Province"
+                                                    variant="filled"
+                                                    defaultValue={storeInfo.address.Province}
+                                                />
+                                                <TextField id="postalCode" label="PostalCode"
+                                                    variant="filled"
+                                                    defaultValue={storeInfo.address.PostalCode}
+                                                />
+                                                <TextField id="country" label="Country"
+                                                    variant="filled"
+                                                    defaultValue={storeInfo.address.Country}
+                                                />
+
+
                                             </div>
                                             <p></p>
                                             <Button

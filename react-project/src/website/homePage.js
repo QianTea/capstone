@@ -100,10 +100,7 @@ const table = {
 // data
 const storeInfo = {
     name:'Riverside Fish Hut',
-    phone:' (519) 653-0788',
-    address:'Unit-B 157 King Street West,Cambridge, ON N3H 1B5,Canada',
     description:'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
-
 };
 const WebHome = () => {
 

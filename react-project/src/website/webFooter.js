@@ -1,6 +1,6 @@
 import React from "react";
 // mui
-import {  createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 //style
 const mdTheme = createTheme();
@@ -30,9 +30,13 @@ const styles = {
 };
 // data
 const storeInfo = {
-    name:'Riverside Fish Hut',
-    phone:' (519) 653-0788',
-    address:'Unit-B 157 King Street West,Cambridge, ON N3H 1B5,Canada',
+    name: 'Riverside Fish Hut',
+    phone: ' (519) 653-0788',
+    address: {
+        Street: 'Unit-B 157 King Street West',
+        City: 'Cambridge', Province: 'ON',
+        PostalCode: 'N3H 1B5', Country: 'Canada',
+    }
 };
 // footer of store website
 const WebFooter = () => {
@@ -42,7 +46,11 @@ const WebFooter = () => {
                 <div style={styles.footerLinks}>
                     <p>{storeInfo.name}</p>
                     <p>Tel:{storeInfo.phone}</p>
-                    <p>{storeInfo.address}</p>
+                    <p>
+                        {storeInfo.address.Street}, {storeInfo.address.City},
+                        {storeInfo.address.Province} {storeInfo.address.PostalCode},
+                        {storeInfo.address.Country}
+                    </p>
                     <span>&copy; 2023 {storeInfo.name}</span>
                     <a href="#" style={styles.footerLink}>Privacy Policy</a>
                     <a href="#" style={styles.footerLink}>Terms of Use</a>
