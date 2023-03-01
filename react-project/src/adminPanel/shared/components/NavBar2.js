@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { loginService } from '../../services/auth';
 // mui
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -13,18 +14,11 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = [
-  { value: 'admin/login', label: 'Login' },
-  { value: 'admin/home', label: 'Home' },
-  { value: 'admin/store', label: 'StoreInfo' },
-  { value: 'admin/menu', label: 'Menu' },
-  { value: 'admin/staff', label: 'Staff' },
-  { value: '', label: 'Web' },
-  { value: '../order', label: 'Order' },
-  { value: '*', label: '404' }
+const DefaultPages = [
+
 ];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -36,7 +30,7 @@ function ResponsiveAppBar() {
   };
 
   const clickPage = (page = 'default') => {
-    alert(page);
+    //alert(page);
   };
 
   return (
@@ -91,7 +85,7 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {props.pages && props.pages.map((page) => (
                 <MenuItem key={page.value} onClick={clickPage}>
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
@@ -119,7 +113,7 @@ function ResponsiveAppBar() {
             RFH Management Panel
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {props.pages && props.pages.map((page) => (
 
               <Link to={`/${page.value}`}>
                 <Button

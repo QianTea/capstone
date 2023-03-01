@@ -1,4 +1,6 @@
 import * as React from 'react';
+import axios from'axios';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,9 +18,39 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 export default function Login() {
+  const navigate = useNavigate();
+  const callLoginApi = (name, password) => {
+    var data = JSON.stringify({
+      "name": name,
+      "password": password
+    });
+
+    axios({
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:5500/users/login',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    })
+    .then(function (response) {
+      let data = response.data;
+      if (data.code == 200) {
+        localStorage.setItem('token', data.result);
+        localStorage.setItem('isLoggedIn', true);
+        navigate('/admin');
+      }
+    })
+    .catch(function (error) {
+      alert(error);
+    });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    callLoginApi(data.get('email'),data.get('password'));
     console.log({
       email: data.get('email'),
       password: data.get('password'),
