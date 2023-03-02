@@ -2,6 +2,9 @@ import { Outlet } from "react-router-dom";
 // Components
 import WebNav from "./webNav";
 import WebFooter from "./webFooter";
+// navigation
+import { useNavigate,useLocation } from "react-router-dom";
+import {useEffect } from "react";
 
 // style
 const styles = {
@@ -18,6 +21,13 @@ const styles = {
 
 // layout of store website
 const WebLayout = () => {
+    // always show home page first
+    const navigate = useNavigate();
+    const location = useLocation();
+    useEffect(() => {
+        const currentPath = location.pathname;
+        if (currentPath == '/') navigate('/home');
+    }, [navigate, location]);
     return (
         < div style={styles.page}>
             <WebNav />

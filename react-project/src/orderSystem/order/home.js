@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';

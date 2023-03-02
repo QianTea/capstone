@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 import ResponsiveAppBar from "./components/NavBar2";
 import Copyright from './components/copyright';
+// navigation
 import { useNavigate,useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { loginService } from "../services/auth";
 
 const Layout = () => {
-    //const [isLoggedIn, setIsLoggedIn] = useState();
     const navigate = useNavigate();
     const location = useLocation();
     const [pages, setPages] = useState([]);

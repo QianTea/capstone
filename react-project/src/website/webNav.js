@@ -21,15 +21,15 @@ const styles = {
     },
     logo: {
         flex: 1,
-        height: '60px',
+        height: '50px',
     },
     name: {
         color: '#FFD700',
         textDecoration: 'none',
         textAlign: 'left',
-        fontSize: '50px',
+        fontSize: '30px',
         paddingLeft: '10px',
-        marginBottom: '20px',
+        paddingBottom: '50px',
         
     },
     li: {
