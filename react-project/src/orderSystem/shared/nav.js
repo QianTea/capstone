@@ -24,7 +24,7 @@ const pages = [
   { value: '*', label: '404' }
 ];
 
-function OrderNav() {
+function OrderNav(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -36,7 +36,7 @@ function OrderNav() {
   };
 
   const clickPage = (page = 'default') => {
-    alert(page);
+    // alert(page);
   };
 
   return (
@@ -91,7 +91,7 @@ function OrderNav() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {props.pages && props.pages.map((page) => (
                 <MenuItem key={page.value} onClick={clickPage}>
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
@@ -119,7 +119,7 @@ function OrderNav() {
             RFH Management Panel
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            { props.pages && props.pages.map((page)=> (
 
               <Link to={`/${page.value}`}>
                 <Button

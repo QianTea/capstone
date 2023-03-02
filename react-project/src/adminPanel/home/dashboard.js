@@ -1,35 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import React from 'react';
+// mui
+import {  createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { Link, useNavigate } from 'react-router-dom';
-import { loginService } from '../services/auth';
-
+// components
 import Deposits from './components/deposits';
 import Orders from './components/orders';
 
 const mdTheme = createTheme();
 
 function DashboardContent() {
-    // const [isLoggedIn, setIsLoggedIn] = useState(loginService());
-    // const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (!isLoggedIn) {
-    //         navigate('/admin/login');
-    //     }
-    // }, [isLoggedIn, navigate]);
     return (
-
-
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-
                 <Box
                     component="main"
                     sx={{

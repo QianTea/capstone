@@ -1,4 +1,8 @@
 import * as React from 'react';
+// login
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+// mui
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,15 +20,42 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 export default function StaffLogin() {
+  const navigate = useNavigate();
+  const callLoginApi = (name, password) => {
+    var data = JSON.stringify({
+      "name": name,
+      "password": password
+    });
+    axios({
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:5500/users/login',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    })
+      .then(function (response) {
+        let data = response.data;
+        if (data.code == 200) {
+          localStorage.setItem('token', data.result);
+          localStorage.setItem('isLoggedIn', true);
+          navigate('/order');
+        }
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    callLoginApi(data.get('name'), data.get('password'));
     console.log({
-      email: data.get('email'),
+      name: data.get('name'),
       password: data.get('password'),
     });
   };
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -48,10 +79,10 @@ export default function StaffLogin() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="name"
+              label="Staff Name"
+              name="name"
+              autoComplete="name"
               autoFocus
             />
             <TextField

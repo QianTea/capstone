@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+//components
 import ResponsiveAppBar from "./components/NavBar2";
 import Copyright from './components/copyright';
 // navigation
