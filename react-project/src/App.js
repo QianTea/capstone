@@ -26,12 +26,12 @@ import AddRole from "./adminPanel/staff/addRole";
 
 // Order System
 import OrderLayout from './orderSystem/shared/layout';
-import StaffLogin from './orderSystem/staffLogin/staffLogin';
-import OrderHome from './orderSystem/order/home';
-import DineInOrderInterface from './orderSystem/order/components/dineInOrder';
-import TakeOutOrderInterface from './orderSystem/order/components/takeOutOrder';
-import OrdersHistory from './orderSystem/orderHistory/orderHistory';
-import CurrentOrders from './orderSystem/currentOrder/currentOrder';
+import StaffLogin from './orderSystem/pageStaffLogin';
+import OrderHome from './orderSystem/home';
+import DineInOrderInterface from './orderSystem/orderDineIn/dineInOrder';
+import TakeOutOrderInterface from './orderSystem/orderTakeOut/takeOutOrder';
+import OrdersHistory from './orderSystem/pageOrderHistory';
+import CurrentOrders from './orderSystem/pageCurrentOrder';
 
 function App() {
   return (

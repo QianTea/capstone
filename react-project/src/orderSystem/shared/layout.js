@@ -6,12 +6,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { staffLoginService } from "../services/auth";
 
-const styles = {
- iPad:{
-    // width: '1180',
-    // height: '820px',
- },
-}
+
 const OrderLayout = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -34,7 +29,7 @@ const OrderLayout = () => {
         if (currentPath == '/order') navigate('/order/home');
     }, [navigate, location]);
     return (
-        <div style={styles.iPad}>
+        <div >
             <OrderNav pages={pages} />
             
             <Outlet />      
