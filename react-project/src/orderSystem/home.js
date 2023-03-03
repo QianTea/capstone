@@ -21,7 +21,7 @@ const styles = {
         paddingLeft: '5%',
         paddingRight: '5%',
         height: "100vh",
-        backgroundColor: '#FFFAFA',
+        backgroundColor: '#666666',
     },
     buttonWrapper: {
         display: 'flex',
@@ -37,11 +37,11 @@ const styles = {
         height: '100%',
         margin: '0 10px',
         borderRadius: '10px',
+        backgroundColor: '#d9d9d9',
     },
     icon: {
         paddingLeft: '5%',
         fontSize: '60px',
-        color:'#fff',
     },
     buttonText: {
         paddingTop: '15%',
@@ -49,6 +49,7 @@ const styles = {
         paddingRight: '5%',
         fontSize: '35px',
         marginTop: '10px',
+        color:'black',
     },
 };
 //data
@@ -85,12 +86,16 @@ const OrderHome = () => {
                             <ButtonBase
                                 style={{
                                     ...styles.button,
-                                    backgroundColor: '#FFD700',
-                                    boxShadow:'rgb(255, 215, 0,0.3) 0px 3px 5px 2px',
-                                    color:'#38230D',
+ 
+                                    boxShadow: 'rgb(175, 175, 106,0.3) 0px 3px 5px 2px',
+                                    color: '#afaf6a',
                                 }}
                                 onClick={handleDineInOrderClick}>
-                                <RestaurantIcon style={styles.icon} />
+                                <RestaurantIcon
+                                    style={{
+                                        ...styles.icon,
+                                        color: '#cccc00'
+                                    }} />
                                 <div style={styles.buttonText}>
                                     Dine In Order
                                 </div>
@@ -103,12 +108,16 @@ const OrderHome = () => {
                             <ButtonBase
                                 style={{
                                     ...styles.button,
-                                    backgroundColor: '#D3D3D3',
-                                    boxShadow:'rgb(211, 211, 211,0.3) 0px 3px 5px 2px',
-                                    color:'#38230D',
+                                    boxShadow: 'rgb(106, 175, 106,0.3) 0px 3px 5px 2px',
+                                    color: '#38230D',
                                 }}
                                 onClick={handleTakeoutOrderClick}>
-                                <TakeoutDiningIcon style={styles.icon} />
+                                <TakeoutDiningIcon
+                                    style={{
+                                        ...styles.icon,
+                                        color: '#6aaf6a'
+                                    }}
+                                />
                                 <div style={styles.buttonText}>
                                     Take Out Order
                                 </div>
@@ -121,12 +130,17 @@ const OrderHome = () => {
                             <ButtonBase
                                 style={{
                                     ...styles.button,
-                                    backgroundColor: '#ADD8E6',
-                                    boxShadow:'rgb(173, 216, 230,0.3) 0px 3px 5px 2px',
-                                    color:'#38230D',
+ 
+                                    boxShadow: 'rgb(106, 157, 175,0.3) 0px 3px 5px 2px',
+                                    color: '#38230D',
                                 }}
                                 onClick={handleTakeoutOrderClick}>
-                                <CallIcon style={styles.icon} />
+                                <CallIcon
+                                    style={{
+                                        ...styles.icon,
+                                        color: '#6a9daf'
+                                    }}
+                                />
                                 <div style={styles.buttonText}>
                                     Phone Order
                                 </div>
@@ -139,14 +153,19 @@ const OrderHome = () => {
                             <ButtonBase
                                 style={{
                                     ...styles.button,
-                                    backgroundColor: '#8FBC8F',
-                                    boxShadow:'rgb(143, 188, 143,0.3) 0px 3px 5px 2px',
-                                    color:'#fff',
+ 
+                                    boxShadow: 'rgb(175, 157, 106,0.3) 0px 3px 5px 2px',
+                                    color: '#fff',
                                 }}
                                 onClick={handleCurrentOrdersClick}>
-                                <TableBarIcon style={styles.icon} />
+                                <TableBarIcon
+                                    style={{
+                                        ...styles.icon,
+                                        color: '#af9d6a',
+                                    }}
+                                />
                                 <div style={styles.buttonText}>
-                                Avaliable Tables
+                                    Avaliable Tables
                                 </div>
                             </ButtonBase>
                         </div>
@@ -157,12 +176,17 @@ const OrderHome = () => {
                             <ButtonBase
                                 style={{
                                     ...styles.button,
-                                    backgroundColor: '#8FBC8F',
-                                    boxShadow:'rgb(143, 188, 143,0.3) 0px 3px 5px 2px',
-                                    color:'#fff',
+ 
+                                    boxShadow: 'rgb(175, 157, 106,0.3) 0px 3px 5px 2px',
+                                    color: '#fff',
                                 }}
                                 onClick={handleCurrentOrdersClick}>
-                                <ReceiptLongIcon style={styles.icon} />
+                                <ReceiptLongIcon
+                                    style={{
+                                        ...styles.icon,
+                                        color: '#af9d6a'
+                                    }}
+                                />
                                 <div style={styles.buttonText}>
                                     Current Orders
                                 </div>
@@ -175,12 +199,17 @@ const OrderHome = () => {
                             <ButtonBase
                                 style={{
                                     ...styles.button,
-                                    backgroundColor: '#D2B48C',
-                                    boxShadow:'rgb(210, 180, 140,0.3) 0px 3px 5px 2px',
-                                    color:'#fff',
+                                    
+                                    boxShadow: 'rgb(175, 157, 106,0.3) 0px 3px 6px 3px',
+                                    color: '#D2B48C',
                                 }}
                                 onClick={handleOrdersHistoryClick}>
-                                <ManageHistoryIcon style={styles.icon} />
+                                <ManageHistoryIcon
+                                    style={{
+                                        ...styles.icon,
+                                        color: '#af9d6a'
+                                    }}
+                                />
                                 <div style={styles.buttonText}>
                                     Order History
                                 </div>
