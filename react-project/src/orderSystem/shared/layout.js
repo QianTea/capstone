@@ -6,6 +6,12 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { staffLoginService } from "../services/auth";
 
+const styles = {
+//     page: {
+//       height: "100vh",
+//       backgroundColor: '#bfbfbf',
+//   },
+  };
 
 const OrderLayout = () => {
     const navigate = useNavigate();
@@ -21,15 +27,16 @@ const OrderLayout = () => {
             setPages(p => [{ value: 'order/home', label: 'Home' },
             { value: '/order/dine-in-order', label: 'Dine-In' },
             { value: '/order/take-out-order', label: 'Take Out' },
-            { value: '/order/orders-history', label: 'History' },
+            { value: '/order/phone-order', label: 'Phone' },
+            { value: '/order/current-orders', label: 'Tables' },
             { value: '/order/current-orders', label: 'Current' },
-            { value: '*', label: '404' }, 
-            { 'label': 'logout', value: 'order/login' }]);
+            { value: '/order/orders-history', label: 'History' },
+            { value: '/order/login', label: 'logout'  }]);
         }
         if (currentPath == '/order') navigate('/order/home');
     }, [navigate, location]);
     return (
-        <div >
+        <div style={styles.page}>
             <OrderNav pages={pages} />
             
             <Outlet />      

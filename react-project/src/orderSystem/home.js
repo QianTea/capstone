@@ -16,12 +16,12 @@ const theme = createTheme();
 // styles
 const styles = {
     page: {
-        paddingTop: '15%',
-        paddingBottom: '15%',
+        paddingTop: '5%',
+        paddingBottom: '5%',
         paddingLeft: '5%',
         paddingRight: '5%',
         height: "100vh",
-        backgroundColor: '#666666',
+        backgroundColor: '#b3b3b3',
     },
     buttonWrapper: {
         display: 'flex',
@@ -37,7 +37,8 @@ const styles = {
         height: '100%',
         margin: '0 10px',
         borderRadius: '10px',
-        backgroundColor: '#d9d9d9',
+        backgroundColor: '#e6e6e6',
+        boxShadow: 'rgb(115，115，115，0.3) 0px 3px 6px 3px',
     },
     icon: {
         paddingLeft: '5%',
@@ -49,7 +50,7 @@ const styles = {
         paddingRight: '5%',
         fontSize: '35px',
         marginTop: '10px',
-        color:'black',
+        color:'#262626',
     },
 };
 //data
@@ -84,17 +85,12 @@ const OrderHome = () => {
                     <Grid item xs={4}>
                         <div style={styles.buttonWrapper}>
                             <ButtonBase
-                                style={{
-                                    ...styles.button,
- 
-                                    boxShadow: 'rgb(175, 175, 106,0.3) 0px 3px 5px 2px',
-                                    color: '#afaf6a',
-                                }}
+                                style={styles.button}
                                 onClick={handleDineInOrderClick}>
                                 <RestaurantIcon
                                     style={{
                                         ...styles.icon,
-                                        color: '#cccc00'
+                                        color: '#dbba57'
                                     }} />
                                 <div style={styles.buttonText}>
                                     Dine In Order
@@ -106,16 +102,12 @@ const OrderHome = () => {
                     <Grid item xs={4}>
                         <div style={styles.buttonWrapper}>
                             <ButtonBase
-                                style={{
-                                    ...styles.button,
-                                    boxShadow: 'rgb(106, 175, 106,0.3) 0px 3px 5px 2px',
-                                    color: '#38230D',
-                                }}
+                                style={styles.button}
                                 onClick={handleTakeoutOrderClick}>
                                 <TakeoutDiningIcon
                                     style={{
                                         ...styles.icon,
-                                        color: '#6aaf6a'
+                                        color: '#64b4a0'
                                     }}
                                 />
                                 <div style={styles.buttonText}>
@@ -128,17 +120,12 @@ const OrderHome = () => {
                     <Grid item xs={4}>
                         <div style={styles.buttonWrapper}>
                             <ButtonBase
-                                style={{
-                                    ...styles.button,
- 
-                                    boxShadow: 'rgb(106, 157, 175,0.3) 0px 3px 5px 2px',
-                                    color: '#38230D',
-                                }}
+                                style={styles.button}
                                 onClick={handleTakeoutOrderClick}>
                                 <CallIcon
                                     style={{
                                         ...styles.icon,
-                                        color: '#6a9daf'
+                                        color: '#6478b4'
                                     }}
                                 />
                                 <div style={styles.buttonText}>
@@ -151,17 +138,12 @@ const OrderHome = () => {
                     <Grid item xs={4}>
                         <div style={styles.buttonWrapper}>
                             <ButtonBase
-                                style={{
-                                    ...styles.button,
- 
-                                    boxShadow: 'rgb(175, 157, 106,0.3) 0px 3px 5px 2px',
-                                    color: '#fff',
-                                }}
+                                style={styles.button}
                                 onClick={handleCurrentOrdersClick}>
                                 <TableBarIcon
                                     style={{
                                         ...styles.icon,
-                                        color: '#af9d6a',
+                                        color: '#d6a9a9',
                                     }}
                                 />
                                 <div style={styles.buttonText}>
@@ -174,17 +156,12 @@ const OrderHome = () => {
                     <Grid item xs={4}>
                         <div style={styles.buttonWrapper}>
                             <ButtonBase
-                                style={{
-                                    ...styles.button,
- 
-                                    boxShadow: 'rgb(175, 157, 106,0.3) 0px 3px 5px 2px',
-                                    color: '#fff',
-                                }}
+                                style={styles.button}
                                 onClick={handleCurrentOrdersClick}>
                                 <ReceiptLongIcon
                                     style={{
                                         ...styles.icon,
-                                        color: '#af9d6a'
+                                        color: '#a0b464'
                                     }}
                                 />
                                 <div style={styles.buttonText}>
@@ -197,17 +174,12 @@ const OrderHome = () => {
                     <Grid item xs={4}>
                         <div style={styles.buttonWrapper}>
                             <ButtonBase
-                                style={{
-                                    ...styles.button,
-                                    
-                                    boxShadow: 'rgb(175, 157, 106,0.3) 0px 3px 6px 3px',
-                                    color: '#D2B48C',
-                                }}
+                                style={styles.button}
                                 onClick={handleOrdersHistoryClick}>
                                 <ManageHistoryIcon
                                     style={{
                                         ...styles.icon,
-                                        color: '#af9d6a'
+                                        color: '#737373'
                                     }}
                                 />
                                 <div style={styles.buttonText}>

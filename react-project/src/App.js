@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
 
 import NoPage from './nopage';
 
@@ -28,10 +27,11 @@ import AddRole from "./adminPanel/staff/addRole";
 import OrderLayout from './orderSystem/shared/layout';
 import StaffLogin from './orderSystem/pageStaffLogin';
 import OrderHome from './orderSystem/home';
-import DineInOrderInterface from './orderSystem/orderDineIn/dineInOrder';
+import PageDineInOrder from './orderSystem/orderDineIn/pageDineInOrder';
 import TakeOutOrderInterface from './orderSystem/orderTakeOut/takeOutOrder';
 import OrdersHistory from './orderSystem/pageOrderHistory';
 import CurrentOrders from './orderSystem/pageCurrentOrder';
+import PhoneOrderPage from './orderSystem/pagePhoneOrder';
 
 function App() {
   return (
@@ -61,8 +61,9 @@ function App() {
         <Route path='/order' element={<OrderLayout />} >
           <Route path="/order/login" element={<StaffLogin />} />
           <Route path='/order/home' element={<OrderHome />} />
-          <Route path='/order/dine-in-order' element={<DineInOrderInterface />} />
+          <Route path='/order/dine-in-order' element={<PageDineInOrder />} />
           <Route path='/order/take-out-order' element={<TakeOutOrderInterface />} />
+          <Route path='/order/phone-order' element={<PhoneOrderPage />} />
           <Route path='/order/orders-history' element={<OrdersHistory />} />
           <Route path='/order/current-orders' element={<CurrentOrders />} />
           

@@ -3,14 +3,14 @@ import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 
-
+// style
 const mdTheme = createTheme();
 const styles = {
     page: {
-        // backgroundColor: '#24242D',
         color: '#fff',
         textAlign: 'center',
-        paddingLeft: '10px',
+        paddingTop: '5%',
+        paddingLeft: '1%',
     },
     nopad: {
         paddingTop: 0,
@@ -21,12 +21,6 @@ const styles = {
         paddingTop: 2,
         paddingBottom: 2,
     },
-    categoryH: {
-        color: '#fff',
-        fontSize: '25px',
-        paddingTop: 0,
-        paddingBottom: 0,
-    },
     menu: {
         display: 'flex',
         flexDirection: 'row',
@@ -34,29 +28,43 @@ const styles = {
         justifyContent: 'center',
     },
     item: {
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
         color: '#fff',
-        margin: '5px',
-        paddingLeft: '5px',
-        paddingRight: '5px',
-        borderRadius: '10px',
-        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+        margin: '1.5%',
+        borderRadius: '15px',
+        boxShadow: '0px 3px 6px 3px rgba(0, 0, 0, 0.4)',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
-        verticalAlign: 'middle',
-
-        width: '110px',
-        height: '110px',
+        justifyContent: 'center',
+        width: '20%',
     },
     title: {
         fontSize: '1.3rem',
-        marginBottom: '0',
         position: 'relative',
-        padding: 0,
+    },
+    bottom:{
+        paddingTop: '1%',
+        paddingBottom: '1%',
+    },
+    categories: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+    },
+    category: {
+        backgroundColor: 'rgba(150, 130, 130, 0.6)',
+        color: '#fff',
+        margin: '1.5%',
+        borderRadius: '15px',
+        boxShadow: '0px 3px 6px 3px rgba(150, 130, 130, 0.4)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '80%',
     },
 };
-
+//data
 const products = [
     { name: 'W/C', price: '10.19', category: '2pc Fish and Chip Dinners' },
     { name: 'Cod/C', price: '11.99', category: '2pc Fish and Chip Dinners' },
@@ -101,9 +109,8 @@ const DineInMenu = () => {
         <>
             <ThemeProvider theme={mdTheme}>
                 <div style={styles.page}>
-                    <Grid container style={styles.bottom}>
+                    <Grid container >
                         <Grid item xs={12}>
-                            <p style={styles.categoryH}>Dine In Menu</p>
                             <div style={styles.menu}>
                                 {products.map((v) => (
                                     <div style={styles.item}>
@@ -114,6 +121,44 @@ const DineInMenu = () => {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+                        </Grid>
+                    </Grid>
+                    </div>
+                    <div style={styles.bottom}>
+                    {/* Categories */}
+                    <Grid container style={styles.bottom}>
+                        <Grid item xs={4}>
+                            <div style={styles.categories}>
+                                <div style={styles.category}>
+                                    <div style={styles.details}>
+                                        <p style={styles.title}>
+                                            Fish
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div style={styles.menu}>
+                                <div style={styles.category}>
+                                    <div style={styles.details}>
+                                        <p style={styles.title}>
+                                            Side Orders
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div style={styles.menu}>
+                                <div style={styles.category}>
+                                    <div style={styles.details}>
+                                        <p style={styles.title}>
+                                            Beverages
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </Grid>
                     </Grid>

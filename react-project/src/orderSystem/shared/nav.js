@@ -11,8 +11,14 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
-
+import SetMealIcon from '@mui/icons-material/SetMeal';
+//style
+const styles= {
+ nav:{
+  backgroundColor: '#4d4d4d',
+ },
+};
+//data
 const pages = [
   { value: 'order/login', label: 'Login' },
   { value: 'order/home', label: 'Home' },
@@ -40,10 +46,10 @@ function OrderNav(props) {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={styles.nav}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <SetMealIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -99,7 +105,7 @@ function OrderNav(props) {
             </Menu>
           </Box>
 
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <SetMealIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
