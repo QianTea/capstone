@@ -16,41 +16,40 @@ const theme = createTheme();
 // styles
 const styles = {
     page: {
-        paddingTop: '5%',
-        paddingBottom: '5%',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        height: "100vh",
+        display: 'flex',
+        // minHeight: "100vh",
+        flexDirection: 'column',
         backgroundColor: '#b3b3b3',
+        // margin:0,
     },
     buttonWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: '65%',
-        width: '90%',
-        margin: 10,
+        // display: 'flex',
+        // // paddingTop: '5%',
+        // // paddingBottom: '5%',
+        // // paddingLeft: '2%',
+        // // paddingRight: '2%',
+  
+        // minHeight: '180px',
+        // // margin: 10,
     },
     button: {
-        width: '100%',
-        height: '100%',
-        margin: '0 10px',
-        borderRadius: '10px',
+        height: '200px',
+        width: '320px',
+        borderRadius: '50px',
         backgroundColor: '#e6e6e6',
         boxShadow: 'rgb(115，115，115，0.3) 0px 3px 6px 3px',
     },
     icon: {
         paddingLeft: '5%',
-        fontSize: '60px',
+        fontSize: '5rem',
     },
     buttonText: {
         paddingTop: '15%',
         paddingBottom: '15%',
         paddingRight: '5%',
-        fontSize: '35px',
-        marginTop: '10px',
-        color:'#262626',
+        fontSize: '2.5rem',
+        marginTop: '1%',
+        color: '#262626',
     },
 };
 //data
@@ -78,119 +77,93 @@ const OrderHome = () => {
     };
 
     return (
-        <>
+        <div style={styles.page}>
             <ThemeProvider theme={theme} >
-                <Grid container style={styles.page}>
-                    {/* Dine In Order */}
-                    <Grid item xs={4}>
-                        <div style={styles.buttonWrapper}>
-                            <ButtonBase
-                                style={styles.button}
-                                onClick={handleDineInOrderClick}>
-                                <RestaurantIcon
-                                    style={{
-                                        ...styles.icon,
-                                        color: '#dbba57'
-                                    }} />
-                                <div style={styles.buttonText}>
-                                    Dine In Order
-                                </div>
-                            </ButtonBase>
+                <div style={styles.buttonWrapper}>
+                    {/* Dine In/Take Out/ Phone Order */}
+                    <ButtonBase
+                        style={styles.button}
+                        onClick={handleDineInOrderClick}>
+                        <RestaurantIcon
+                            style={{
+                                ...styles.icon,
+                                color: '#dbba57'
+                            }} />
+                        <div style={styles.buttonText}>
+                            Dine In Order
                         </div>
-                    </Grid>
-                    {/* Take Out Order */}
-                    <Grid item xs={4}>
-                        <div style={styles.buttonWrapper}>
-                            <ButtonBase
-                                style={styles.button}
-                                onClick={handleTakeoutOrderClick}>
-                                <TakeoutDiningIcon
-                                    style={{
-                                        ...styles.icon,
-                                        color: '#64b4a0'
-                                    }}
-                                />
-                                <div style={styles.buttonText}>
-                                    Take Out Order
-                                </div>
-                            </ButtonBase>
+                    </ButtonBase>
+                    <ButtonBase
+                        style={styles.button}
+                        onClick={handleTakeoutOrderClick}>
+                        <TakeoutDiningIcon
+                            style={{
+                                ...styles.icon,
+                                color: '#64b4a0'
+                            }}
+                        />
+                        <div style={styles.buttonText}>
+                            Take Out Order
                         </div>
-                    </Grid>
-                    {/* Phone Order */}
-                    <Grid item xs={4}>
-                        <div style={styles.buttonWrapper}>
-                            <ButtonBase
-                                style={styles.button}
-                                onClick={handleTakeoutOrderClick}>
-                                <CallIcon
-                                    style={{
-                                        ...styles.icon,
-                                        color: '#6478b4'
-                                    }}
-                                />
-                                <div style={styles.buttonText}>
-                                    Phone Order
-                                </div>
-                            </ButtonBase>
+                    </ButtonBase>
+                    <ButtonBase
+                        style={styles.button}
+                        onClick={handleTakeoutOrderClick}>
+                        <CallIcon
+                            style={{
+                                ...styles.icon,
+                                color: '#6478b4'
+                            }}
+                        />
+                        <div style={styles.buttonText}>
+                            Phone Order
                         </div>
-                    </Grid>
-                    {/* Avaliable Tables */}
-                    <Grid item xs={4}>
-                        <div style={styles.buttonWrapper}>
-                            <ButtonBase
-                                style={styles.button}
-                                onClick={handleCurrentOrdersClick}>
-                                <TableBarIcon
-                                    style={{
-                                        ...styles.icon,
-                                        color: '#d6a9a9',
-                                    }}
-                                />
-                                <div style={styles.buttonText}>
-                                    Avaliable Tables
-                                </div>
-                            </ButtonBase>
+                    </ButtonBase>
+                </div>
+                {/* Avaliable Tables/Current/History */}
+                <div style={styles.buttonWrapper}>
+                    <ButtonBase
+                        style={styles.button}
+                        onClick={handleCurrentOrdersClick}>
+                        <TableBarIcon
+                            style={{
+                                ...styles.icon,
+                                color: '#d6a9a9',
+                            }}
+                        />
+                        <div style={styles.buttonText}>
+                            Avaliable Tables
                         </div>
-                    </Grid>
-                    {/* Current Orders */}
-                    <Grid item xs={4}>
-                        <div style={styles.buttonWrapper}>
-                            <ButtonBase
-                                style={styles.button}
-                                onClick={handleCurrentOrdersClick}>
-                                <ReceiptLongIcon
-                                    style={{
-                                        ...styles.icon,
-                                        color: '#a0b464'
-                                    }}
-                                />
-                                <div style={styles.buttonText}>
-                                    Current Orders
-                                </div>
-                            </ButtonBase>
+                    </ButtonBase>
+                    <ButtonBase
+                        style={styles.button}
+                        onClick={handleCurrentOrdersClick}>
+                        <ReceiptLongIcon
+                            style={{
+                                ...styles.icon,
+                                color: '#a0b464'
+                            }}
+                        />
+                        <div style={styles.buttonText}>
+                            Current Orders
                         </div>
-                    </Grid>
-                    {/* Order History */}
-                    <Grid item xs={4}>
-                        <div style={styles.buttonWrapper}>
-                            <ButtonBase
-                                style={styles.button}
-                                onClick={handleOrdersHistoryClick}>
-                                <ManageHistoryIcon
-                                    style={{
-                                        ...styles.icon,
-                                        color: '#737373'
-                                    }}
-                                />
-                                <div style={styles.buttonText}>
-                                    Order History
-                                </div>
-                            </ButtonBase>
+                    </ButtonBase>
+                    <ButtonBase
+                        style={styles.button}
+                        onClick={handleOrdersHistoryClick}>
+                        <ManageHistoryIcon
+                            style={{
+                                ...styles.icon,
+                                color: '#737373'
+                            }}
+                        />
+                        <div style={styles.buttonText}>
+                            Order History
                         </div>
-                    </Grid>
-                </Grid>
-            </ThemeProvider>
-        </>
+                    </ButtonBase>
+                </div>
+            </ThemeProvider >
+        </div >
     );
 };
 

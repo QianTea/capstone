@@ -17,7 +17,7 @@ const styles = {
     },
     leftContainer: {
         backgroundColor: '#e4e6e7',
-        height: '100vh',
+        // height: '100vh',
         color: 'black',
         // display: 'inline-block',
 
@@ -26,8 +26,7 @@ const styles = {
         // backgroundColor: '#dbba57',//dine in
         // backgroundColor:'#a9d6a9', //take out
         backgroundColor: '#98b3cd', //phone
-        // display: 'inline-block',
-        height: '100vh',
+        // height: '100vh',
         width: '700px',
         overflow: 'auto',
         position: 'absolute',
@@ -39,9 +38,14 @@ const styles = {
 const PageDineInOrder = () => {
     const [isOrderOpen, setIsOrderOpen] = useState(false);
 
-    const toggleOrder = () => {
-        setIsOrderOpen((prev) => !prev);
+    const toggleOrderOpen = (e) => {
+        setIsOrderOpen(false);
     };
+
+    const toggleOrderClose = (e) => {
+        setIsOrderOpen(true);
+    }
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -50,18 +54,17 @@ const PageDineInOrder = () => {
                     <Grid item xs={6}
                         style={{
                             ...styles.leftContainer,
-
                         }}
-                        // onClick={toggleOrder}
+                        onClick={toggleOrderClose}
                     >
                         <DineInDisplay />
                     </Grid>
                     <div
                         style={{
                             ...styles.rightContainer,
-                            right: isOrderOpen ? '-185px' : '0',
+                            right: isOrderOpen ? '-30%' : '0',
                         }}
-                        onClick={toggleOrder}>
+                        onClick={toggleOrderOpen}>
                         <Grid item xs={12}>
                             <DineInMenu />
                         </Grid>
