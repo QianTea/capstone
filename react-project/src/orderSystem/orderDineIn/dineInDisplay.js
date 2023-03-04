@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 
 import {
     Table, TableContainer, TableBody,
-    TableCell, TableHead, TableRow, TextField
+    TableCell, TableHead, TableRow, TextField, Tab
 } from '@mui/material';
 import Button from '@mui/material/Button';
 import { IconButton } from '@mui/material';
@@ -26,13 +26,13 @@ import MenuItem from '@mui/material/MenuItem';
 const theme = createTheme({
     palette: {
         success: {
-        main: '#64b478',
-      },
-      secondary: {
-        main: '#3F51B5',
-      },
+            main: '#64b478',
+        },
+        secondary: {
+            main: '#3F51B5',
+        },
     },
-  });
+});
 const styles = {
     space: {
         paddingTop: '1%',
@@ -46,40 +46,46 @@ const styles = {
     dropdown: {
         fontSize: '18px',
         fontWeight: 'bold',
+        border: 'none',
+        borderBottom: '1px solid #ccc',
     },
     table: {
         height: '100%',
         maxHeight: '100%',
+        paddingLeft: '2%',
+        paddingRight: '2%',
     },
     tableH: {
         fontSize: '20px',
         fontWeight: 'bold',
     },
     tableB: {
-        paddingTop: '2%',
-        paddingBottom: '2%',
-        paddingLeft: '1%',
-        paddingRight: '1%',
         fontSize: '18px',
     },
-    subtotal: {
+    total: {
+        paddingTop: '2%',
+        paddingBottom: '2%',
+        paddingRight: '1%',
+        paddingLeft: '12%',
+    },
+    subtotaltxt: {
         paddingTop: '5%',
         paddingBottom: '1%',
         border: 'none ',
-        fontSize: '20px',
+        fontSize: '19px',
     },
-    bottomBtn:{
-        paddingTop: '5%',
+    bottomBtn: {
+        paddingTop: '2%',
         paddingBottom: '2%',
-        paddingLeft: '8%',
-        paddingRight: '5%',
+        paddingLeft: '5%',
+        paddingRight: '0%',
     },
     button: {
         height: '120%',
         width: '100%',
         marginLeft: '8%',
         fontSize: '20px',
-        color:'#fff',
+        color: '#fff',
     },
     iconButton: {
         display: 'flex',
@@ -193,28 +199,34 @@ const DineInDisplay = () => {
                 <Grid container>
                     <Grid item xs={4} >
                         <TextField
+                         variant="filled" 
+                         size="small"
                             margin="normal"
-                            required fullWidth
+                            required 
                             id="cusName" name="cusName"
                             label="Customer Name"
                             autoComplete="name"
                             autoFocus
                         />
                     </Grid>
-                    <Grid item xs={4} >
+                    <Grid item xs={3} >
                         <TextField
+                         variant="filled" 
+                         size="small"
                             margin="normal"
-                            required fullWidth
+                            required 
                             id="cusPhone" name="cusPhone"
                             label="Phone"
                             autoComplete="phone"
                             autoFocus
                         />
                     </Grid>
-                    <Grid item xs={4} >
+                    <Grid item xs={5} >
                         <TextField
+                         variant="filled" 
+                         size="small"
                             margin="normal"
-                            required fullWidth
+                            required 
                             id="pickupTime" name="pickupTime"
                             label="Pick Up Time"
                             autoComplete="time"
@@ -229,22 +241,24 @@ const DineInDisplay = () => {
                         <TableContainer
                             component={Paper}
                             style={{ maxHeight: '300px' }}>
-                            <Table>
+
+                            <Table size="small" >
                                 <TableHead
                                     style={{ position: 'sticky', top: 0 }}>
                                     <TableRow>
                                         <TableCell style={styles.tableH}>Item</TableCell>
-                                        <TableCell style={styles.tableH}>Quantity</TableCell>
+                                        <TableCell style={styles.tableH} align="left">Quantity</TableCell>
                                         <TableCell style={styles.tableH}>Price</TableCell>
                                         {/* <TableCell style={styles.tableH}>Total</TableCell> */}
                                     </TableRow>
                                 </TableHead>
+
                                 <TableBody>
                                     {orders.map((v) => (
                                         <TableRow>
                                             <TableCell style={styles.tableB}>{v.item}</TableCell>
-                                            <TableCell style={styles.tableB} align="center">{v.quatity}</TableCell>
-                                            <TableCell style={styles.tableB} align="center">{v.single}</TableCell>
+                                            <TableCell style={{ ...styles.tableB, paddingRight: '15%' }} align="center">{v.quatity}</TableCell>
+                                            <TableCell style={{ ...styles.tableB, paddingRight: '15%' }} align="center">{v.single}</TableCell>
                                             {/* <TableCell style={styles.tableB} align="center">{v.total}</TableCell> */}
                                         </TableRow>
                                     ))}
@@ -255,42 +269,42 @@ const DineInDisplay = () => {
                 </Grid>
 
                 {/* Order subtotal list */}
-                <Grid container style={styles.space}>
+                <Grid container >
                     <Grid item xs={5}>
                     </Grid>
-                    <Grid item xs={7}>
+                    <Grid item xs={7} style={styles.total}>
                         <TableRow>
                             <TableCell
-                                style={styles.subtotal}
+                                style={styles.subtotaltxt}
                                 align="right">
                                 Sub Total:
                             </TableCell>
                             <TableCell
-                                style={styles.subtotal}
+                                style={styles.subtotaltxt}
                                 align="right">
                                 {calculate.subtotal}
                             </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell
-                                style={styles.subtotal}
+                                style={styles.subtotaltxt}
                                 align="right">
                                 Tax(13%):
                             </TableCell>
                             <TableCell
-                                style={styles.subtotal}
+                                style={styles.subtotaltxt}
                                 align="right">
                                 {calculate.tax}
                             </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell
-                                style={styles.subtotal}
+                                style={styles.subtotaltxt}
                                 align="right">
                                 Total:
                             </TableCell>
                             <TableCell
-                                style={styles.subtotal}
+                                style={styles.subtotaltxt}
                                 align="right">
                                 {calculate.total}
                             </TableCell>

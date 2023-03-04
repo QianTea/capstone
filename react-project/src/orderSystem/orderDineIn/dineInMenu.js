@@ -113,7 +113,7 @@ const DineInMenu = () => {
                         <Grid item xs={12}>
                             <div style={styles.menu}>
                                 {products.map((v) => (
-                                    <div style={styles.item}>
+                                    <div style={styles.item} key={v.name}>
                                         <div style={styles.details}>
                                             <p style={styles.title}>
                                                 {v.name}
