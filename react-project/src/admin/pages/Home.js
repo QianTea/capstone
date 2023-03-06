@@ -71,9 +71,6 @@ function DashboardContent() {
                 </Box>
             </Box>
         </ThemeProvider>
-
-
-
     );
 }
 

@@ -20,8 +20,8 @@ import Detail from './admin/components/detail';
 import AddFoodType from './admin/components/addFoodType';
 import AddCategory from './admin/components/addCategory';
 import AddProduct from './admin/components/addProduct';
-import Staff from './admin/pages/Employee';
-import AddStaff from "./admin/components/addStaff";
+import Employee from './admin/pages/Employee';
+import AddEmployee from "./admin/components/addEmployee";
 import AddRole from "./admin/components/addRole";
 
 // Order System
@@ -54,9 +54,9 @@ function App() {
           <Route path="/admin/menu/addFoodType" element={<AddFoodType />} />
           <Route path="/admin/menu/addCategory" element={<AddCategory />} />
           <Route path="/admin/menu/addProduct" element={<AddProduct />} />
-          <Route path="/admin/staff" element={<Staff />} />
-          <Route path="/admin/staff/addRole" element={<AddRole />} />
-          <Route path="/admin/staff/addStaff" element={<AddStaff />} />
+          <Route path="/admin/employee" element={<Employee />} />
+          <Route path="/admin/employee/addRole" element={<AddRole />} />
+          <Route path="/admin/employee/addEmployee" element={<AddEmployee />} />
         </Route>
         {/*  Order System */}
         <Route path='/order' element={<OrderLayout />} >

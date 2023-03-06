@@ -11,11 +11,14 @@ import SendIcon from '@mui/icons-material/Send';
 
 
 const AddRole = () => {
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // handle form submit logic here
+    }
     return (
         <Box
             sx={{
-                marginTop: 8,
+                marginTop: 2,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -42,6 +45,8 @@ const AddRole = () => {
                             id="roleDescription"
                             label="description"
                             variant="outlined"
+                            multiline
+                            minRows={4}
                         />
                     </div>
                     <Button fullWidth
@@ -55,8 +60,8 @@ const AddRole = () => {
 
                 <Link
                     variant="body2"
-                    to="/admin/staff">
-                    Go back to Staff
+                    to="/admin/employee">
+                     Go back to employee management page
                 </Link>
             </Box>
         </Box>

@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import DineInDisplay from '../components/dineInDisplay';
 import DineInMenu from '../components/dineInMenu';
 
-
+//styles
 const theme = createTheme();
 const styles = {
     page: {

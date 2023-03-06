@@ -21,7 +21,7 @@ const Layout = () => {
             setPages(p => [{ value: 'admin/home', label: 'Home' },
             { value: 'admin/store', label: 'StoreInfo' },
             { value: 'admin/menu', label: 'Menu' },
-            { value: 'admin/staff', label: 'Staff' },
+            { value: 'admin/employee', label: 'Employee' },
             // { value: 'home', label: 'Web' },
             // { value: '../order/home', label: 'Order' },
             // { value: '*', label: '404' }, 

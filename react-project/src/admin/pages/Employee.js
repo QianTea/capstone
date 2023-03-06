@@ -1,26 +1,55 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Box from '@mui/material/Box';
-import MenuItem from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
+
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import SendIcon from '@mui/icons-material/Send';
+import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Paper } from "@mui/material";
+import {
+    Table, TableBody, TableCell,
+    TableContainer, TableHead, TableRow
+} from "@mui/material";
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Item from '@mui/material/Grid';
-import AddStaff from "../components/addStaff";
 
+// styles
 const mdTheme = createTheme();
+const styles = {
+    table: {
+        minWidth: '50%',
+        width: '100%',
+        display: 'flex',
+    },
+    tbTitle: {
+        fontSize: '1.5rem',
+        margin: '2%',
+    },
+};
+//data
+const roles = [
+    { name: 'Admin', description: 'The system administrator, with the highest level of permissions.' },
+    { name: 'Manager', description: 'The restaurant manager, responsible for managing the daily operations of the restaurant.' },
+    { name: 'Chef', description: 'The chef, responsible for cooking in the restaurant.' },
+    { name: 'Waiter', description: 'The waiter, responsible for providing service and taking orders for customers.' },
+    { name: 'Cashier', description: 'The cashier, responsible for handling the restaurant\'s cash transactions.' }
+];
+const employees = [
+    { name: 'Alice', role: 'Cashier', password: 'alice123' },
+    { name: 'Bob', role: 'Waiter', password: 'bob456' },
+    { name: 'Charlie', role: 'Waiter', password: 'charlie789' },
+    { name: 'David', role: 'Cashier', password: 'david012' },
+    { name: 'Emily', role: 'Waiter', password: 'emily345' }
+];
 
-const Staff = () => {
+const Employee = () => {
+
     return (
         <ThemeProvider theme={mdTheme}>
+            {/*  display list of roles  */}
             <Box sx={{
                 display: 'flex',
                 '& .MuiTextField-root': { m: 1, width: '55ch' },
@@ -33,71 +62,105 @@ const Staff = () => {
                                 ? theme.palette.grey[100]
                                 : theme.palette.grey[900],
                         flexGrow: 1,
-                        height: '100vh',
-                        overflow: 'auto',
                     }}
                     noValidate
                     autoComplete="off"
                 >
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                        <h1>Staff Management</h1>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12} md={4} lg={4}>
-                                <Item>
-                                    <Link to="/admin/staff/addRole">
-                                        <Button variant="contained" startIcon={<SendIcon />} color="success">
-                                            Add Role
-                                        </Button>
-                                    </Link>
-                                </Item>
-                            </Grid>
-                            <Grid item xs={12} md={4} lg={4}>
-                            <Item>
-                                    <Link to="/admin/staff/addStaff">
-                                        <Button variant="contained" startIcon={<SendIcon />} color="success">
-                                            Add Staff
-                                        </Button>
-                                    </Link>
-                                </Item>
-                            </Grid>
-                            <Grid item xs={12} md={12} lg={12}>
-                                <Item>
-                                    <div>
-                                        <h2>Current Staff</h2>
-
-                                        <p>Ivy Lin - Waiter
-                                            <IconButton aria-label="edit">
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete">
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </p>
-                                        <p>Taiyang Song - Waiter
-                                            <IconButton aria-label="edit">
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete">
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </p>
-                                        <p>Aidan Lowe - Kitchen
-                                            <IconButton aria-label="edit">
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete">
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </p>
-                                    </div>
-                                </Item>
-                            </Grid>
-
-                        </Grid>
+                        <h1>Employees Management</h1>
+                        <span style={styles.tbTitle}>Role</span>
+                        <Link to="/admin/employee/addRole">
+                            <Button variant="contained" startIcon={<AddIcon />} color="primary" >
+                                Add Role
+                            </Button>
+                        </Link>
+                        <TableContainer component={Paper} style={styles.table}>
+                            <Table >
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Name</TableCell>
+                                        <TableCell>Description</TableCell>
+                                        <TableCell>Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {roles.map((role, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{role.name}</TableCell>
+                                            <TableCell>{role.description}</TableCell>
+                                            <TableCell>
+                                                <IconButton aria-label="edit" color="primary">
+                                                    <EditIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="delete" color="error">
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Container>
+                </Box>
+            </Box>
+            {/*  display list of employees  */}
+            <Box sx={{
+                display: 'flex',
+                '& .MuiTextField-root': { m: 1, width: '55ch' },
+            }}>
+                <Box
+                    component="form"
+                    sx={{
+                        backgroundColor: (theme) =>
+                            theme.palette.mode === 'light'
+                                ? theme.palette.grey[100]
+                                : theme.palette.grey[900],
+                        flexGrow: 1,
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
+                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                        <span style={styles.tbTitle}>Employee</span>
+                        <Link to="/admin/employee/addEmployee">
+                            <Button variant="contained" startIcon={<AddIcon />} color="primary" >
+                                Add Employee
+                            </Button>
+                        </Link>
+                        <TableContainer component={Paper} style={styles.table}>
+                            <Table >
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Name</TableCell>
+                                        <TableCell>Role</TableCell>
+                                        <TableCell>Password</TableCell>
+                                        <TableCell>Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {employees.map((employees, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{employees.name}</TableCell>
+                                            <TableCell>{employees.role}</TableCell>
+                                            <TableCell>{employees.password}</TableCell>
+                                            <TableCell>
+                                                <IconButton aria-label="edit" color="primary">
+                                                    <EditIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="delete" color="error">
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </Container>
                 </Box>
             </Box>
         </ThemeProvider>
-    )
+    );
 }
-export default Staff;
+export default Employee;

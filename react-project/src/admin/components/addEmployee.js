@@ -8,58 +8,65 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 
-const positions = [
+//styles
+const styles = {
+
+  };
+//data
+const roles = [
     { value: 'Uncategorized', label: 'Uncategorized', },
-    { value: 'kitchen', label: 'kitchen', },
-    { value: 'waiter', label: 'waiter', }
+    { value: 'Admin', label: 'Admin', },
+    { value: 'Manager', label: 'Manager', },
+    { value: 'Chef', label: 'Chef', },
+    { value: 'Waiter', label: 'Waiter', },
+    { value: 'Cashier', label: 'Cashier', },
 ];
 
 
-const AddStaff = () => {
+const AddEmployee = () => {
 
     return (
         <Box
             sx={{
-                marginTop: 8,
+                marginTop: 2,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 '& .MuiTextField-root': { m: 1, width: '40ch' },
             }}>
-            <h1>Add Staff</h1>
+            <h1>Add Employee</h1>
             <Box component="form"
                 sx={{ mt: 2, mb: 3 }}
                 noValidate
                 autoComplete="off" >
                 <form name="addItem">
                     <div>
-                        name:
+                        Name:
                         <TextField
-                            id="staffName"
+                            id="empName"
                             label="name"
                             variant="outlined"
                         />
                     </div>
 
-                    <div>
-                        position:
+                    <div >
+                        Role:
                         <TextField
-                            id="outlined-select-position"
+                            id="empRole"
                             select
-                            label="Select"
+                            label="Role"
                             defaultValue="uncategorized"
-                            helperText="Please select staff position"
+                            helperText="Please select employee's role"
                         >
-                            {positions.map((option) => (
+                            {roles.map((option) => (
                                 <MenuItem key={option.value} value={option.value}>
                                     {option.label}
                                 </MenuItem>
                             ))}
                         </TextField>
-
                     </div>
                     <div>
-                        login password:
+                        Password:
                         <TextField
                             id="staffPswd"
                             label="password"
@@ -78,11 +85,11 @@ const AddStaff = () => {
 
                 <Link
                     variant="body2"
-                    to="/admin/staff">
-                    Go back to Staff Management page
+                    to="/admin/employee">
+                    Go back to employee management page
                 </Link>
             </Box>
         </Box>
     )
 }
-export default AddStaff;
+export default AddEmployee;
