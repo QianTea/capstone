@@ -5,33 +5,34 @@ import NoPage from './nopage';
 
 // Restaurant Website
 import WebLayout from './website/webLayout';
-import WebHome from './website/homePage';
-import WebMenu from './website/menuPage';
-import WebContact from './website/contactPage';
+import WebHome from './website/pages/homePage';
+import WebMenu from './website/pages/menuPage';
+import WebContact from './website/pages/contactPage';
 
 // Admin Panel
-import Layout from './adminPanel/shared/layout';
-import Login from './adminPanel/login/login';
-import DashboardContent from './adminPanel/home/dashboard';
-import StoreInfo from './adminPanel/store/storeInfo';
-import Product from './adminPanel/menu/menu';
-import Detail from './adminPanel/menu/detail';
-import AddFoodType from './adminPanel/menu/addFoodType';
-import AddCategory from './adminPanel/menu/addCategory';
-import AddProduct from './adminPanel/menu/addProduct';
-import Staff from './adminPanel/staff/staff';
-import AddStaff from "./adminPanel/staff/addStaff";
-import AddRole from "./adminPanel/staff/addRole";
+import Layout from './admin/layout';
+
+import Login from './admin/pages/Login';
+import DashboardContent from './admin/pages/Home';
+import StoreInfo from './admin/pages/StoreInfo';
+import Product from './admin/pages/Menu';
+import Detail from './admin/components/detail';
+import AddFoodType from './admin/components/addFoodType';
+import AddCategory from './admin/components/addCategory';
+import AddProduct from './admin/components/addProduct';
+import Staff from './admin/pages/Employee';
+import AddStaff from "./admin/components/addStaff";
+import AddRole from "./admin/components/addRole";
 
 // Order System
-import OrderLayout from './orderSystem/shared/layout';
-import StaffLogin from './orderSystem/pageStaffLogin';
-import OrderHome from './orderSystem/home';
-import PageDineInOrder from './orderSystem/orderDineIn/pageDineInOrder';
-import TakeOutOrderInterface from './orderSystem/orderTakeOut/takeOutOrder';
-import OrdersHistory from './orderSystem/pageOrderHistory';
-import CurrentOrders from './orderSystem/pageCurrentOrder';
-import PhoneOrderPage from './orderSystem/pagePhoneOrder';
+import OrderLayout from './orderSystem/components/layout';
+import StaffLogin from './orderSystem/pages/pageStaffLogin';
+import OrderHome from './orderSystem';
+import PageDineInOrder from './orderSystem/pages/pageDineInOrder';
+import TakeOutOrderInterface from './orderSystem/pages/takeOutOrder';
+import OrdersHistory from './orderSystem/pages/pageOrderHistory';
+import CurrentOrders from './orderSystem/pages/pageCurrentOrder';
+import PhoneOrderPage from './orderSystem/pages/pagePhoneOrder';
 
 function App() {
   return (
