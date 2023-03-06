@@ -17,24 +17,21 @@ const theme = createTheme();
 const styles = {
     page: {
         display: 'flex',
-        // minHeight: "100vh",
+        height: "100vh",
         flexDirection: 'column',
         backgroundColor: '#b3b3b3',
         // margin:0,
     },
     buttonWrapper: {
-        // display: 'flex',
-        // // paddingTop: '5%',
-        // // paddingBottom: '5%',
-        // // paddingLeft: '2%',
-        // // paddingRight: '2%',
-  
-        // minHeight: '180px',
-        // // margin: 10,
+ 
     },
     button: {
+        marginRight: '2%',
+        marginLeft:'2%',
+        marginTop:'2%',
+        marginBottom:'2%',
         height: '200px',
-        width: '320px',
+        width: '300px',
         borderRadius: '50px',
         backgroundColor: '#e6e6e6',
         boxShadow: 'rgb(115，115，115，0.3) 0px 3px 6px 3px',
