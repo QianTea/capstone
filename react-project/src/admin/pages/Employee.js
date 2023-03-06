@@ -50,117 +50,94 @@ const Employee = () => {
     return (
         <ThemeProvider theme={mdTheme}>
             {/*  display list of roles  */}
-            <Box sx={{
-                display: 'flex',
-                '& .MuiTextField-root': { m: 1, width: '55ch' },
-            }}>
-                <Box
-                    component="form"
-                    sx={{
-                        backgroundColor: (theme) =>
-                            theme.palette.mode === 'light'
-                                ? theme.palette.grey[100]
-                                : theme.palette.grey[900],
-                        flexGrow: 1,
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                        <h1>Employees Management</h1>
-                        <span style={styles.tbTitle}>Role</span>
-                        <Link to="/admin/employee/addRole">
-                            <Button variant="contained" startIcon={<AddIcon />} color="primary" >
-                                Add Role
-                            </Button>
-                        </Link>
-                        <TableContainer component={Paper} style={styles.table}>
-                            <Table >
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Name</TableCell>
-                                        <TableCell>Description</TableCell>
-                                        <TableCell>Action</TableCell>
+            <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+            >
+                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                    <h1>Employees Management</h1>
+                    <span style={styles.tbTitle}>Role</span>
+                    <Link to="/admin/employee/addRole">
+                        <Button variant="contained" startIcon={<AddIcon />} color="primary" >
+                            Add Role
+                        </Button>
+                    </Link>
+                    <TableContainer component={Paper} style={styles.table}>
+                        <Table >
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Description</TableCell>
+                                    <TableCell>Action</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {roles.map((role, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{role.name}</TableCell>
+                                        <TableCell>{role.description}</TableCell>
+                                        <TableCell>
+                                            <IconButton aria-label="edit" color="primary">
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" color="error">
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </TableCell>
                                     </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {roles.map((role, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{role.name}</TableCell>
-                                            <TableCell>{role.description}</TableCell>
-                                            <TableCell>
-                                                <IconButton aria-label="edit" color="primary">
-                                                    <EditIcon />
-                                                </IconButton>
-                                                <IconButton aria-label="delete" color="error">
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Container>
-                </Box>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Container>
             </Box>
+
             {/*  display list of employees  */}
-            <Box sx={{
-                display: 'flex',
-                '& .MuiTextField-root': { m: 1, width: '55ch' },
-            }}>
-                <Box
-                    component="form"
-                    sx={{
-                        backgroundColor: (theme) =>
-                            theme.palette.mode === 'light'
-                                ? theme.palette.grey[100]
-                                : theme.palette.grey[900],
-                        flexGrow: 1,
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                        <span style={styles.tbTitle}>Employee</span>
-                        <Link to="/admin/employee/addEmployee">
-                            <Button variant="contained" startIcon={<AddIcon />} color="primary" >
-                                Add Employee
-                            </Button>
-                        </Link>
-                        <TableContainer component={Paper} style={styles.table}>
-                            <Table >
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Name</TableCell>
-                                        <TableCell>Role</TableCell>
-                                        <TableCell>Password</TableCell>
-                                        <TableCell>Action</TableCell>
+            <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+            >
+                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                    <span style={styles.tbTitle}>Employee</span>
+                    <Link to="/admin/employee/addEmployee">
+                        <Button variant="contained" startIcon={<AddIcon />} color="primary" >
+                            Add Employee
+                        </Button>
+                    </Link>
+                    <TableContainer component={Paper} style={styles.table}>
+                        <Table >
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Role</TableCell>
+                                    <TableCell>Password</TableCell>
+                                    <TableCell>Action</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {employees.map((employees, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{employees.name}</TableCell>
+                                        <TableCell>{employees.role}</TableCell>
+                                        <TableCell>{employees.password}</TableCell>
+                                        <TableCell>
+                                            <IconButton aria-label="edit" color="primary">
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton aria-label="delete" color="error">
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </TableCell>
                                     </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {employees.map((employees, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>{employees.name}</TableCell>
-                                            <TableCell>{employees.role}</TableCell>
-                                            <TableCell>{employees.password}</TableCell>
-                                            <TableCell>
-                                                <IconButton aria-label="edit" color="primary">
-                                                    <EditIcon />
-                                                </IconButton>
-                                                <IconButton aria-label="delete" color="error">
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Container>
-                </Box>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Container>
             </Box>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }
 export default Employee;
