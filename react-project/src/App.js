@@ -15,6 +15,7 @@ import Layout from './admin/layout';
 import Login from './admin/pages/Login';
 import DashboardContent from './admin/pages/Home';
 import AdminOrdersHistory from './admin/pages/OrdersHistory';
+import RevenueHistory from './admin/pages/RevenueHistory';
 import StoreInfo from './admin/pages/StoreInfo';
 import Employee from './admin/pages/Employee';
 import AddEmployee from "./admin/components/addEmployee";
@@ -53,6 +54,7 @@ function App() {
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/home" element={<DashboardContent />} />
           <Route path='/admin/orderhistory' element={<AdminOrdersHistory />} />
+          <Route path='/admin/revenuehistory' element={<RevenueHistory />} />
           <Route path="/admin/store" element={<StoreInfo />} />
           <Route path="/admin/employee" element={<Employee />} />
           <Route path="/admin/employee/addRole" element={<AddRole />} />

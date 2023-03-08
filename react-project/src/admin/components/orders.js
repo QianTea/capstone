@@ -42,7 +42,9 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="/admin/orderhistory" onClick={''} sx={{ mt: 3 }}>
+      <Link color="primary" 
+      href="/admin/orderhistory" 
+      onClick={''} sx={{ mt: 3 }}>
         See more orders
       </Link>
     </React.Fragment>

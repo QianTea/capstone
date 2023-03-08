@@ -19,7 +19,9 @@ export default function Deposits() {
         on 15 Jan, 2023
       </Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="primary" 
+        href="/admin/revenuehistory" 
+        onClick={''}>
           View more balance
         </Link>
       </div>
