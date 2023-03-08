@@ -31,6 +31,8 @@ const styles = {
 };
 //data
 const tags = [
+    { name:'TakeOutMenu', description:'Menu for Take Out Order and Phone Order'},
+    { name:'Dine-In Menu', description:'Menu for Dine-In Order'},
     { name: 'Fish', description: 'Fish dishes' },
     { name: 'Sides', description: 'Side dishes' },
     { name: 'Beverage', description: 'Beverages' },
@@ -47,8 +49,8 @@ const Tags = () => {
         >
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 
-                <span style={styles.tbTitle}>Tag (Food Type)</span>
-                <Link to="/admin/menu/addFoodType">
+                <span style={styles.tbTitle}>Food Tag</span>
+                <Link to="/admin/menu/addFoodTag">
                     <Button variant="contained" startIcon={<AddIcon />} color="primary" >
                         Add Tag
                     </Button>

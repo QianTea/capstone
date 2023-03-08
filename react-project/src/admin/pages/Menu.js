@@ -31,7 +31,7 @@ const Products = () => {
                     autoComplete="off"
                 >
                     <Container maxWidth="lg" >
-                        <h1>Menu Management</h1>
+                        {/* <h1>Menu Management</h1>
                         <Grid container spacing={1}>
                             <Grid item xs={6} md={6} lg={6}>
                                 <Item>
@@ -51,7 +51,7 @@ const Products = () => {
                                     </Link>
                                 </Item>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                         <h1>Products Management</h1>
                         {/* Tag Management */}
                         <Tags />

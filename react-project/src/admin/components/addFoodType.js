@@ -10,7 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 
 
-const AddFoodType = () => {
+const AddFoodTag = () => {
 
     return (
         <Box
@@ -21,7 +21,7 @@ const AddFoodType = () => {
                 alignItems: 'center',
                 '& .MuiTextField-root': { m: 1, width: '40ch' },
             }}>
-            <h1>Add Food Type</h1>
+            <h1>Add Food Tag</h1>
             <Box component="form"
                 sx={{ mt: 2, mb: 3 }}
                 noValidate
@@ -30,7 +30,7 @@ const AddFoodType = () => {
                     <div>
                         name:
                         <TextField
-                            id="typeName"
+                            id="tyagName"
                             label="name"
                             variant="outlined"
                         />
@@ -39,7 +39,7 @@ const AddFoodType = () => {
                     <div>
                         description:
                         <TextField
-                            id="typeDescription"
+                            id="tagDescription"
                             label="description"
                             variant="outlined"
                         />
@@ -62,4 +62,4 @@ const AddFoodType = () => {
         </Box>
     )
 }
-export default AddFoodType;
+export default AddFoodTag;

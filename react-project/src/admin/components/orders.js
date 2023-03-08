@@ -8,12 +8,13 @@ import TableRow from '@mui/material/TableRow';
 import Title from './title';
 
 //data
-const firstFiveOrders = [
-  { time: '11:30 AM', orderType: 'Take Out', pmtType: 'cash', amount: '11.99', waiter: 'Ivy.L' },
-  { time: '12:15 PM', orderType: 'Dine In', pmtType: 'credit', amount: '23.45', waiter: 'Jack.M' },
-  { time: '1:00 PM', orderType: 'Take Out', pmtType: 'credit', amount: '8.75', waiter: 'Grace.K' },
-  { time: '2:30 PM', orderType: 'Dine In', pmtType: 'cash', amount: '45.67', waiter: 'Bob.T' },
+const ordersData = [
+  { time: '11:30 AM', orderType: 'Take Out', pmtType: 'cash', amount: '11.99', server: 'Ivy.L' },
+  { time: '12:15 PM', orderType: 'Dine In', pmtType: 'credit', amount: '23.45', server: 'Jack.M' },
+  { time: '1:00 PM', orderType: 'Take Out', pmtType: 'credit', amount: '8.75', server: 'Grace.K' },
+  { time: '2:30 PM', orderType: 'Dine In', pmtType: 'cash', amount: '45.67', server: 'Bob.T' },
 ];
+const firstFiveOrders = ordersData.slice(0, 5);
 
 export default function Orders() {
   return (
@@ -26,7 +27,7 @@ export default function Orders() {
             <TableCell align="center">Order Type</TableCell>
             <TableCell align="center">Payment Type</TableCell>
             <TableCell align="center">Sale Amount</TableCell>
-            <TableCell align="center">Waiter</TableCell>
+            <TableCell align="center">Server</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -36,12 +37,12 @@ export default function Orders() {
               <TableCell align="center">{o.orderType}</TableCell>
               <TableCell align="center">{o.pmtType}</TableCell>
               <TableCell align="center">{`$${o.amount}`}</TableCell>
-              <TableCell align="center">{o.waiter}</TableCell>
+              <TableCell align="center">{o.server}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={''} sx={{ mt: 3 }}>
+      <Link color="primary" href="/admin/orderhistory" onClick={''} sx={{ mt: 3 }}>
         See more orders
       </Link>
     </React.Fragment>

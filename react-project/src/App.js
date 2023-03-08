@@ -14,6 +14,7 @@ import Layout from './admin/layout';
 
 import Login from './admin/pages/Login';
 import DashboardContent from './admin/pages/Home';
+import AdminOrdersHistory from './admin/pages/OrdersHistory';
 import StoreInfo from './admin/pages/StoreInfo';
 import Employee from './admin/pages/Employee';
 import AddEmployee from "./admin/components/addEmployee";
@@ -22,7 +23,7 @@ import AddRole from "./admin/components/addRole";
 
 import Products from './admin/pages/Menu';
 import Detail from './admin/components/detail';
-import AddFoodType from './admin/components/addFoodType';
+import AddFoodTag from './admin/components/addFoodType';
 import AddCategory from './admin/components/addCategory';
 import AddProduct from './admin/components/addProduct';
 
@@ -51,6 +52,7 @@ function App() {
         <Route path="/admin" element={<Layout />}>
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/home" element={<DashboardContent />} />
+          <Route path='/admin/orderhistory' element={<AdminOrdersHistory />} />
           <Route path="/admin/store" element={<StoreInfo />} />
           <Route path="/admin/employee" element={<Employee />} />
           <Route path="/admin/employee/addRole" element={<AddRole />} />
@@ -58,7 +60,7 @@ function App() {
 
           <Route path='/admin/menu' element={<Products />} />
           <Route path="/admin/menu/:id" element={<Detail />} />
-          <Route path="/admin/menu/addFoodType" element={<AddFoodType />} />
+          <Route path="/admin/menu/addFoodTag" element={<AddFoodTag />} />
           <Route path="/admin/menu/addCategory" element={<AddCategory />} />
           <Route path="/admin/menu/addProduct" element={<AddProduct />} />
         </Route>
@@ -71,7 +73,7 @@ function App() {
           <Route path='/order/phone-order' element={<PhoneOrderPage />} />
           <Route path='/order/orders-history' element={<OrdersHistory />} />
           <Route path='/order/current-orders' element={<CurrentOrders />} />
-          
+
         </Route>
 
         <Route path="*" element={<NoPage />} />

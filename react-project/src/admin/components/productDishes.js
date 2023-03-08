@@ -139,7 +139,8 @@ const Dishes = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Name</TableCell>
-                                <TableCell>Price</TableCell>
+                                <TableCell>Dine-In Price</TableCell>
+                                <TableCell>Take Out Price</TableCell>
                                 <TableCell>Category</TableCell>
                                 <TableCell>Tags</TableCell>
                                 <TableCell>Action</TableCell>
@@ -149,6 +150,7 @@ const Dishes = () => {
                             {dishes.map((product, index) => (
                                 <TableRow key={index}>
                                     <TableCell>{product.name}</TableCell>
+                                    <TableCell>{product.dineInPrice}</TableCell>
                                     <TableCell>{product.takeoutPrice}</TableCell>
                                     <TableCell>
                                         {product.category.map((category, index) => (
