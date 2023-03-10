@@ -30,7 +30,7 @@ export default function Login() {
     axios({
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://localhost:5500/users/login',
+      url: 'http://localhost:5500/auth/login',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -38,10 +38,12 @@ export default function Login() {
     })
       .then(function (response) {
         let data = response.data;
-        if (data.code == 200) {
+        if (data.status == 200) {
           localStorage.setItem('token', data.result);
           localStorage.setItem('isLoggedIn', true);
           navigate('/admin');
+        } else {
+          alert(data.message);
         }
       })
       .catch(function (error) {

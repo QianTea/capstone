@@ -38,11 +38,11 @@ const roles = [
     { name: 'Cashier', description: 'The cashier, responsible for handling the restaurant\'s cash transactions.' }
 ];
 const employees = [
-    { name: 'Alice', role: 'Cashier', password: 'alice123' },
-    { name: 'Bob', role: 'Waiter', password: 'bob456' },
-    { name: 'Charlie', role: 'Waiter', password: 'charlie789' },
-    { name: 'David', role: 'Cashier', password: 'david012' },
-    { name: 'Emily', role: 'Waiter', password: 'emily345' }
+    { name: 'Ivy', email:'ivylin1949@gmail.com',role: 'Admin'},
+    { name: 'Bob',  email:'',role: 'Waiter'},
+    { name: 'Charlie', email:'', role: 'Waiter' },
+    { name: 'David', email:'', role: 'Cashier'},
+    { name: 'Emily',  email:'',role: 'Waiter'}
 ];
 
 const Employee = () => {
@@ -112,7 +112,6 @@ const Employee = () => {
                                 <TableRow>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Role</TableCell>
-                                    <TableCell>Password</TableCell>
                                     <TableCell>Action</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -121,7 +120,6 @@ const Employee = () => {
                                     <TableRow key={index}>
                                         <TableCell>{employees.name}</TableCell>
                                         <TableCell>{employees.role}</TableCell>
-                                        <TableCell>{employees.password}</TableCell>
                                         <TableCell>
                                             <IconButton aria-label="edit" color="primary">
                                                 <EditIcon />

@@ -38,6 +38,7 @@ import TakeOutOrderInterface from './orderSystem/pages/takeOutOrder';
 import OrdersHistory from './orderSystem/pages/pageOrderHistory';
 import CurrentOrders from './orderSystem/pages/pageCurrentOrder';
 import PhoneOrderPage from './orderSystem/pages/pagePhoneOrder';
+import Logout from './admin/components/logout';
 
 function App() {
   return (
@@ -59,7 +60,7 @@ function App() {
           <Route path="/admin/employee" element={<Employee />} />
           <Route path="/admin/employee/addRole" element={<AddRole />} />
           <Route path="/admin/employee/addEmployee" element={<AddEmployee />} />
-
+          <Route path='/admin/logout' element={<Logout />} />
           <Route path='/admin/menu' element={<Products />} />
           <Route path="/admin/menu/:id" element={<Detail />} />
           <Route path="/admin/menu/addFoodTag" element={<AddFoodTag />} />

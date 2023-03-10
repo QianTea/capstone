@@ -48,7 +48,14 @@ const AddEmployee = () => {
                             variant="outlined"
                         />
                     </div>
-
+                    <div>
+                        Email:
+                        <TextField
+                            id="empEmail"
+                            label="email"
+                            variant="outlined"
+                        />
+                    </div>
                     <div >
                         Role:
                         <TextField

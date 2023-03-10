@@ -42,7 +42,6 @@ const storeInfo = {
     name: 'Riverside Fish Hut',
     introduction: 'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
     phone: '(519) 653-0788',
-    email: 'riverside@gmail.com',
     onlineLink: 'https://riversidefishhutmenu.ca/',
     address: {
         Street: 'Unit-B 157 King Street West',
@@ -263,17 +262,6 @@ const StoreInfo = () => {
                                                     size="small"
 
                                                     defaultValue={storeInfo.phone}
-                                                />
-                                            </div>
-                                            {/* email address */}
-                                            <div>
-                                                <TextField
-                                                    id="email"
-                                                    label="email"
-                                                    variant="filled"
-                                                    size="small"
-
-                                                    defaultValue={storeInfo.email}
                                                 />
                                             </div>
                                             {/* link of online order */}
