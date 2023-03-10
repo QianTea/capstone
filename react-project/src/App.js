@@ -11,8 +11,9 @@ import WebContact from './website/pages/contactPage';
 
 // Admin Panel
 import Layout from './admin/layout';
-
 import Login from './admin/pages/Login';
+import Logout from './admin/components/logout';
+
 import DashboardContent from './admin/pages/Home';
 import AdminOrdersHistory from './admin/pages/OrdersHistory';
 import RevenueHistory from './admin/pages/RevenueHistory';
@@ -20,7 +21,6 @@ import StoreInfo from './admin/pages/StoreInfo';
 import Employee from './admin/pages/Employee';
 import AddEmployee from "./admin/components/addEmployee";
 import AddRole from "./admin/components/addRole";
-
 
 import Products from './admin/pages/Menu';
 import Detail from './admin/components/detail';
@@ -32,13 +32,16 @@ import AddProduct from './admin/components/addProduct';
 // Order System
 import OrderLayout from './orderSystem/components/layout';
 import StaffLogin from './orderSystem/pages/pageStaffLogin';
+import EmpLogout from './orderSystem/components/empLogout';
+
 import OrderHome from './orderSystem';
 import PageDineInOrder from './orderSystem/pages/pageDineInOrder';
 import TakeOutOrderInterface from './orderSystem/pages/takeOutOrder';
 import OrdersHistory from './orderSystem/pages/pageOrderHistory';
 import CurrentOrders from './orderSystem/pages/pageCurrentOrder';
 import PhoneOrderPage from './orderSystem/pages/pagePhoneOrder';
-import Logout from './admin/components/logout';
+
+
 
 function App() {
   return (
@@ -53,6 +56,8 @@ function App() {
         {/* Admin Panel */}
         <Route path="/admin" element={<Layout />}>
           <Route path="/admin/login" element={<Login />} />
+          <Route path='/admin/logout' element={<Logout />} />
+
           <Route path="/admin/home" element={<DashboardContent />} />
           <Route path='/admin/orderhistory' element={<AdminOrdersHistory />} />
           <Route path='/admin/revenuehistory' element={<RevenueHistory />} />
@@ -60,7 +65,7 @@ function App() {
           <Route path="/admin/employee" element={<Employee />} />
           <Route path="/admin/employee/addRole" element={<AddRole />} />
           <Route path="/admin/employee/addEmployee" element={<AddEmployee />} />
-          <Route path='/admin/logout' element={<Logout />} />
+          
           <Route path='/admin/menu' element={<Products />} />
           <Route path="/admin/menu/:id" element={<Detail />} />
           <Route path="/admin/menu/addFoodTag" element={<AddFoodTag />} />
@@ -70,6 +75,7 @@ function App() {
         {/*  Order System */}
         <Route path='/order' element={<OrderLayout />} >
           <Route path="/order/login" element={<StaffLogin />} />
+          <Route path='/order/logout' element={<EmpLogout />} />
           <Route path='/order/home' element={<OrderHome />} />
           <Route path='/order/dine-in-order' element={<PageDineInOrder />} />
           <Route path='/order/take-out-order' element={<TakeOutOrderInterface />} />
