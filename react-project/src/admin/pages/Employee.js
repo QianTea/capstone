@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Box from '@mui/material/Box';
 
@@ -31,22 +32,35 @@ const styles = {
 };
 //data
 const roles = [
-    { name: 'Admin', description: 'The system administrator, with the highest level of permissions.' },
-    { name: 'Manager', description: 'The restaurant manager, responsible for managing the daily operations of the restaurant.' },
-    { name: 'Chef', description: 'The chef, responsible for cooking in the restaurant.' },
-    { name: 'Waiter', description: 'The waiter, responsible for providing service and taking orders for customers.' },
-    { name: 'Cashier', description: 'The cashier, responsible for handling the restaurant\'s cash transactions.' }
-];
+    { id: 1, name: 'Admin', description: 'The system administrator, with the highest level of permissions.' },
+    { id: 2, name: 'Manager', description: 'The restaurant manager, responsible for managing the daily operations of the restaurant.' },
+    { id: 3, name: 'Chef', description: 'The chef, responsible for cooking in the restaurant.' },
+    { id: 4, name: 'Waiter', description: 'The waiter, responsible for providing service and taking orders for customers.' },
+    { id: 5, name: 'Cashier', description: 'The cashier, responsible for handling the restaurant\'s cash transactions.' }
+    ];
 const employees = [
-    { name: 'Ivy', email:'ivylin1949@gmail.com',role: 'Admin'},
-    { name: 'Bob',  email:'',role: 'Waiter'},
-    { name: 'Charlie', email:'', role: 'Waiter' },
-    { name: 'David', email:'', role: 'Cashier'},
-    { name: 'Emily',  email:'',role: 'Waiter'}
+    { name: 'Ivy', email: 'ivylin1949@gmail.com', role: 'Admin' },
+    { name: 'Bob', email: '', role: 'Waiter' },
+    { name: 'Charlie', email: '', role: 'Waiter' },
+    { name: 'David', email: '', role: 'Cashier' },
+    { name: 'Emily', email: '', role: 'Waiter' }
 ];
 
 const Employee = () => {
+    const [roleList, setRoleList] = useState(roles);
+    const [employeeList, setEmployeeList] = useState(employees);
 
+    // delete role function
+    const handleRoleDelete = (id) => {
+        const newList = roleList.filter((role) => role.id !== id);
+        setRoleList(newList);
+    };
+
+    // delete employee function
+    const handleEmployeeDelete = (id) => {
+        const newList = employeeList.filter((employee) => employee.id !== id);
+        setEmployeeList(newList);
+    };
     return (
         <ThemeProvider theme={mdTheme}>
             {/*  display list of roles  */}
@@ -78,10 +92,16 @@ const Employee = () => {
                                         <TableCell>{role.name}</TableCell>
                                         <TableCell>{role.description}</TableCell>
                                         <TableCell>
-                                            <IconButton aria-label="edit" color="primary">
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" color="error">
+                                            <Link to={`/admin/employee/editRole/${role.id}`}>
+                                                <IconButton aria-label="edit" color="primary">
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </Link>
+                                            <IconButton
+                                                aria-label="delete"
+                                                color="error"
+                                                onClick={() => handleRoleDelete(role.id)}
+                                            >
                                                 <DeleteIcon />
                                             </IconButton>
                                         </TableCell>
@@ -121,12 +141,19 @@ const Employee = () => {
                                         <TableCell>{employees.name}</TableCell>
                                         <TableCell>{employees.role}</TableCell>
                                         <TableCell>
-                                            <IconButton aria-label="edit" color="primary">
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" color="error">
+                                            <Link to={`/admin/employee/editEmployee/${employees.id}`}>
+                                                <IconButton aria-label="edit" color="primary">
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </Link>
+                                            <IconButton
+                                                aria-label="delete"
+                                                color="error"
+                                                onClick={() => handleEmployeeDelete(employees.id)}
+                                            >
                                                 <DeleteIcon />
                                             </IconButton>
+
                                         </TableCell>
                                     </TableRow>
                                 ))}

@@ -21,6 +21,7 @@ import StoreInfo from './admin/pages/StoreInfo';
 import Employee from './admin/pages/Employee';
 import AddEmployee from "./admin/components/addEmployee";
 import AddRole from "./admin/components/addRole";
+import EditRole from './admin/components/editRole';
 
 import Products from './admin/pages/Menu';
 import Detail from './admin/components/detail';
@@ -64,6 +65,7 @@ function App() {
           <Route path="/admin/store" element={<StoreInfo />} />
           <Route path="/admin/employee" element={<Employee />} />
           <Route path="/admin/employee/addRole" element={<AddRole />} />
+          <Route path="/admin/employee/editRole/:roleId" element={<EditRole />} />
           <Route path="/admin/employee/addEmployee" element={<AddEmployee />} />
           
           <Route path='/admin/menu' element={<Products />} />

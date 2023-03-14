@@ -7,16 +7,21 @@ import Title from './title';
 function preventDefault(event) {
   event.preventDefault();
 }
+// today's total revenue, should updated once a new order completed
+const todayRevenue = {
+  date: '2023-03-01',
+  total: 112.09,
+};
 
 export default function Deposits() {
   return (
     <React.Fragment>
       <Title>Today's Revenue</Title>
       <Typography component="p" variant="h4">
-        $3,024.00
+        ${todayRevenue.total}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on 15 Jan, 2023
+        on {todayRevenue.date}
       </Typography>
       <div>
         <Link color="primary" 

@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Title from './title';
 
 //data
+// today's orders, should updated once a new order completed, show last 5 today's orders only,
 const ordersData = [
   { time: '11:30 AM', orderType: 'Take Out', pmtType: 'cash', amount: '11.99', server: 'Ivy.L' },
   { time: '12:15 PM', orderType: 'Dine In', pmtType: 'credit', amount: '23.45', server: 'Jack.M' },
