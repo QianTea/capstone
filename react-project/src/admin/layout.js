@@ -22,10 +22,8 @@ const Layout = () => {
             { value: 'admin/store', label: 'StoreInfo' },
             { value: 'admin/menu', label: 'Menu' },
             { value: 'admin/employee', label: 'Employee' },
-            // { value: 'home', label: 'Web' },
-            // { value: '../order/home', label: 'Order' },
-            // { value: '*', label: '404' }, 
-            { 'label': 'logout', value: 'admin/logout' }]);
+
+            { value: 'admin/logout', label: 'logout', }]);
         }
         if (currentPath == '/admin') navigate('/admin/home');
     }, [navigate, location]);

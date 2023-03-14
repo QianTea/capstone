@@ -36,12 +36,11 @@ export default function StaffLogin() {
       "name": name,
       "password": password
     });
+
     axios({
       method: 'post',
       maxBodyLength: Infinity,
-      // url: 'http://localhost:5500/users/login',
-      url: 'http://192.168.3.156:5500/users/login',
-
+      url: 'http://localhost:5500/auth/login',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -49,10 +48,12 @@ export default function StaffLogin() {
     })
       .then(function (response) {
         let data = response.data;
-        if (data.code == 200) {
+        if (data.status == 200) {
           localStorage.setItem('token', data.result);
           localStorage.setItem('isLoggedIn', true);
           navigate('/order');
+        } else {
+          alert(data.message);
         }
       })
       .catch(function (error) {

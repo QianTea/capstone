@@ -30,7 +30,7 @@ import AddProduct from './admin/components/addProduct';
 
 
 // Order System
-import OrderLayout from './orderSystem/components/layout';
+import OrderLayout from './orderSystem/layout';
 import StaffLogin from './orderSystem/pages/pageStaffLogin';
 import EmpLogout from './orderSystem/components/empLogout';
 
@@ -76,6 +76,7 @@ function App() {
         <Route path='/order' element={<OrderLayout />} >
           <Route path="/order/login" element={<StaffLogin />} />
           <Route path='/order/logout' element={<EmpLogout />} />
+
           <Route path='/order/home' element={<OrderHome />} />
           <Route path='/order/dine-in-order' element={<PageDineInOrder />} />
           <Route path='/order/take-out-order' element={<TakeOutOrderInterface />} />

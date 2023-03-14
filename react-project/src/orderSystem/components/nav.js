@@ -20,14 +20,7 @@ const styles= {
 };
 //data
 const pages = [
-  { value: 'order/login', label: 'Login' },
-  { value: 'order/home', label: 'Home' },
-  { value: 'order/currentorder', label: 'Current ' },
-  { value: 'order/orderhistory', label: 'History' },
-  
-  { value: '', label: 'Web' },
-  { value: '../admin', label: 'Admin' },
-  { value: '*', label: '404' }
+
 ];
 
 function OrderNav(props) {
