@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
-
+import Link from '@mui/material/Link';
 import { Grid } from '@mui/material';
 import { Card, CardHeader, CardContent } from '@mui/material';
 
 // styles
 const styles = {
-    page:{
-        paddingLeft:'2%',
-        paddingRight:'2%',
+    page: {
+        paddingLeft: '2%',
+        paddingRight: '2%',
     },
     card: {
         marginBottom: '5px',
         boxShadow: '0px 3px 6px #666',
         maxWidth: '500px',
         backgroundColor: 'rgb(255,255,255,0.3)',
-        paddingRight:'2%',
-        paddingLeft:'2%',
-        margin:'0',
+        paddingRight: '2%',
+        paddingLeft: '2%',
+        margin: '0',
     },
     cardHeader: {
         color: '#fff',
-        padding:'1%',
+        padding: '1%',
     },
     cardContent: {
-        padding:'0',
-        margin:'0',
+        padding: '0',
+        margin: '0',
     },
     itemList: {
         marginTop: '1%',
@@ -174,17 +174,22 @@ const PhoneOrders = ({ orders }) => {
 const CurrentOrders = () => {
 
     return (
-        <Grid container spacing={2} style={styles.page}>
-            <Grid item xs={12} md={4} style={styles.dineInOrders}>
-                <DineInOrders orders={dineInOrders} />
+        <div>
+            <Grid container spacing={2} style={styles.page}>
+                <Grid item xs={12} md={4} style={styles.dineInOrders}>
+                    <DineInOrders orders={dineInOrders} />
+                </Grid>
+                <Grid item xs={12} md={4} style={styles.takeoutOrders}>
+                    <TakeoutOrders orders={takeoutOrders} />
+                </Grid>
+                <Grid item xs={12} md={4} style={styles.phoneOrders}>
+                    <PhoneOrders orders={phoneOrders} />
+                </Grid>
             </Grid>
-            <Grid item xs={12} md={4} style={styles.takeoutOrders}>
-                <TakeoutOrders orders={takeoutOrders} />
-            </Grid>
-            <Grid item xs={12} md={4} style={styles.phoneOrders}>
-                <PhoneOrders orders={phoneOrders} />
-            </Grid>
-        </Grid>
+            <Link color="primary" href="/order/home" onClick={''} sx={{ mt: 3 }}>
+                Back to home
+            </Link>
+        </div>
     );
 };
 

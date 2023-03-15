@@ -74,9 +74,15 @@ const Categories = () => {
                                     <TableCell>{v.name}</TableCell>
                                     <TableCell>{v.description}</TableCell>
                                     <TableCell>
-                                        <IconButton aria-label="edit" color="primary">
+                                        <IconButton
+                                            aria-label="edit"
+                                            color="primary"
+                                            component={Link}
+                                            to={`/admin/menu/editCategory/${v.id}`}
+                                        >
                                             <EditIcon />
                                         </IconButton>
+
                                         <IconButton aria-label="delete" color="error">
                                             <DeleteIcon />
                                         </IconButton>

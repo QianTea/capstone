@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Box from '@mui/material/Box';
 
 import Button from '@mui/material/Button';
@@ -31,15 +31,17 @@ const styles = {
 };
 //data
 const tags = [
-    { name:'TakeOutMenu', description:'Menu for Take Out Order and Phone Order'},
-    { name:'Dine-In Menu', description:'Menu for Dine-In Order'},
-    { name: 'Fish', description: 'Fish dishes' },
-    { name: 'Sides', description: 'Side dishes' },
-    { name: 'Beverage', description: 'Beverages' },
-    { name: 'Special', description: 'Specialty dishes' },
+    { id: 1, name:'TakeOutMenu', description:'Menu for Take Out Order and Phone Order'},
+    { id: 2, name:'Dine-In Menu', description:'Menu for Dine-In Order'},
+    { id: 3, name: 'Fish', description: 'Fish dishes' },
+    { id: 4, name: 'Sides', description: 'Side dishes' },
+    { id: 5, name: 'Beverage', description: 'Beverages' },
+    { id: 6, name: 'Special', description: 'Specialty dishes' },
 ];
 
 const Tags = () => {
+    const { tagId } = useParams();
+    const tag = tags.find((tag) => tag.id === parseInt(tagId));
 
     return (
         <Box
@@ -65,14 +67,16 @@ const Tags = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {tags.map((v, index) => (
+                            {tags.map((tag, index) => (
                                 <TableRow key={index}>
-                                    <TableCell>{v.name}</TableCell>
-                                    <TableCell>{v.description}</TableCell>
+                                    <TableCell>{tag.name}</TableCell>
+                                    <TableCell>{tag.description}</TableCell>
                                     <TableCell>
-                                        <IconButton aria-label="edit" color="primary">
-                                            <EditIcon />
-                                        </IconButton>
+                                        <Link to={`/admin/menu/editFoodTag/${tag.id}`}>
+                                            <IconButton aria-label="edit" color="primary">
+                                                <EditIcon />
+                                            </IconButton>
+                                        </Link>
                                         <IconButton aria-label="delete" color="error">
                                             <DeleteIcon />
                                         </IconButton>
@@ -86,4 +90,5 @@ const Tags = () => {
         </Box>
     );
 }
+
 export default Tags;

@@ -37,14 +37,15 @@ const roles = [
     { id: 3, name: 'Chef', description: 'The chef, responsible for cooking in the restaurant.' },
     { id: 4, name: 'Waiter', description: 'The waiter, responsible for providing service and taking orders for customers.' },
     { id: 5, name: 'Cashier', description: 'The cashier, responsible for handling the restaurant\'s cash transactions.' }
-    ];
-const employees = [
-    { name: 'Ivy', email: 'ivylin1949@gmail.com', role: 'Admin' },
-    { name: 'Bob', email: '', role: 'Waiter' },
-    { name: 'Charlie', email: '', role: 'Waiter' },
-    { name: 'David', email: '', role: 'Cashier' },
-    { name: 'Emily', email: '', role: 'Waiter' }
 ];
+const employees = [
+    { id: 1, name: 'Ivy', email: 'ivylin1949@gmail.com', role: 'Admin' },
+    { id: 2, name: 'Bob', email: '', role: 'Waiter' },
+    { id: 3, name: 'Charlie', email: '', role: 'Waiter' },
+    { id: 4, name: 'David', email: '', role: 'Cashier' },
+    { id: 5, name: 'Emily', email: '', role: 'Waiter' }
+];
+
 
 const Employee = () => {
     const [roleList, setRoleList] = useState(roles);
@@ -136,12 +137,12 @@ const Employee = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {employees.map((employees, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>{employees.name}</TableCell>
-                                        <TableCell>{employees.role}</TableCell>
+                                {employees.map((employee, id) => (
+                                    <TableRow key={id}>
+                                        <TableCell>{employee.name}</TableCell>
+                                        <TableCell>{employee.role}</TableCell>
                                         <TableCell>
-                                            <Link to={`/admin/employee/editEmployee/${employees.id}`}>
+                                            <Link to={`/admin/employee/editEmployee/${employee.id}`}>
                                                 <IconButton aria-label="edit" color="primary">
                                                     <EditIcon />
                                                 </IconButton>
@@ -149,15 +150,15 @@ const Employee = () => {
                                             <IconButton
                                                 aria-label="delete"
                                                 color="error"
-                                                onClick={() => handleEmployeeDelete(employees.id)}
+                                                onClick={() => handleEmployeeDelete(id)}
                                             >
                                                 <DeleteIcon />
                                             </IconButton>
-
                                         </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
+
                         </Table>
                     </TableContainer>
                 </Container>

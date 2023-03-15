@@ -1,6 +1,6 @@
 import React from 'react';
 // mui
-import {  createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,8 +10,12 @@ import Paper from '@mui/material/Paper';
 // components
 import Deposits from '../components/deposits';
 import Orders from '../components/orders';
+import AvailableTables from '../components/avaliableTables';
 
 const mdTheme = createTheme();
+
+const availableTables = 7;
+const orderedTables = 5;
 
 function DashboardContent() {
 
@@ -35,7 +39,23 @@ function DashboardContent() {
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
                             {/* Blank-Avaliable Tables*/}
-                            <Grid item xs={12} md={8} lg={9}>
+                            <Grid item xs={12} md={3} lg={3}>
+                                {/* <Paper
+                                    sx={{
+                                        p: 2,
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        height: 240,
+                                    }}
+                                > */}
+                                    {/* <Charts /> */}
+                                    <AvailableTables
+                                        availableTables={availableTables}
+                                        orderedTables={orderedTables}
+                                    />
+                                {/* </Paper> */}
+                            </Grid>
+                            <Grid item xs={12} md={3} lg={3}>
                                 <Paper
                                     sx={{
                                         p: 2,
@@ -44,7 +64,21 @@ function DashboardContent() {
                                         height: 240,
                                     }}
                                 >
-                                    {/* <Chart /> */}
+                                    {/* <Charts /> */}
+
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12} md={3} lg={3}>
+                                <Paper
+                                    sx={{
+                                        p: 2,
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        height: 240,
+                                    }}
+                                >
+                                    {/* <Charts /> */}
+
                                 </Paper>
                             </Grid>
                             {/* Today's Revenue */}
