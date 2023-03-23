@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // API
 import axios from 'axios';
 // mui
@@ -65,123 +65,183 @@ const storeInfo = {
 };
 
 const BusinessHour = () => {
-
+    // API - get store info
+    const [businessHour, setBusinessHour] = useState({
+        data: [
+            {
+                "dayOfWeek": 'Monday',
+                "businessTime": 'closed',
+            },
+            {
+                "dayOfWeek": 'Tuesday',
+                "businessTime": 'closed',
+            },
+            {
+                "dayOfWeek": 'Wednesday',
+                "businessTime": 'closed',
+            },
+            {
+                "dayOfWeek": 'Thursday',
+                "businessTime": 'closed',
+            },
+            {
+                "dayOfWeek": 'Friday',
+                "businessTime": 'closed',
+            },
+            {
+                "dayOfWeek": 'Saturday',
+                "businessTime": 'closed',
+            },
+            {
+                "dayOfWeek": 'Sunday',
+                "businessTime": 'closed',
+            }
+        ]
+    });
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios.get('http://localhost:5500/website/business-hours');
+            setBusinessHour(prevState => ({
+                ...prevState,
+                data: result.data.data.map((item) => ({
+                    dayOfWeek: item.dayOfWeek,
+                    businessTime: item.businessTime,
+                }))
+            }));
+        };
+        fetchData();
+    }, []);
 
     return (
         <div >
             <h3>Business Hours</h3>
-            {/* Monday */}
-            <TableRow  >
-                {/* <TableCell style={styles.TableCellLeft} component="th" scope="row" >
-                    Monday
-                </TableCell> */}
-                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-                    <TextField
-                        style={styles.TableCell}
-                        id="monTime"
-                        label="Monday Time"
-                        variant="filled"
-                        defaultValue={storeInfo.businessHour.monTime}
-                    />
-                </TableCell>
-            </TableRow>
-            {/* Tuesday */}
-            <TableRow  >
-                {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Tuesday
-                </TableCell> */}
-                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-                    <TextField
-                        style={styles.TableCell}
-                        id="tueTime"
-                        label="Tuesday Time"
-                        variant="filled"
-                        defaultValue={storeInfo.businessHour.tueTime}
-
-                    />
-                </TableCell>
-            </TableRow>
-            {/* Wednesday */}
-            <TableRow  >
-                {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Wednesday
-                </TableCell> */}
-                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-                    <TextField
-                        style={styles.TableCell}
-                        id="wedTime"
-                        label="Wednesday Time"
-                        variant="filled"
-                        defaultValue={storeInfo.businessHour.wedTime}
-
-                    />
-                </TableCell>
-            </TableRow>
-            {/* Thursday */}
-            <TableRow  >
-                {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Thursday
-                </TableCell> */}
-                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-                    <TextField
-                        style={styles.TableCell}
-                        id="thuTime"
-                        label="Thursday Time"
-                        variant="filled"
-                        defaultValue={storeInfo.businessHour.thuTime}
-
-                    />
-                </TableCell>
-            </TableRow>
-            {/* Friday */}
-            <TableRow  >
-                {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Friday
-                </TableCell> */}
-                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-                    <TextField
-                        style={styles.TableCell}
-                        id="friTime"
-                        label="Friday Time"
-                        variant="filled"
-                        defaultValue={storeInfo.businessHour.friTime}
-
-                    />
-                </TableCell>
-            </TableRow>
-            {/* Saturday */}
-            <TableRow  >
-                {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Saturday
-                </TableCell> */}
-                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-                    <TextField
-                        style={styles.TableCell}
-                        id="satTime"
-                        label="Saturday Time"
-                        variant="filled"
-                        defaultValue={storeInfo.businessHour.satTime}
-                    />
-                </TableCell>
-            </TableRow>
-            {/* Sunday */}
-            <TableRow  >
-                {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Sunday
-                </TableCell> */}
-                <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-                    <TextField
-                        style={styles.TableCell}
-                        id="sunTime"
-                        label="Sunday Time"
-                        variant="filled"
-                        defaultValue={storeInfo.businessHour.sunTime}
-                    />
-                </TableCell>
-            </TableRow>
+            <div>
+                {businessHour.data.map((item) => (
+                    <TableRow key={item.dayOfWeek}>
+                        <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+                            <TextField
+                                style={styles.TableCell}
+                                id={`${item.dayOfWeek}Time`}
+                                label={`${item.dayOfWeek} Time`}
+                                variant="filled"
+                                defaultValue={item.businessTime}
+                            />
+                        </TableCell>
+                    </TableRow>
+                ))}
+            </div>
         </div>
     );
 };
+{/* <div>
+                {/* Monday */}
+<TableRow  >
+    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row" >
+                    Monday
+                </TableCell> */}
+    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+        <TextField
+            style={styles.TableCell}
+            id="monTime"
+            label="Monday Time"
+            variant="filled"
+            defaultValue={storeInfo.businessHour.monTime}
+        />
+    </TableCell>
+</TableRow>
+{/* Tuesday */ }
+<TableRow  >
+    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Tuesday
+                </TableCell> */}
+    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+        <TextField
+            style={styles.TableCell}
+            id="tueTime"
+            label="Tuesday Time"
+            variant="filled"
+            defaultValue={storeInfo.businessHour.tueTime}
+
+        />
+    </TableCell>
+</TableRow>
+{/* Wednesday */ }
+<TableRow  >
+    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Wednesday
+                </TableCell> */}
+    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+        <TextField
+            style={styles.TableCell}
+            id="wedTime"
+            label="Wednesday Time"
+            variant="filled"
+            defaultValue={storeInfo.businessHour.wedTime}
+
+        />
+    </TableCell>
+</TableRow>
+{/* Thursday */ }
+<TableRow  >
+    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Thursday
+                </TableCell> */}
+    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+        <TextField
+            style={styles.TableCell}
+            id="thuTime"
+            label="Thursday Time"
+            variant="filled"
+            defaultValue={storeInfo.businessHour.thuTime}
+
+        />
+    </TableCell>
+</TableRow>
+{/* Friday */ }
+<TableRow  >
+    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Friday
+                </TableCell> */}
+    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+        <TextField
+            style={styles.TableCell}
+            id="friTime"
+            label="Friday Time"
+            variant="filled"
+            defaultValue={storeInfo.businessHour.friTime}
+
+        />
+    </TableCell>
+</TableRow>
+{/* Saturday */ }
+<TableRow  >
+    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
+                    Saturday
+                </TableCell> */}
+    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+        <TextField
+            style={styles.TableCell}
+            id="satTime"
+            label="Saturday Time"
+            variant="filled"
+            defaultValue={storeInfo.businessHour.satTime}
+        />
+    </TableCell>
+</TableRow>
+{/* Sunday */ }
+<TableRow  >
+    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
+        <TextField
+            style={styles.TableCell}
+            id="sunTime"
+            label="Sunday Time"
+            variant="filled"
+            defaultValue={storeInfo.businessHour.sunTime}
+        />
+    </TableCell>
+</TableRow>
+{/* </div>  */ }
+
 
 
 const StoreInfo = () => {
@@ -197,7 +257,7 @@ const StoreInfo = () => {
             setSelectedFile(base64data);
             console.log(base64data); // the Base64 string representation of the blob
         };
-        
+
     };
     // API - get store info
     const handleSubmit = (event) => {
@@ -209,6 +269,36 @@ const StoreInfo = () => {
             "address": document.querySelector('#street').value,
             "phoneNumber": document.querySelector('#phone').value,
             "onlineOrderLinks": [
+            ],
+            "businessHours": [
+                {
+                    "dayOfWeek": "Monday",
+                    "businessTime": document.querySelector('#MondayTime').value
+                },
+                {
+                    "dayOfWeek": "Tuesday",
+                    "businessTime": document.querySelector('#TuesdayTime').value
+                },
+                {
+                    "dayOfWeek": "Wednesday",
+                    "businessTime": document.querySelector('#WednesdayTime').value
+                },
+                {
+                    "dayOfWeek": "Thursday",
+                    "businessTime": document.querySelector('#ThursdayTime').value
+                },
+                {
+                    "dayOfWeek": "Friday",
+                    "businessTime": document.querySelector('#FridayTime').value
+                },
+                {
+                    "dayOfWeek": "Saturday",
+                    "businessTime": document.querySelector('#SaturdayTime').value
+                },
+                {
+                    "dayOfWeek": "Sunday",
+                    "businessTime": document.querySelector('#SundayTime').value
+                }
             ]
         });
         const token = localStorage.getItem('token');
@@ -232,7 +322,7 @@ const StoreInfo = () => {
                 } else if (result.status == 200 && result.data) {
                     alert(result.message);
                     setStoreInfo(response.data.data);
-                } 
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -248,15 +338,9 @@ const StoreInfo = () => {
         phoneNumber: '',
         onlineOrderLinks: []
     });
+
     useEffect(() => {
-        // axios.get('http://localhost:5500/website')
-        //   .then(response => {
-        //     setStoreInfo(response.data.data);
-        //     console.log(storeInfo);
-        //   })
-        //   .catch(error => {
-        //     console.log(error);
-        //   });
+
         const fetchData = async () => {
             const result = await axios.get('http://localhost:5500/website');
             setStoreInfo(result.data.data);
@@ -345,18 +429,6 @@ const StoreInfo = () => {
                                                     defaultValue={storeInfo.phoneNumber}
                                                 />
                                             </div>
-                                            {/* link of online order */}
-                                            {/* <div>
-                                                <TextField
-                                                    id="orderLink"
-                                                    label="Online Order Link"
-                                                    variant="filled"
-                                                    size="small"
-                                                    multiline
-                                                    fullWidth
-                                                    // defaultValue={storeInfo.onlineOrderLinks}
-                                                />
-                                            </div> */}
                                             {/* Address */}
                                             <div>
                                                 <h3>Address</h3>
