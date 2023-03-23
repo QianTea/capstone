@@ -16,9 +16,8 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 // business time
 import { Table, TableRow, TableCell } from '@mui/material';
 
-
-const mdTheme = createTheme();
 // styles
+const mdTheme = createTheme();
 const styles = {
     img: {
         // width: '100%',
@@ -52,15 +51,15 @@ const storeInfo = {
     //     City: 'Cambridge', Province: 'ON',
     //     PostalCode: 'N3H 1B5', Country: 'Canada',
     // },
-    businessHour: {
-        monTime: 'Closed',
-        tueTime: '11:30 - 19:00',
-        wedTime: '11:30 - 19:00',
-        thuTime: '11:30 - 19:00',
-        friTime: '11:30 - 19:00',
-        satTime: '11:30 - 19:30 (may change in holiday)',
-        sunTime: 'Closed',
-    },
+    // businessHour: {
+    //     monTime: 'Closed',
+    //     tueTime: '11:30 - 19:00',
+    //     wedTime: '11:30 - 19:00',
+    //     thuTime: '11:30 - 19:00',
+    //     friTime: '11:30 - 19:00',
+    //     satTime: '11:30 - 19:30 (may change in holiday)',
+    //     sunTime: 'Closed',
+    // },
 
 };
 
@@ -133,116 +132,6 @@ const BusinessHour = () => {
         </div>
     );
 };
-{/* <div>
-                {/* Monday */}
-<TableRow  >
-    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row" >
-                    Monday
-                </TableCell> */}
-    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-        <TextField
-            style={styles.TableCell}
-            id="monTime"
-            label="Monday Time"
-            variant="filled"
-            defaultValue={storeInfo.businessHour.monTime}
-        />
-    </TableCell>
-</TableRow>
-{/* Tuesday */ }
-<TableRow  >
-    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Tuesday
-                </TableCell> */}
-    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-        <TextField
-            style={styles.TableCell}
-            id="tueTime"
-            label="Tuesday Time"
-            variant="filled"
-            defaultValue={storeInfo.businessHour.tueTime}
-
-        />
-    </TableCell>
-</TableRow>
-{/* Wednesday */ }
-<TableRow  >
-    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Wednesday
-                </TableCell> */}
-    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-        <TextField
-            style={styles.TableCell}
-            id="wedTime"
-            label="Wednesday Time"
-            variant="filled"
-            defaultValue={storeInfo.businessHour.wedTime}
-
-        />
-    </TableCell>
-</TableRow>
-{/* Thursday */ }
-<TableRow  >
-    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Thursday
-                </TableCell> */}
-    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-        <TextField
-            style={styles.TableCell}
-            id="thuTime"
-            label="Thursday Time"
-            variant="filled"
-            defaultValue={storeInfo.businessHour.thuTime}
-
-        />
-    </TableCell>
-</TableRow>
-{/* Friday */ }
-<TableRow  >
-    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Friday
-                </TableCell> */}
-    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-        <TextField
-            style={styles.TableCell}
-            id="friTime"
-            label="Friday Time"
-            variant="filled"
-            defaultValue={storeInfo.businessHour.friTime}
-
-        />
-    </TableCell>
-</TableRow>
-{/* Saturday */ }
-<TableRow  >
-    {/* <TableCell style={styles.TableCellLeft} component="th" scope="row">
-                    Saturday
-                </TableCell> */}
-    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-        <TextField
-            style={styles.TableCell}
-            id="satTime"
-            label="Saturday Time"
-            variant="filled"
-            defaultValue={storeInfo.businessHour.satTime}
-        />
-    </TableCell>
-</TableRow>
-{/* Sunday */ }
-<TableRow  >
-    <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
-        <TextField
-            style={styles.TableCell}
-            id="sunTime"
-            label="Sunday Time"
-            variant="filled"
-            defaultValue={storeInfo.businessHour.sunTime}
-        />
-    </TableCell>
-</TableRow>
-{/* </div>  */ }
-
-
 
 const StoreInfo = () => {
     // upload log img
@@ -405,6 +294,7 @@ const StoreInfo = () => {
                                                     multiline
                                                     defaultValue={storeInfo.storeName}
                                                 />
+                    
                                             </div>
                                             {/* store  introduction */}
                                             <div>
