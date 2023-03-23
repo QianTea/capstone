@@ -21,6 +21,7 @@ const theme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
+ 
   const callLoginApi = (name, password) => {
     var data = JSON.stringify({
       "name": name,
@@ -39,7 +40,7 @@ export default function Login() {
       .then(function (response) {
         let data = response.data;
         if (data.status == 200) {
-          localStorage.setItem('token', data.result);
+          localStorage.setItem('token', data.data.token);
           localStorage.setItem('isLoggedIn', true);
           navigate('/admin');
         } else {

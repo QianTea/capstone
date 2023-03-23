@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import {useNavigate} from 'react-router-dom'
+// API
+import axios from 'axios';
+// mui
 import { Box } from "@mui/system";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -36,18 +39,19 @@ const styles = {
         width: '300px',
     },
 };
+
 //data
 const storeInfo = {
-    img: '../logo.png',
-    name: 'Riverside Fish Hut',
-    introduction: 'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
-    phone: '(519) 653-0788',
-    onlineLink: 'https://riversidefishhutmenu.ca/',
-    address: {
-        Street: 'Unit-B 157 King Street West',
-        City: 'Cambridge', Province: 'ON',
-        PostalCode: 'N3H 1B5', Country: 'Canada',
-    },
+    // img: '../logo.png',
+    // name: 'Riverside Fish Hut',
+    // introduction: 'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
+    // phone: '(519) 653-0788',
+    // onlineLink: 'https://riversidefishhutmenu.ca/',
+    // address: {
+    //     Street: 'Unit-B 157 King Street West',
+    //     City: 'Cambridge', Province: 'ON',
+    //     PostalCode: 'N3H 1B5', Country: 'Canada',
+    // },
     businessHour: {
         monTime: 'Closed',
         tueTime: '11:30 - 19:00',
@@ -61,6 +65,8 @@ const storeInfo = {
 };
 
 const BusinessHour = () => {
+
+
     return (
         <div >
             <h3>Business Hours</h3>
@@ -181,10 +187,82 @@ const BusinessHour = () => {
 const StoreInfo = () => {
     // upload log img
     const [selectedFile, setSelectedFile] = useState(null);
+    const navigate = useNavigate();
 
     const handleFileChange = (event) => {
-        setSelectedFile(URL.createObjectURL(event.target.files[0]));
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onloadend = () => {
+            const base64data = reader.result;
+            setSelectedFile(base64data);
+            console.log(base64data); // the Base64 string representation of the blob
+        };
+        
     };
+    // API - get store info
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        let data = JSON.stringify({
+            "storeName": document.querySelector('#storeName').value,
+            "logoImage": document.querySelector('#storeLogo').src,
+            "description": document.querySelector('#storeIntroduction').value,
+            "address": document.querySelector('#street').value,
+            "phoneNumber": document.querySelector('#phone').value,
+            "onlineOrderLinks": [
+            ]
+        });
+        const token = localStorage.getItem('token');
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:5500/website-update',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                let result = response.data;
+                if (result.status == 401) {
+                    alert('token error');
+                    navigate('/admin/login');
+                } else if (result.status == 200 && result.data) {
+                    alert(result.message);
+                    setStoreInfo(response.data.data);
+                } 
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const [storeInfo, setStoreInfo] = useState({
+        _id: '',
+        storeName: '',
+        logoImage: '',
+        description: '',
+        address: '',
+        phoneNumber: '',
+        onlineOrderLinks: []
+    });
+    useEffect(() => {
+        // axios.get('http://localhost:5500/website')
+        //   .then(response => {
+        //     setStoreInfo(response.data.data);
+        //     console.log(storeInfo);
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   });
+        const fetchData = async () => {
+            const result = await axios.get('http://localhost:5500/website');
+            setStoreInfo(result.data.data);
+        };
+        fetchData();
+    }, []);
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{
@@ -205,16 +283,18 @@ const StoreInfo = () => {
                 >
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                         <Grid >
-                            <form name="addItem" >
+                            <form name="addItem">
                                 <Grid container spacing={1}>
                                     {/* Left - logo & business hours*/}
                                     <Grid item xs={12} md={4} lg={4}>
                                         {/* upload logo img */}
                                         <Item >
                                             <img style={styles.img}
-                                                src={selectedFile || storeInfo.img}
+                                                id="storeLogo"
+                                                src={selectedFile || storeInfo.logoImage}
                                                 alt={storeInfo.name} />
-                                        </Item><Item >
+                                        </Item>
+                                        <Item >
                                             <Button variant="contained" component="label">
                                                 Upload Logo
                                                 <input hidden accept="image/*" multiple type="file" onChange={handleFileChange} />
@@ -227,7 +307,7 @@ const StoreInfo = () => {
                                         {/* Business Hours */}
                                         <Item><BusinessHour /></Item>
                                     </Grid>
-                                    
+
                                     {/* Right - input store info */}
                                     <Grid item xs={12} md={8} lg={8}>
                                         <h1>Store Info</h1>
@@ -238,7 +318,8 @@ const StoreInfo = () => {
                                                     id="storeName"
                                                     label="storeName"
                                                     variant="filled"
-                                                    defaultValue={storeInfo.name}
+                                                    multiline
+                                                    defaultValue={storeInfo.storeName}
                                                 />
                                             </div>
                                             {/* store  introduction */}
@@ -250,7 +331,7 @@ const StoreInfo = () => {
                                                     rows={5}
                                                     variant="filled"
                                                     fullWidth
-                                                    defaultValue={storeInfo.introduction}
+                                                    defaultValue={storeInfo.description}
                                                 />
                                             </div>
                                             {/* phone number */}
@@ -260,12 +341,12 @@ const StoreInfo = () => {
                                                     label="Phone"
                                                     variant="filled"
                                                     size="small"
-
-                                                    defaultValue={storeInfo.phone}
+                                                    multiline
+                                                    defaultValue={storeInfo.phoneNumber}
                                                 />
                                             </div>
                                             {/* link of online order */}
-                                            <div>
+                                            {/* <div>
                                                 <TextField
                                                     id="orderLink"
                                                     label="Online Order Link"
@@ -273,9 +354,9 @@ const StoreInfo = () => {
                                                     size="small"
                                                     multiline
                                                     fullWidth
-                                                    defaultValue={storeInfo.onlineLink}
+                                                    // defaultValue={storeInfo.onlineOrderLinks}
                                                 />
-                                            </div>
+                                            </div> */}
                                             {/* Address */}
                                             <div>
                                                 <h3>Address</h3>
@@ -284,11 +365,11 @@ const StoreInfo = () => {
                                                         variant="filled"
                                                         multiline
                                                         fullWidth
-                                                        defaultValue={storeInfo.address.Street}
+                                                        defaultValue={storeInfo.address}
                                                     />
                                                 </Grid>
 
-                                                <Grid container spacing={1}>
+                                                {/* <Grid container spacing={1}>
                                                     <Grid item xs={3} >
                                                         <TextField id="city" label="City"
                                                             variant="filled"
@@ -317,7 +398,7 @@ const StoreInfo = () => {
                                                 <TextField id="country" label="Country"
                                                     variant="filled"
                                                     defaultValue={storeInfo.address.Country}
-                                                />
+                                                /> */}
 
 
                                             </div>
@@ -325,7 +406,8 @@ const StoreInfo = () => {
                                             <Button
                                                 variant="contained"
                                                 startIcon={<SendIcon />}
-                                                color="success">
+                                                color="success"
+                                                onClick={handleSubmit}>
                                                 Submit
                                             </Button>
                                         </Item>
