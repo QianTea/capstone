@@ -34,8 +34,8 @@ const styles = {
 };
 //data
 const tags = [
-    { id: 1, name:'TakeOutMenu', description:'Menu for Take Out Order and Phone Order'},
-    { id: 2, name:'Dine-In Menu', description:'Menu for Dine-In Order'},
+    { id: 1, name: 'TakeOutMenu', description: 'Menu for Take Out Order and Phone Order' },
+    { id: 2, name: 'Dine-In Menu', description: 'Menu for Dine-In Order' },
     { id: 3, name: 'Fish', description: 'Fish dishes' },
     { id: 4, name: 'Sides', description: 'Side dishes' },
     { id: 5, name: 'Beverage', description: 'Beverages' },
@@ -44,8 +44,57 @@ const tags = [
 
 const Tags = () => {
     const { tagId } = useParams();
-    const tag = tags.find((tag) => tag.id === parseInt(tagId));
+    // const tag = tags.find((tag) => tag.id === parseInt(tagId));
+    // API - get tag 
+    const [tags, setTags] = useState([
+        {
+            _id: "64123da34b850b3e5391a0e8",
+            name: "fish type 2",
+            description: "",
+        },
+        {
+            _id: "64123da34b850b3e5391a0e1",
+            name: "TakeOutMenu",
+            description: "Menu for Take Out Order and Phone Order",
+        },
+        {
+            _id: "64123da34b850b3e5391a0e2",
+            name: "Dine-In Menu",
+            description: "Menu for Dine-In Order",
+        },
+        {
+            _id: "64123da34b850b3e5391a0e3",
+            name: "Fish",
+            description: "Fish dishes",
+        },
+        {
+            _id: "64123da34b850b3e5391a0e4",
+            name: "Sides",
+            description: "Side dishes",
+        },
+        {
+            _id: "64123da34b850b3e5391a0e5",
+            name: "Beverage",
+            description: "Beverages",
+        },
+        {
+            _id: "64123da34b850b3e5391a0e6",
+            name: "Special",
+            description: "Specialty dishes",
+        },
+    ]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios.get('http://localhost:5500/staff-roles');
+            setTags(result.data.map((item) => ({
+                _id: item._id,
+                name: item.name,
+                description: item.description,
+            })));
+        };
+        fetchData();
+    }, []);
     return (
         <Box
             component="form"
@@ -53,7 +102,7 @@ const Tags = () => {
             autoComplete="off"
         >
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                
+
                 <span style={styles.tbTitle}>Food Tag</span>
                 <Link to="/admin/menu/addFoodTag">
                     <Button variant="contained" startIcon={<AddIcon />} color="primary" >
@@ -70,12 +119,12 @@ const Tags = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {tags.map((tag, index) => (
-                                <TableRow key={index}>
+                            {tags.map((tag) => (
+                                <TableRow key={tag._id}>
                                     <TableCell>{tag.name}</TableCell>
                                     <TableCell>{tag.description}</TableCell>
                                     <TableCell>
-                                        <Link to={`/admin/menu/editFoodTag/${tag.id}`}>
+                                        <Link to={`/admin/menu/editFoodTag/${tag._id}`}>
                                             <IconButton aria-label="edit" color="primary">
                                                 <EditIcon />
                                             </IconButton>
@@ -86,6 +135,7 @@ const Tags = () => {
                                     </TableCell>
                                 </TableRow>
                             ))}
+
                         </TableBody>
                     </Table>
                 </TableContainer>

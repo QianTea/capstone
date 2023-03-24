@@ -63,50 +63,31 @@ const storeInfo = {
 
 };
 
-const BusinessHour = () => {
+const BusinessHour = (props) => {
     // API - get store info
-    const [businessHour, setBusinessHour] = useState({
-        data: [
-            {
-                "dayOfWeek": 'Monday',
-                "businessTime": 'closed',
-            },
-            {
-                "dayOfWeek": 'Tuesday',
-                "businessTime": 'closed',
-            },
-            {
-                "dayOfWeek": 'Wednesday',
-                "businessTime": 'closed',
-            },
-            {
-                "dayOfWeek": 'Thursday',
-                "businessTime": 'closed',
-            },
-            {
-                "dayOfWeek": 'Friday',
-                "businessTime": 'closed',
-            },
-            {
-                "dayOfWeek": 'Saturday',
-                "businessTime": 'closed',
-            },
-            {
-                "dayOfWeek": 'Sunday',
-                "businessTime": 'closed',
-            }
-        ]
-    });
+    const [businessHour, setBusinessHour] = useState(null
+    );
+
+    const handleChange = (event, index) => {
+        const newValue = event.target.value;
+        const newTime = [...businessHour];
+        newTime[index].businessTime = event.target.value;
+        newTime[index].isChange = true;
+        setBusinessHour(newTime);
+        props.getTime(businessHour);
+
+    }
+
+
     useEffect(() => {
+
+
         const fetchData = async () => {
             const result = await axios.get('http://localhost:5500/website/business-hours');
-            setBusinessHour(prevState => ({
-                ...prevState,
-                data: result.data.data.map((item) => ({
-                    dayOfWeek: item.dayOfWeek,
-                    businessTime: item.businessTime,
-                }))
-            }));
+            console.log(result.data.data);
+            setBusinessHour(result.data.data);
+            console.log(businessHour);
+            props.getTime(result.data.data);
         };
         fetchData();
     }, []);
@@ -115,7 +96,7 @@ const BusinessHour = () => {
         <div >
             <h3>Business Hours</h3>
             <div>
-                {businessHour.data.map((item) => (
+                {businessHour && businessHour.map((item, index) => (
                     <TableRow key={item.dayOfWeek}>
                         <TableCell style={styles.TableCellRight} align="left" size="small" padding="none">
                             <TextField
@@ -124,6 +105,7 @@ const BusinessHour = () => {
                                 label={`${item.dayOfWeek} Time`}
                                 variant="filled"
                                 defaultValue={item.businessTime}
+                                onChange={event => handleChange(event, index)}
                             />
                         </TableCell>
                     </TableRow>
@@ -136,7 +118,11 @@ const BusinessHour = () => {
 const StoreInfo = () => {
     // upload log img
     const [selectedFile, setSelectedFile] = useState(null);
+    let businessTime;
     const navigate = useNavigate();
+    const getBusinessTime = (data) => {
+        businessTime = data;
+    }
 
     const handleFileChange = (event) => {
         const reader = new FileReader();
@@ -151,6 +137,35 @@ const StoreInfo = () => {
     // API - get store info
     const handleSubmit = (event) => {
         event.preventDefault();
+        const token = localStorage.getItem('token');
+        //update for business hour
+        if (businessTime && businessTime.length > 0) {
+            businessTime.map(v => {
+                if (v.isChange) {
+                    axios.request({
+                        method: 'put',
+                        maxBodyLength: Infinity,
+                        url: 'http://localhost:5500/website-update/business-hours/'+v._id,
+                        headers: {
+                            'Authorization': 'Bearer ' + token,
+                            'Content-Type': 'application/json'
+                        },
+                        data: JSON.stringify({businessTime: v.businessTime})
+                        })
+                        .then((response) => {
+                            console.log(JSON.stringify(response.data));
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
+            })
+        }
+
+
+
+
+
         let data = JSON.stringify({
             "storeName": document.querySelector('#storeName').value,
             "logoImage": document.querySelector('#storeLogo').src,
@@ -158,39 +173,12 @@ const StoreInfo = () => {
             "address": document.querySelector('#street').value,
             "phoneNumber": document.querySelector('#phone').value,
             "onlineOrderLinks": [
-            ],
-            "businessHours": [
-                {
-                    "dayOfWeek": "Monday",
-                    "businessTime": document.querySelector('#MondayTime').value
-                },
-                {
-                    "dayOfWeek": "Tuesday",
-                    "businessTime": document.querySelector('#TuesdayTime').value
-                },
-                {
-                    "dayOfWeek": "Wednesday",
-                    "businessTime": document.querySelector('#WednesdayTime').value
-                },
-                {
-                    "dayOfWeek": "Thursday",
-                    "businessTime": document.querySelector('#ThursdayTime').value
-                },
-                {
-                    "dayOfWeek": "Friday",
-                    "businessTime": document.querySelector('#FridayTime').value
-                },
-                {
-                    "dayOfWeek": "Saturday",
-                    "businessTime": document.querySelector('#SaturdayTime').value
-                },
-                {
-                    "dayOfWeek": "Sunday",
-                    "businessTime": document.querySelector('#SundayTime').value
-                }
             ]
+
         });
-        const token = localStorage.getItem('token');
+
+
+        
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -201,6 +189,8 @@ const StoreInfo = () => {
             },
             data: data
         };
+
+
 
         axios.request(config)
             .then((response) => {
@@ -278,7 +268,7 @@ const StoreInfo = () => {
                                             </IconButton>
                                         </Item>
                                         {/* Business Hours */}
-                                        <Item><BusinessHour /></Item>
+                                        <Item><BusinessHour getTime={getBusinessTime} /></Item>
                                     </Grid>
 
                                     {/* Right - input store info */}
@@ -294,7 +284,7 @@ const StoreInfo = () => {
                                                     multiline
                                                     defaultValue={storeInfo.storeName}
                                                 />
-                    
+
                                             </div>
                                             {/* store  introduction */}
                                             <div>
