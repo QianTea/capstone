@@ -35,7 +35,7 @@ const styles = {
 
 const Tags = () => {
 
-    // API - get tag 
+    // API - get tags 
     const [tags, setTags] = useState([
         {
             _id: "64123da34b850b3e5391a0e8",

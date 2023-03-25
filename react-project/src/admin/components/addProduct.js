@@ -88,7 +88,7 @@ const AddProduct = () => {
                             select
                             label="Select"
                             defaultValue="uncategorized"
-                            helperText="Please select your category"
+                            helperText="Please select category"
                         >
                             {categories.map((option) => (
                                 <MenuItem key={option.value} value={option.value}>
@@ -96,7 +96,22 @@ const AddProduct = () => {
                                 </MenuItem>
                             ))}
                         </TextField>
-
+                    </div>
+                    <div>
+                        food tags:
+                        <TextField
+                            id="outlined-select-category"
+                            select
+                            label="Select"
+                            defaultValue="uncategorized"
+                            helperText="Please select tag of food"
+                        >
+                            {categories.map((option) => (
+                                <MenuItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     </div>
                     {/* <button type="submit">submit</button> */}
                     <Button fullWidth
