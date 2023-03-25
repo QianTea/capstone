@@ -21,7 +21,7 @@ const styles = {
 };
 
 
-// Define the table data
+// Define the revenue data
 const revenueHistory = [
     { date: '2023-03-01', dineIn: 58.75, takeOut: 43.34, phone: 10.0, total: 112.09 },
     { date: '2023-03-02', dineIn: 74.23, takeOut: 22.56, phone: 18.0, total: 114.79 },

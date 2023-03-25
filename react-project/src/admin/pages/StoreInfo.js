@@ -170,7 +170,7 @@ const StoreInfo = () => {
             "storeName": document.querySelector('#storeName').value,
             "logoImage": document.querySelector('#storeLogo').src,
             "description": document.querySelector('#storeIntroduction').value,
-            "address": document.querySelector('#street').value,
+            "address": document.querySelector('#address').value,
             "phoneNumber": document.querySelector('#phone').value,
             "onlineOrderLinks": [
             ]
@@ -313,7 +313,7 @@ const StoreInfo = () => {
                                             <div>
                                                 <h3>Address</h3>
                                                 <Grid item xs={12} >
-                                                    <TextField id="street" label="Street"
+                                                    <TextField id="address" label="Address"
                                                         variant="filled"
                                                         multiline
                                                         fullWidth

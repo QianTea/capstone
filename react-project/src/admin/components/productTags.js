@@ -33,23 +33,14 @@ const styles = {
     },
 };
 //data
-const tags = [
-    { id: 1, name: 'TakeOutMenu', description: 'Menu for Take Out Order and Phone Order' },
-    { id: 2, name: 'Dine-In Menu', description: 'Menu for Dine-In Order' },
-    { id: 3, name: 'Fish', description: 'Fish dishes' },
-    { id: 4, name: 'Sides', description: 'Side dishes' },
-    { id: 5, name: 'Beverage', description: 'Beverages' },
-    { id: 6, name: 'Special', description: 'Specialty dishes' },
-];
 
 const Tags = () => {
-    const { tagId } = useParams();
-    // const tag = tags.find((tag) => tag.id === parseInt(tagId));
+
     // API - get tag 
     const [tags, setTags] = useState([
         {
             _id: "64123da34b850b3e5391a0e8",
-            name: "fish type 2",
+            name: "fish type 3",
             description: "",
         },
         {
@@ -85,16 +76,30 @@ const Tags = () => {
     ]);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+    
         const fetchData = async () => {
-            const result = await axios.get('http://localhost:5500/staff-roles');
-            setTags(result.data.map((item) => ({
-                _id: item._id,
-                name: item.name,
-                description: item.description,
-            })));
+            try {
+                const result = await axios.get('http://localhost:5500/product-foodtype', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                });
+                console.log(result.data);
+                setTags(result.data.data.map((item) => ({
+                    _id: item._id,
+                    name: item.name,
+                    description: item.description,
+                })));
+                console.log(result.data.data);
+            } catch (error) {
+                console.error(error);
+            }
         };
         fetchData();
     }, []);
+    
     return (
         <Box
             component="form"
@@ -102,13 +107,13 @@ const Tags = () => {
             autoComplete="off"
         >
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-
                 <span style={styles.tbTitle}>Food Tag</span>
                 <Link to="/admin/menu/addFoodTag">
                     <Button variant="contained" startIcon={<AddIcon />} color="primary" >
                         Add Tag
                     </Button>
                 </Link>
+
                 <TableContainer component={Paper} style={styles.table}>
                     <Table >
                         <TableHead>
