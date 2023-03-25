@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+// API
+import axios from 'axios';
+// mui
 import Box from '@mui/material/Box';
-
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
@@ -30,22 +32,75 @@ const styles = {
     },
 };
 //data
-const categories = [
-    { name: 'Uncategorized', description: 'Uncategorized', },
-    { name: '2pcDinner', description: '2pc Fish and Chip Dinners', },
-    { name: '2pcOnly', description: '2pc Fish Only', },
-    { name: 'family', description: 'Family Packs', },
-    { name: 'sfp', description: 'Sea Food Platter', },
-    { name: 'fries', description: 'Homemade Fries', },
-    { name: 'lunch', description: 'Homemade Fries', },
-    { name: 'shrimpSpecial', description: 'Shrimp Special', },
-    { name: 'kid', description: 'Kid\'s Combo', },
-    { name: 'side', description: 'Side Orders', },
-    { name: 'beverage', description: 'Beverages', }
-];
 
 const Categories = () => {
+    // API - get categories 
+    const [categories, setCategories] = useState([
+        {
+            _id: "64123da34b850b3e5391a0e8",
+            name: 'Uncategorized', description: 'Uncategorized',
+        },
+        {
+            _id: "64123da34b850b3e5391a0e1",
+            name: '2pcDinner', description: '2pc Fish and Chip Dinners',
+        },
+        {
+            _id: "64123da34b850b3e5391a0e2",
+            name: 'family', description: 'Family Packs',
+        },
+        {
+            _id: "64123da34b850b3e5391a0e3",
+            name: '2pcOnly', description: '2pc Fish Only',
+        },
+        {
+            _id: "64123da34b850b3e5391a0e4",
+            name: 'sfp', description: 'Sea Food Platter',
+        },
+        {
+            _id: "64123da34b850b3e5391a0e5",
+            name: 'fries', description: 'Homemade Fries',
+        },
+        {
+            _id: "64123da34b850b3e5391a0e6",
+            name: 'shrimpSpecial', description: 'Shrimp Special',
+        },
+        {
+            _id: "64123da34b850b3e5391a0e7",
+            name: 'kid', description: 'Kid\'s Combo',
+        },
+        {
+            _id: "64123da34b850b3e5391a0e8",
+            name: 'side', description: 'Side Orders',
+        },
+        {
+            _id: "64123da34b850b3e5391a0e9",
+            name: 'beverage', description: 'Beverages',
+        },
+    ]);
+    useEffect(() => {
+        const token = localStorage.getItem('token');
 
+        const fetchData = async () => {
+            try {
+                const result = await axios.get('http://localhost:5500/products-categories', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                });
+                console.log(result.data);
+                setCategories(result.data.data.map((item) => ({
+                    _id: item._id,
+                    name: item.name,
+                    description: item.description,
+                })));
+                console.log(result.data.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    },[]);
     return (
         <Box
             component="form"
@@ -69,8 +124,8 @@ const Categories = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {categories.map((v, index) => (
-                                <TableRow key={index}>
+                            {categories.map((v, _id) => (
+                                <TableRow key={_id}>
                                     <TableCell>{v.name}</TableCell>
                                     <TableCell>{v.description}</TableCell>
                                     <TableCell>
@@ -78,7 +133,7 @@ const Categories = () => {
                                             aria-label="edit"
                                             color="primary"
                                             component={Link}
-                                            to={`/admin/menu/editCategory/${v.id}`}
+                                            to={`/admin/menu/editCategory/${v._id}`}
                                         >
                                             <EditIcon />
                                         </IconButton>
