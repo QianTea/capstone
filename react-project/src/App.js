@@ -57,6 +57,7 @@ function App() {
           <Route path="/menu" element={<WebMenu />} />
           <Route path="/contact" element={<WebContact />} />
         </Route>
+
         {/* Admin Panel */}
         <Route path="/admin" element={<Layout />}>
           <Route path="/admin/login" element={<Login />} />
@@ -83,6 +84,7 @@ function App() {
           <Route path="/admin/menu/addProduct" element={<AddProduct />} />
           <Route path="/admin/menu/editProduct/:id" element={<EditDish />} />
         </Route>
+        
         {/*  Order System */}
         <Route path='/order' element={<OrderLayout />} >
           <Route path="/order/login" element={<StaffLogin />} />

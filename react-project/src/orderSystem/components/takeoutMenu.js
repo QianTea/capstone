@@ -1,5 +1,8 @@
-import * as React from 'react';
-
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// API
+import axios from 'axios';
+//mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 
@@ -104,7 +107,58 @@ const products = [
 ];
 
 const TakeOutMenu = () => {
-
+    const [dishes, setDishes] = useState([
+        {
+          "_id": "64123d0d4b850b3e5391a0e4",
+          "name": "2pc Wihtefish & chips",
+          // "altName": "2pc W/C",
+          "description": "This is a new product",
+          "dineInPrice": 10.99,
+          "takeOutPrice": 9.99,
+          // "quality": 23,
+          // "image": "https://example.com/new-product.png",
+          "category": {
+            "_id": "64123f4010002a94245bddd6",
+            "name": "fish test3",
+            "description": "",
+          },
+          "foodType": [
+            {
+              "_id": "64123da34b850b3e5391a0e8",
+              "name": "fish type 2",
+              "description": "",
+            },
+          ]
+        },
+      ]);
+      useEffect(() => {
+        const token = localStorage.getItem('token');
+    
+        const fetchData = async () => {
+          try {
+            const result = await axios.get('http://localhost:5500/products', {
+              headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+              },
+            });
+            console.log(result.data);
+            setDishes(result.data.data.map((item) => ({
+              _id: item._id,
+              name: item.name,
+              description: item.description,
+              dineInPrice: item.dineInPrice,
+              takeOutPrice: item.takeOutPrice,
+              category: item.category.name,
+              foodType: item.foodType,
+            })));
+            console.log(result.data.data);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+        fetchData();
+      }, []);
     return (
         <>
             <ThemeProvider theme={mdTheme}>
@@ -113,11 +167,11 @@ const TakeOutMenu = () => {
                         <Grid item xs={12}>
                             <p style={styles.categoryH}>Take Out Menu</p>
                             <div style={styles.menu}>
-                                {products.map((v) => (
+                            {dishes.map((product) => (
                                     <div style={styles.item}>
                                         <div style={styles.details}>
                                             <p style={styles.title}>
-                                                {v.name}
+                                            {product.name}
                                             </p>
                                         </div>
                                     </div>

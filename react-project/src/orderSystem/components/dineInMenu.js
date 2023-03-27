@@ -1,5 +1,7 @@
-import * as React from 'react';
-
+import React, { useState, useEffect } from "react";
+// API
+import axios from 'axios';
+//mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 
@@ -42,7 +44,7 @@ const styles = {
         fontSize: '1.3rem',
         position: 'relative',
     },
-    bottom:{
+    bottom: {
         paddingTop: '1%',
         paddingBottom: '1%',
     },
@@ -65,45 +67,66 @@ const styles = {
     },
 };
 //data
-const products = [
-    { name: 'W/C', price: '10.19', category: '2pc Fish and Chip Dinners' },
-    { name: 'Cod/C', price: '11.99', category: '2pc Fish and Chip Dinners' },
-    { name: 'HD/C', price: '11.99', category: '2pc Fish and Chip Dinners' },
-    { name: 'HB/C', price: '11.99', category: '2pc Fish and Chip Dinners' },
-    { name: '1pc W/C', price: '10.19', category: '1pc  Fish and Chip Dinners' },
-    { name: '1pc Cod/C', price: '11.99', category: '1pc  Fish and Chip Dinners' },
-    { name: '1pc HD/C', price: '11.99', category: '1pc  Fish and Chip Dinners' },
-    { name: '1pc HB/C', price: '11.99', category: '1pc  Fish and Chip Dinners' },
-    { name: '2pc W', price: '10.19', category: '2pc Fish Only' },
-    { name: '2pc Cod', price: '11.99', category: '2pc Fish Only' },
-    { name: '2pc HD', price: '11.99', category: '2pc Fish Only' },
-    { name: '2pc HB', price: '11.99', category: '2pc Fish Only' },
-    { name: '1pc W', price: '10.19', category: '1pc Fish Only' },
-    { name: '1pc Cod', price: '11.99', category: '1pc Fish Only' },
-    { name: '1pc HD', price: '11.99', category: '1pc Fish Only' },
-    { name: '1pc HB', price: '11.99', category: '1pc Fish Only' },
-    { name: 'Lunch Special', price: '10.19', category: 'Lunch Special' },
-    { name: '11.49', price: '11.49', category: 'Shrimp Special' },
-    { name: 'SFP', price: '11.49', category: 'Sea Food Platter' },
-    { name: 'Fries', price: '11.49', category: 'Homemade Fries' },
-    { name: 'Kid A (w)', price: '11.49', category: 'Kid\'s Combo' },
-    { name: 'Kid B (cf)', price: '11.49', category: 'Kid\'s Combo' },
-    { name: '5pc Shrimp', price: '11.49', category: 'Side Orders' },
-    { name: '5pc Scallops', price: '11.49', category: 'Side Orders' },
-    { name: '4pc CKF', price: '11.49', category: 'Side Orders' },
-    { name: '1/4lb CK Chips', price: '11.49', category: 'Side Orders' },
-    { name: 'Munchers', price: '11.49', category: 'Side Orders' },
-    { name: 'Cheese Sticks', price: '11.49', category: 'Side Orders' },
-    { name: 'O-R', price: '11.49', category: 'Side Orders' },
-    { name: 'M-P', price: '11.49', category: 'Side Orders' },
-    { name: 'Gravy', price: '11.49', category: 'Side Orders' },
-    { name: 'Cole Slaw', price: '11.49', category: 'Side Orders' },
-    { name: 'Coffee', price: '11.49', category: 'Beverages' },
-    { name: 'Tea', price: '11.49', category: 'Beverages' },
-    { name: 'POP', price: '11.49', category: 'Beverages' },
-];
 
-const DineInMenu = () => {
+const DineInMenu = (props) => {
+    const [dishes, setDishes] = useState([
+        // {
+        //   "_id": "64123d0d4b850b3e5391a0e4",
+        //   "name": "2pc Wihtefish & chips",
+        //   // "altName": "2pc W/C",
+        //   "description": "This is a new product",
+        //   "dineInPrice": 10.99,
+        //   "takeOutPrice": 9.99,
+        //   // "quality": 23,
+        //   // "image": "https://example.com/new-product.png",
+        //   "category": {
+        //     "_id": "64123f4010002a94245bddd6",
+        //     "name": "fish test3",
+        //     "description": "",
+        //   },
+        //   "foodType": [
+        //     {
+        //       "_id": "64123da34b850b3e5391a0e8",
+        //       "name": "fish type 2",
+        //       "description": "",
+        //     },
+        //   ]
+        // },
+    ]);
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchData = async () => {
+            try {
+                const result = await axios.get('http://localhost:5500/products', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                });
+                setDishes(result.data.data);
+                // console.log(result.data.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, []);
+    // add item to order
+    const [orderDishes, setOrderDishes] = useState([]);
+
+    const handleDineInOrderClick = (dish) => {
+        const { altName, dineInPrice } = dish;
+        const existingDish = orderDishes.find((d) => d.item === altName);
+        if (existingDish) {
+          existingDish.quatity += 1;
+          existingDish.total = existingDish.quatity * existingDish.single;
+          setOrderDishes([...orderDishes]);
+        } else {
+            setOrderDishes([...orderDishes, { item: altName, quatity: 1, single: dineInPrice}]);
+        }
+        props.onDataChange(dish);
+      };
 
     return (
         <>
@@ -112,20 +135,22 @@ const DineInMenu = () => {
                     <Grid container >
                         <Grid item xs={12}>
                             <div style={styles.menu}>
-                                {products.map((v) => (
-                                    <div onClick={(e) => {alert(v.name)}} style={styles.item} key={v.name}>
+                                {dishes && dishes.map((dish) => (
+                                    <div onClick={() => handleDineInOrderClick(dish)} style={styles.item} key={dish._id}>
                                         <div style={styles.details}>
-                                            <p  style={styles.title}>
-                                                {v.name}
+                                            <p style={styles.title}>
+                                                {dish.altName}
                                             </p>
                                         </div>
                                     </div>
                                 ))}
+
+
                             </div>
                         </Grid>
                     </Grid>
-                    </div>
-                    <div style={styles.bottom}>
+                </div>
+                <div style={styles.bottom}>
                     {/* Categories */}
                     <Grid container style={styles.bottom}>
                         <Grid item xs={4}>

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -41,13 +41,11 @@ const styles = {
         paddingTop: '30%',
     },
     dropdownTxt: {
-        fontSize: '20px',
+        fontSize: '1.2rem',
     },
     dropdown: {
-        fontSize: '18px',
+        fontSize: '1rem',
         fontWeight: 'bold',
-        border: 'none',
-        borderBottom: '1px solid #ccc',
     },
     table: {
         height: '100%',
@@ -56,11 +54,11 @@ const styles = {
         paddingRight: '2%',
     },
     tableH: {
-        fontSize: '20px',
+        fontSize: '1.2rem',
         fontWeight: 'bold',
     },
     tableB: {
-        fontSize: '18px',
+        fontSize: '1rem',
     },
     total: {
         paddingTop: '2%',
@@ -72,7 +70,7 @@ const styles = {
         paddingTop: '5%',
         paddingBottom: '1%',
         border: 'none ',
-        fontSize: '19px',
+        fontSize: '1rem',
     },
     bottomBtn: {
         paddingTop: '2%',
@@ -93,7 +91,7 @@ const styles = {
         alignItems: 'center'
     },
     icon: {
-        fontSize: '50px',
+        fontSize: '3rem',
     },
     iconBtnTXT: {
         variant: 'caption',
@@ -101,11 +99,7 @@ const styles = {
     },
 };
 // data
-const orderTypes = [
-    { value: 'dine-in', label: 'Dine in' },
-    { value: 'take-out', label: 'Take out' },
-    { value: 'phone', label: 'Phone' },
-];
+
 const tables = [
     { label: 'Table 0', value: '0' },
     { label: 'Table 1', value: '1' },
@@ -137,17 +131,32 @@ const calculate = {
 };
 
 // default export
-const DineInDisplay = () => {
+const DineInDisplay = (props) => {
+    let defaultTotal = 0;
+    let tax = 0;
     const link = useNavigate();
 
     const handleBackClick = () => {
         link('/order/home');
     };
-    // drop down - order type
-    const [selectedOrderType, setSelectedOrderType] = useState(orderTypes[0].value);
-    const handleOrderTypeChange = (event) => {
-        setSelectedOrderType(event.target.value);
-    };
+
+    const getTotal = () => {
+        if (props.data.length <=0) return `$${defaultTotal}`;
+        props.data.forEach(v => {
+            defaultTotal += v.quality * v.dineInPrice;
+        });
+        return `$${defaultTotal}`;
+    }
+
+    const getTax = () => {
+        tax = Math.floor(defaultTotal * 13 / 100);
+        return `$${tax}`;
+    }
+
+    const getTaxAndTotal = () => {
+        return `$${defaultTotal + tax}`;
+    }
+
     // drop down - table
     const [selectedTable, setSelectedTable] = useState(tables[0].value);
     const handleTableChange = (event) => {
@@ -166,22 +175,13 @@ const DineInDisplay = () => {
                                 style={styles.backIcon} />
                         </IconButton>
                     </Grid>
-                    {/* Head: Order Type: Take out/ Dine in/ Phone */}
-                    <Grid item xs={5} >
-                        <Select
-                            style={styles.dropdown}
-                            value={selectedOrderType}
-                            onChange={handleOrderTypeChange}
-                        >
-                            {orderTypes.map((o) => (
-                                <MenuItem key={o.value} value={o.value}>
-                                    {o.label}
-                                </MenuItem>
-                            ))}
-                        </Select>
+                    {/* Head: Order Type:  Dine in */}
+                    <Grid item xs={5} style={styles.dropdownTxt} >
+                        Dine-In
                     </Grid>
                     {/* Head: Table Number */}
-                    {/* <Grid item xs={4} style={styles.dropdownTxt}>
+                    <Grid item xs={4} style={styles.dropdownTxt}>
+                        Table:
                         <Select
                             style={styles.dropdown}
                             value={selectedTable}
@@ -189,20 +189,20 @@ const DineInDisplay = () => {
                         >
                             {tables.map((t) => (
                                 <MenuItem key={t.value} value={t.value}>
-                                    {t.label}
+                                    {t.value}
                                 </MenuItem>
                             ))}
                         </Select>
-                    </Grid> */}
+                    </Grid>
                 </Grid>
                 {/* phone order only */}
-                <Grid container>
+                {/* <Grid container>
                     <Grid item xs={4} >
                         <TextField
-                         variant="filled" 
-                         size="small"
+                            variant="filled"
+                            size="small"
                             margin="normal"
-                            required 
+                            required
                             id="cusName" name="cusName"
                             label="Customer Name"
                             autoComplete="name"
@@ -211,10 +211,10 @@ const DineInDisplay = () => {
                     </Grid>
                     <Grid item xs={3} >
                         <TextField
-                         variant="filled" 
-                         size="small"
+                            variant="filled"
+                            size="small"
                             margin="normal"
-                            required 
+                            required
                             id="cusPhone" name="cusPhone"
                             label="Phone"
                             autoComplete="phone"
@@ -223,17 +223,17 @@ const DineInDisplay = () => {
                     </Grid>
                     <Grid item xs={5} >
                         <TextField
-                         variant="filled" 
-                         size="small"
+                            variant="filled"
+                            size="small"
                             margin="normal"
-                            required 
+                            required
                             id="pickupTime" name="pickupTime"
                             label="Pick Up Time"
                             autoComplete="time"
                             autoFocus
                         />
                     </Grid>
-                </Grid>
+                </Grid> */}
                 {/* Order detail list */}
                 <Grid container>
                     <Grid item xs={12}
@@ -249,16 +249,15 @@ const DineInDisplay = () => {
                                         <TableCell style={styles.tableH}>Item</TableCell>
                                         <TableCell style={styles.tableH} align="left">Quantity</TableCell>
                                         <TableCell style={styles.tableH}>Price</TableCell>
-                                        {/* <TableCell style={styles.tableH}>Total</TableCell> */}
                                     </TableRow>
                                 </TableHead>
 
                                 <TableBody>
-                                    {orders.map((v) => (
+                                    {props.data && props.data.length > 0 && props.data.map((v) => (
                                         <TableRow>
-                                            <TableCell style={styles.tableB}>{v.item}</TableCell>
-                                            <TableCell style={{ ...styles.tableB, paddingRight: '15%' }} align="center">{v.quatity}</TableCell>
-                                            <TableCell style={{ ...styles.tableB, paddingRight: '15%' }} align="center">{v.single}</TableCell>
+                                            <TableCell style={styles.tableB}>{v.altName}</TableCell>
+                                            <TableCell style={{ ...styles.tableB, paddingRight: '15%' }} align="center">{v.quality}</TableCell>
+                                            <TableCell style={{ ...styles.tableB, paddingRight: '15%' }} align="center">{v.dineInPrice * v.quality}</TableCell>
                                             {/* <TableCell style={styles.tableB} align="center">{v.total}</TableCell> */}
                                         </TableRow>
                                     ))}
@@ -267,7 +266,7 @@ const DineInDisplay = () => {
                         </TableContainer>
                     </Grid>
                 </Grid>
-
+                
                 {/* Order subtotal list */}
                 <Grid container >
                     <Grid item xs={5}>
@@ -282,7 +281,7 @@ const DineInDisplay = () => {
                             <TableCell
                                 style={styles.subtotaltxt}
                                 align="right">
-                                {calculate.subtotal}
+                                {getTotal()}
                             </TableCell>
                         </TableRow>
                         <TableRow>
@@ -294,7 +293,7 @@ const DineInDisplay = () => {
                             <TableCell
                                 style={styles.subtotaltxt}
                                 align="right">
-                                {calculate.tax}
+                                {getTax()}
                             </TableCell>
                         </TableRow>
                         <TableRow>
@@ -306,7 +305,7 @@ const DineInDisplay = () => {
                             <TableCell
                                 style={styles.subtotaltxt}
                                 align="right">
-                                {calculate.total}
+                                {getTaxAndTotal()}
                             </TableCell>
                         </TableRow>
                     </Grid>

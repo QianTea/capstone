@@ -17,7 +17,6 @@ const AvailableTables = ({ availableTables, orderedTables }) => {
             }}
         >
             <CardHeader
-
                 title="Table Availability"
                 sx={{ color: 'primary.main' }}
             />

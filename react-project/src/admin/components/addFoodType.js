@@ -1,14 +1,12 @@
-import { Link, useParams } from 'react-router-dom'
-import Product from '../pages/Menu';
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+// API
+import axios from 'axios';
+// mui
 import Box from '@mui/material/Box';
-import MenuItem from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
-
-
 
 const AddFoodTag = () => {
 

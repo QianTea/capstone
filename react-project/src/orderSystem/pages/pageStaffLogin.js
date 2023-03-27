@@ -49,7 +49,7 @@ export default function StaffLogin() {
       .then(function (response) {
         let data = response.data;
         if (data.status == 200) {
-          localStorage.setItem('token', data.result);
+          localStorage.setItem('token', data.data.token);
           localStorage.setItem('isLoggedIn', true);
           navigate('/order');
         } else {
@@ -108,10 +108,10 @@ export default function StaffLogin() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth

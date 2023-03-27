@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState } from 'react';
+import React,{useState} from 'react';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -45,7 +44,20 @@ const PageDineInOrder = () => {
     const toggleOrderClose = (e) => {
         setIsOrderOpen(true);
     }
+    // pass data
+    const [data, setData] = useState([]);
+    const handleDataChange = (newData) =>{
 
+        let targetData = data.find(v => v._id == newData._id);
+        if(targetData) {
+            targetData.quality += 1;
+            setData([...data]);
+        } else {
+            let newList = [...data, newData];
+            setData(newList);
+        }
+        console.log(data);
+    }
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -57,7 +69,7 @@ const PageDineInOrder = () => {
                         }}
                         onClick={toggleOrderClose}
                     >
-                        <DineInDisplay />
+                        <DineInDisplay  data={data}/>
                     </Grid>
                     <div
                         style={{
@@ -66,7 +78,7 @@ const PageDineInOrder = () => {
                         }}
                         onClick={toggleOrderOpen}>
                         <Grid item xs={12}>
-                            <DineInMenu />
+                            <DineInMenu  onDataChange={handleDataChange}/>
                         </Grid>
                     </div>
 

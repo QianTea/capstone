@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 // mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -9,8 +10,9 @@ import CallIcon from '@mui/icons-material/Call';
 import TableBarIcon from '@mui/icons-material/TableBar';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
+import { green, red } from '@mui/material/colors';
+import Box from '@mui/material/Box';
 
-import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 // styles
@@ -23,13 +25,13 @@ const styles = {
         // margin:0,
     },
     buttonWrapper: {
- 
+
     },
     button: {
         marginRight: '2%',
-        marginLeft:'2%',
-        marginTop:'2%',
-        marginBottom:'2%',
+        marginLeft: '2%',
+        marginTop: '2%',
+        marginBottom: '2%',
         height: '200px',
         width: '300px',
         borderRadius: '50px',
@@ -56,7 +58,11 @@ const pages = [
     { label: 'Current Orders', value: 'handleCurrentOrdersClick', color: '#53c653', icon: 'HistoryIcon style={styles.icon} ' },
     { label: 'Order History', value: 'handleOrdersHistoryClick', color: '#a6a6a6', icon: 'HistoryIcon style={styles.icon} ' },
 ];
-
+const tables = {
+    availableTables: 7,
+    orderedTables: 5,
+};
+// Home page of order system
 const OrderHome = () => {
     // navigation
     const link = useNavigate();
@@ -65,6 +71,9 @@ const OrderHome = () => {
     };
     const handleTakeoutOrderClick = () => {
         link('/order/take-out-order');
+    };
+    const handlePhoneOrderClick = () => {
+        link('/order/phone-order');
     };
     const handleCurrentOrdersClick = () => {
         link('/order/current-orders');
@@ -105,7 +114,7 @@ const OrderHome = () => {
                     </ButtonBase>
                     <ButtonBase
                         style={styles.button}
-                        onClick={handleTakeoutOrderClick}>
+                        onClick={handlePhoneOrderClick}>
                         <CallIcon
                             style={{
                                 ...styles.icon,
@@ -117,21 +126,29 @@ const OrderHome = () => {
                         </div>
                     </ButtonBase>
                 </div>
-                {/* Avaliable Tables/Current/History */}
+                {/* 2nd line: Avaliable Tables/Current/History */}
                 <div style={styles.buttonWrapper}>
-                    <ButtonBase
-                        style={styles.button}
-                        onClick={handleCurrentOrdersClick}>
+                    {/* Avaliable Tables */}
+                    <ButtonBase style={styles.button}>
                         <TableBarIcon
-                            style={{
-                                ...styles.icon,
-                                color: '#d6a9a9',
-                            }}
+                            style={{ ...styles.icon, color: '#d6a9a9', }}
                         />
-                        <div style={styles.buttonText}>
-                            Avaliable Tables
+                        <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#737373' }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Box>
+                                    <div>Available tables:</div>
+                                    <div style={{ color: green[500] }}>{tables.availableTables}</div>
+                                </Box>
+                            </Box>
+                            <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
+                                <Box>
+                                    <div >Ordered tables:</div>
+                                    <div style={{ color: red[500] }}>{tables.orderedTables}</div>
+                                </Box>
+                            </Box>
                         </div>
                     </ButtonBase>
+                    {/* Current Orders */}
                     <ButtonBase
                         style={styles.button}
                         onClick={handleCurrentOrdersClick}>
@@ -145,6 +162,7 @@ const OrderHome = () => {
                             Current Orders
                         </div>
                     </ButtonBase>
+                    {/* Order History */}
                     <ButtonBase
                         style={styles.button}
                         onClick={handleOrdersHistoryClick}>

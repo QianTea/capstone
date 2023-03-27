@@ -31,6 +31,7 @@ const PhoneOrderPage = () => {
                 <Grid container >
 
                     <Grid item xs={4} style={styles.leftContainer}>
+                        Phone
                         <TakeoutDisplay />
                     </Grid>
                     <Grid item xs={8} style={styles.rightContainer}>
