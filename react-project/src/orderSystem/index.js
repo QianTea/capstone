@@ -28,10 +28,10 @@ const styles = {
 
     },
     button: {
-        marginRight: '2%',
-        marginLeft: '2%',
-        marginTop: '2%',
-        marginBottom: '2%',
+        marginRight: '3.5%',
+        marginLeft: '3.5%',
+        marginTop: '5%',
+        marginBottom: '5%',
         height: '200px',
         width: '300px',
         borderRadius: '50px',

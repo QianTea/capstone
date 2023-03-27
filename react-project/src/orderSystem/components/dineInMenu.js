@@ -150,9 +150,9 @@ const DineInMenu = (props) => {
                         </Grid>
                     </Grid>
                 </div>
+                {/* Categories - hidden*/}
                 <div style={styles.bottom}>
-                    {/* Categories */}
-                    <Grid container style={styles.bottom}>
+                    {/* <Grid container style={styles.bottom}>
                         <Grid item xs={4}>
                             <div style={styles.categories}>
                                 <div style={styles.category}>
@@ -186,7 +186,7 @@ const DineInMenu = (props) => {
                                 </div>
                             </div>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </div>
             </ThemeProvider >
         </>

@@ -113,22 +113,8 @@ const tables = [
     { label: 'Table 9', value: '9' },
     { label: 'Table 10', value: '10' },
 ];
-const orders = [
-    { item: 'Lunch Special', quatity: '2', single: '$7.00', total: '$14.00' },
-    { item: 'SFP', quatity: '1', single: '$21.00', total: '$21.00' },
-    { item: 'Lunch Special', quatity: '2', single: '$7.00', total: '$14.00' },
-    { item: 'SFP', quatity: '1', single: '$21.00', total: '$21.00' },
-    { item: 'Lunch Special', quatity: '2', single: '$7.00', total: '$14.00' },
-    { item: 'SFP', quatity: '1', single: '$21.00', total: '$21.00' },
-    { item: 'Gravy', quatity: '1', single: '$1.99', total: '$1.99' },
-    { item: 'M-P', quatity: '1', single: '$1.5', total: '$1.5' },
-    { item: 'POP', quatity: '1', single: '$1.50', total: '$1.5' },
-];
-const calculate = {
-    subtotal: '$20.66',
-    tax: '$2.5',
-    total: '$23.16',
-};
+
+
 
 // default export
 const DineInDisplay = (props) => {
@@ -367,7 +353,7 @@ const DineInDisplay = (props) => {
                             variant="contained"
                             fullWidth
                         >
-                            Pay &nbsp;&nbsp; {calculate.total}
+                            Pay &nbsp;&nbsp; {getTaxAndTotal()}
                         </Button>
                     </Grid>
                 </Grid>

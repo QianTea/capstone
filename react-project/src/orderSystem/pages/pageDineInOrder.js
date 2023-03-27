@@ -26,7 +26,7 @@ const styles = {
         // backgroundColor:'#a9d6a9', //take out
         backgroundColor: '#98b3cd', //phone
         // height: '100vh',
-        width: '700px',
+        width: '75%',
         overflow: 'auto',
         position: 'absolute',
         transition: 'left 0.8s ease-out',
@@ -74,7 +74,7 @@ const PageDineInOrder = () => {
                     <div
                         style={{
                             ...styles.rightContainer,
-                            right: isOrderOpen ? '-30%' : '0',
+                            right: isOrderOpen ? '-25%' : '0%',
                         }}
                         onClick={toggleOrderOpen}>
                         <Grid item xs={12}>
