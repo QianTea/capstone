@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState,useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -21,6 +21,15 @@ import StickyNote2TwoToneIcon from '@mui/icons-material/StickyNote2TwoTone';
 //drop down menu
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+//pop-up
+import Popover from '@mui/material/Popover';
+// dialog
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { width } from '@mui/system';
 
 //style
 const theme = createTheme({
@@ -40,8 +49,15 @@ const styles = {
     backIcon: {
         paddingTop: '30%',
     },
+    orderTypeTxt: {
+        fontSize: '1.5rem',
+        fontWeight: 'bold',
+
+        marginTop: '2%',
+    },
     dropdownTxt: {
         fontSize: '1.2rem',
+        marginLeft: 0,
     },
     dropdown: {
         fontSize: '1rem',
@@ -118,43 +134,105 @@ const tables = [
 
 // default export
 const DineInDisplay = (props) => {
-    let defaultTotal = 0;
-    let tax = 0;
+    // back button
     const link = useNavigate();
-
     const handleBackClick = () => {
         link('/order/home');
     };
-
-    const getTotal = () => {
-        if (props.data.length <=0) return `$${defaultTotal}`;
-        props.data.forEach(v => {
-            defaultTotal += v.quality * v.dineInPrice;
-        });
-        return `$${defaultTotal}`;
-    }
-
-    const getTax = () => {
-        tax = Math.floor(defaultTotal * 13 / 100);
-        return `$${tax}`;
-    }
-
-    const getTaxAndTotal = () => {
-        return `$${defaultTotal + tax}`;
-    }
-
     // drop down - table
     const [selectedTable, setSelectedTable] = useState(tables[0].value);
     const handleTableChange = (event) => {
         setSelectedTable(event.target.value);
     };
+    // calculate subtotal
+    let defaultTotal = 0;
+    let tax = 0;
+    let total = 0;
+    const getTotal = () => {
+        if (props.data.length <= 0) return `${defaultTotal.toFixed(2)}`;
+        props.data.forEach(v => {
+            defaultTotal += v.quality * v.dineInPrice;
+        });
+        return `${defaultTotal.toFixed(2)}`;
+    }
+
+    const getTax = () => {
+        tax = Math.floor(defaultTotal * 13 / 100);
+        return `${tax.toFixed(2)}`;
+    }
+
+    const getTaxAndTotal = () => {
+        total = defaultTotal + tax;
+        return `${total.toFixed(2)}`;
+    }
+
+
+    // Button Note: dialog
+    const [noteValue, setNoteValue] = useState('');
+    const [Dialogopen, setDialogOpen] = useState(false);
+    // open
+    const handleNoteClickOpen = () => {
+        setDialogOpen(true);
+    };
+    // save note data
+    const handleNoteChange = (event) => {
+        setNoteValue(event.target.value);
+    };
+    const handleNoteSave = () => {
+        setNoteValue(noteValue);
+        setDialogOpen(false);
+    };
+    // close
+    const handleNoteClose = () => {
+        setNoteValue('');
+        setDialogOpen(false);
+    };
+
+    // bottom buttons
+    const orderDone = () => {
+
+    }
+    const orderPaid = () => {
+
+    }
+    // get order data
+    const totalCostRef = useRef(null);
+    const taxRef = useRef(null);
+    const beforeTaxRef = useRef(null);
+    let totalCost = totalCostRef.current?.textContent;
+    let taxCost = taxRef.current?.textContent;
+    let beforeTaxCost = beforeTaxRef.current?.textContent;
+
+    const order = {
+        orderType: 'DineIn',
+        table: selectedTable,
+        totalCost: totalCost,
+        tax: taxCost,
+        beforeTax: beforeTaxCost,
+        food: props,
+        note: noteValue,
+    };
+    // console.log(order);
+
+    // pop-up window: New Feature Coming Soon!
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
     return (
         <div>
             <ThemeProvider theme={theme}>
+
                 {/* Head: Order Head */}
                 <Grid container>
                     {/* back icon */}
-                    <Grid item xs={3} >
+                    <Grid item xs={4} >
                         <IconButton
                             onClick={handleBackClick}>
                             <ArrowBackIosNewIcon
@@ -162,11 +240,11 @@ const DineInDisplay = (props) => {
                         </IconButton>
                     </Grid>
                     {/* Head: Order Type:  Dine in */}
-                    <Grid item xs={5} style={styles.dropdownTxt} >
+                    <Grid item xs={5} style={styles.orderTypeTxt} >
                         Dine-In
                     </Grid>
                     {/* Head: Table Number */}
-                    <Grid item xs={4} style={styles.dropdownTxt}>
+                    <Grid item xs={3} style={styles.dropdownTxt}>
                         Table:
                         <Select
                             style={styles.dropdown}
@@ -226,7 +304,7 @@ const DineInDisplay = (props) => {
                         style={styles.table}>
                         <TableContainer
                             component={Paper}
-                            style={{ maxHeight: '300px' }}>
+                            style={{ height: '45vh' }}>
 
                             <Table size="small" >
                                 <TableHead
@@ -252,19 +330,29 @@ const DineInDisplay = (props) => {
                         </TableContainer>
                     </Grid>
                 </Grid>
-                
-                {/* Order subtotal list */}
+                {/* Note & Order subtotal list */}
                 <Grid container >
-                    <Grid item xs={5}>
+                    {/* Note Display Here */}
+                    <Grid item xs={5} >
+                        <p style={{ marginLeft: '7%', fontWeight: 'bold' }}>Note: </p>
+                        <p style={{
+                            maxWidth: '40rem', wordWrap: 'break-word',
+                            maxHeight: '4rem', overflow: 'scroll',
+                            marginLeft: '7%'
+                        }}>
+                            {noteValue}
+                        </p>
                     </Grid>
+                    {/* Subtotal */}
                     <Grid item xs={7} style={styles.total}>
                         <TableRow>
                             <TableCell
-                                style={styles.subtotaltxt}
+                                style={{ ...styles.subtotaltxt, fontWeight: 'bold' }}
                                 align="right">
                                 Sub Total:
                             </TableCell>
                             <TableCell
+                                ref={beforeTaxRef}
                                 style={styles.subtotaltxt}
                                 align="right">
                                 {getTotal()}
@@ -272,11 +360,12 @@ const DineInDisplay = (props) => {
                         </TableRow>
                         <TableRow>
                             <TableCell
-                                style={styles.subtotaltxt}
+                                style={{ ...styles.subtotaltxt, fontWeight: 'bold' }}
                                 align="right">
                                 Tax(13%):
                             </TableCell>
                             <TableCell
+                                ref={taxRef}
                                 style={styles.subtotaltxt}
                                 align="right">
                                 {getTax()}
@@ -284,14 +373,15 @@ const DineInDisplay = (props) => {
                         </TableRow>
                         <TableRow>
                             <TableCell
-                                style={styles.subtotaltxt}
+                                style={{ ...styles.subtotaltxt, fontWeight: 'bold' }}
                                 align="right">
                                 Total:
                             </TableCell>
                             <TableCell
+                                ref={totalCostRef}
                                 style={styles.subtotaltxt}
                                 align="right">
-                                {getTaxAndTotal()}
+                                $ {getTaxAndTotal()}
                             </TableCell>
                         </TableRow>
                     </Grid>
@@ -299,46 +389,52 @@ const DineInDisplay = (props) => {
 
                 {/* buttons */}
                 <Grid container style={styles.bottomBtn}>
+                    {/* Print - Coming Soon*/}
                     <Grid item xs={3} >
-                        {/* Print */}
-                        <IconButton style={styles.iconButton}>
+                        <IconButton style={styles.iconButton}
+                            onClick={handleClick}>
                             <LocalPrintshopTwoToneIcon style={styles.icon} />
                             <Typography style={styles.iconBtnTXT}>
                                 Print
                             </Typography>
                         </IconButton>
                     </Grid>
+                    {/* Note */}
                     <Grid item xs={3} >
-                        {/* Edit */}
-                        <IconButton style={styles.iconButton}>
-                            <EditTwoToneIcon style={styles.icon} />
-                            <Typography style={styles.iconBtnTXT}>
-                                Edit
-                            </Typography>
-                        </IconButton>
-                    </Grid>
-                    <Grid item xs={3} >
-                        {/* Separate */}
-                        <IconButton style={styles.iconButton}>
-                            <SafetyDividerIcon style={styles.icon} />
-                            <Typography style={styles.iconBtnTXT}>
-                                Separate
-                            </Typography>
-                        </IconButton>
-                    </Grid>
-                    <Grid item xs={3} >
-                        {/* Note */}
-                        <IconButton style={styles.iconButton}>
+                        <IconButton style={styles.iconButton}
+                            onClick={handleNoteClickOpen}>
                             <StickyNote2TwoToneIcon style={styles.icon} />
                             <Typography style={styles.iconBtnTXT}>
                                 Note
                             </Typography>
                         </IconButton>
                     </Grid>
+                    {/* Edit - Coming Soon*/}
+                    <Grid item xs={3} >
+                        <IconButton style={styles.iconButton}
+                            onClick={handleClick}>
+                            <EditTwoToneIcon style={styles.icon} />
+                            <Typography style={styles.iconBtnTXT}>
+                                Edit
+                            </Typography>
+                        </IconButton>
+                    </Grid>
+                    {/* Separate - Coming Soon*/}
+                    <Grid item xs={3} >
+                        <IconButton style={styles.iconButton}
+                            onClick={handleClick}>
+                            <SafetyDividerIcon style={styles.icon} />
+                            <Typography style={styles.iconBtnTXT}>
+                                Separate
+                            </Typography>
+                        </IconButton>
+                    </Grid>
                 </Grid>
+                {/* Buttons: Done-order status & Pay-pmy status */}
                 <Grid container style={styles.space}>
                     <Grid item xs={3}>
                         <Button
+                            onClick={orderDone}
                             style={styles.button}
                             variant="contained"
                             fullWidth
@@ -349,15 +445,56 @@ const DineInDisplay = (props) => {
                     </Grid>
                     <Grid item xs={8}>
                         <Button
+                            onClick={orderPaid}
                             style={styles.button}
                             variant="contained"
                             fullWidth
                         >
-                            Pay &nbsp;&nbsp; {getTaxAndTotal()}
+                            Pay &nbsp;&nbsp; $ {getTaxAndTotal()}
                         </Button>
                     </Grid>
                 </Grid>
             </ThemeProvider>
+
+            {/* Pop-up Window */}
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+            >
+                <Typography sx={{ p: 2 }}>New Feature Coming Soon!</Typography>
+            </Popover>
+
+            {/* Dialog Window */}
+            <Dialog open={Dialogopen} onClose={handleNoteClose}>
+                <DialogTitle>Note</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Leave a note of this order:
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        type="email"
+                        fullWidth
+                        multiline
+                        rows={4}
+                        variant="standard"
+                        value={noteValue}
+                        onChange={handleNoteChange}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleNoteClose}>Cancel</Button>
+                    <Button onClick={handleNoteSave}>Save</Button>
+                </DialogActions>
+            </Dialog>
         </div >
     )
 }

@@ -16,7 +16,7 @@ const styles = {
     },
     leftContainer: {
         backgroundColor: '#e4e6e7',
-        // height: '100vh',
+        height: '91.5vh',
         color: 'black',
         // display: 'inline-block',
 
@@ -25,8 +25,8 @@ const styles = {
         // backgroundColor: '#dbba57',//dine in
         // backgroundColor:'#a9d6a9', //take out
         backgroundColor: '#98b3cd', //phone
-        // height: '100vh',
-        width: '75%',
+        height: '100vh',
+        width: '70%',
         overflow: 'auto',
         position: 'absolute',
         transition: 'left 0.8s ease-out',
@@ -74,7 +74,7 @@ const PageDineInOrder = () => {
                     <div
                         style={{
                             ...styles.rightContainer,
-                            right: isOrderOpen ? '-25%' : '0%',
+                            right: isOrderOpen ? '-20%' : '0%',
                         }}
                         onClick={toggleOrderOpen}>
                         <Grid item xs={12}>

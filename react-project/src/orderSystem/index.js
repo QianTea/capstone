@@ -19,7 +19,7 @@ const theme = createTheme();
 const styles = {
     page: {
         display: 'flex',
-        height: "100vh",
+        height: '91.5vh',
         flexDirection: 'column',
         backgroundColor: '#b3b3b3',
         // margin:0,
