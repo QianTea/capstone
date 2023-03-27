@@ -130,9 +130,7 @@ const tables = [
     { label: 'Table 10', value: '10' },
 ];
 
-
-
-// default export
+// default export TakeoutDisplay
 const DineInDisplay = (props) => {
     // back button
     const link = useNavigate();
@@ -188,32 +186,42 @@ const DineInDisplay = (props) => {
         setDialogOpen(false);
     };
 
+
     // bottom buttons
+    const totalCostRef = useRef(null);
+    const taxRef = useRef(null);
+    const beforeTaxRef = useRef(null);
+    const orderPrint = () => {
+        // get order data
+        let cusName = '';
+        let cusPhone = '';
+        let pickupTime = '';
+        let totalCost = parseFloat(totalCostRef.current?.textContent);
+        let taxCost = parseFloat(taxRef.current?.textContent);
+        let beforeTaxCost = parseFloat(beforeTaxRef.current?.textContent);
+
+        const order = {
+            orderType: 'DineIn',
+            table: parseFloat(selectedTable),
+            totalCost: totalCost,
+            tax: taxCost,
+            beforeTax: beforeTaxCost,
+            food: props.data,
+            note: noteValue,
+            customer:{
+                name:cusName,
+                phone:cusPhone,
+                pickUpTime:pickupTime,
+            }
+        };
+        console.log(order);
+    }
     const orderDone = () => {
 
     }
     const orderPaid = () => {
 
     }
-    // get order data
-    const totalCostRef = useRef(null);
-    const taxRef = useRef(null);
-    const beforeTaxRef = useRef(null);
-    let totalCost = totalCostRef.current?.textContent;
-    let taxCost = taxRef.current?.textContent;
-    let beforeTaxCost = beforeTaxRef.current?.textContent;
-
-    const order = {
-        orderType: 'DineIn',
-        table: selectedTable,
-        totalCost: totalCost,
-        tax: taxCost,
-        beforeTax: beforeTaxCost,
-        food: props,
-        note: noteValue,
-    };
-    // console.log(order);
-
     // pop-up window: New Feature Coming Soon!
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => {
@@ -259,45 +267,7 @@ const DineInDisplay = (props) => {
                         </Select>
                     </Grid>
                 </Grid>
-                {/* phone order only */}
-                {/* <Grid container>
-                    <Grid item xs={4} >
-                        <TextField
-                            variant="filled"
-                            size="small"
-                            margin="normal"
-                            required
-                            id="cusName" name="cusName"
-                            label="Customer Name"
-                            autoComplete="name"
-                            autoFocus
-                        />
-                    </Grid>
-                    <Grid item xs={3} >
-                        <TextField
-                            variant="filled"
-                            size="small"
-                            margin="normal"
-                            required
-                            id="cusPhone" name="cusPhone"
-                            label="Phone"
-                            autoComplete="phone"
-                            autoFocus
-                        />
-                    </Grid>
-                    <Grid item xs={5} >
-                        <TextField
-                            variant="filled"
-                            size="small"
-                            margin="normal"
-                            required
-                            id="pickupTime" name="pickupTime"
-                            label="Pick Up Time"
-                            autoComplete="time"
-                            autoFocus
-                        />
-                    </Grid>
-                </Grid> */}
+                
                 {/* Order detail list */}
                 <Grid container>
                     <Grid item xs={12}
@@ -375,13 +345,13 @@ const DineInDisplay = (props) => {
                             <TableCell
                                 style={{ ...styles.subtotaltxt, fontWeight: 'bold' }}
                                 align="right">
-                                Total:
+                                Total:  $
                             </TableCell>
                             <TableCell
                                 ref={totalCostRef}
                                 style={styles.subtotaltxt}
                                 align="right">
-                                $ {getTaxAndTotal()}
+                                 {getTaxAndTotal()}
                             </TableCell>
                         </TableRow>
                     </Grid>
@@ -389,10 +359,10 @@ const DineInDisplay = (props) => {
 
                 {/* buttons */}
                 <Grid container style={styles.bottomBtn}>
-                    {/* Print - Coming Soon*/}
+                    {/* Print */}
                     <Grid item xs={3} >
                         <IconButton style={styles.iconButton}
-                            onClick={handleClick}>
+                            onClick={orderPrint}>
                             <LocalPrintshopTwoToneIcon style={styles.icon} />
                             <Typography style={styles.iconBtnTXT}>
                                 Print

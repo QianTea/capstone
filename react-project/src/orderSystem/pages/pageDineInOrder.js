@@ -24,7 +24,8 @@ const styles = {
     rightContainer: {
         // backgroundColor: '#dbba57',//dine in
         // backgroundColor:'#a9d6a9', //take out
-        backgroundColor: '#98b3cd', //phone
+        // backgroundColor: '#7bb8db', //phone
+        backgroundColor: '#e4e6e7',
         height: '100vh',
         width: '70%',
         overflow: 'auto',
@@ -56,7 +57,7 @@ const PageDineInOrder = () => {
             let newList = [...data, newData];
             setData(newList);
         }
-        console.log(data);
+        // console.log(data);
     }
     return (
         <>

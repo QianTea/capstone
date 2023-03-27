@@ -9,10 +9,11 @@ import Grid from '@mui/material/Grid';
 const mdTheme = createTheme();
 const styles = {
     page: {
-        color: '#fff',
+        backgroundColor: '#dbba57',
         textAlign: 'center',
         paddingTop: '5%',
         paddingLeft: '1%',
+        height: '88vh',
     },
     nopad: {
         paddingTop: 0,
@@ -69,30 +70,7 @@ const styles = {
 //data
 
 const DineInMenu = (props) => {
-    const [dishes, setDishes] = useState([
-        // {
-        //   "_id": "64123d0d4b850b3e5391a0e4",
-        //   "name": "2pc Wihtefish & chips",
-        //   // "altName": "2pc W/C",
-        //   "description": "This is a new product",
-        //   "dineInPrice": 10.99,
-        //   "takeOutPrice": 9.99,
-        //   // "quality": 23,
-        //   // "image": "https://example.com/new-product.png",
-        //   "category": {
-        //     "_id": "64123f4010002a94245bddd6",
-        //     "name": "fish test3",
-        //     "description": "",
-        //   },
-        //   "foodType": [
-        //     {
-        //       "_id": "64123da34b850b3e5391a0e8",
-        //       "name": "fish type 2",
-        //       "description": "",
-        //     },
-        //   ]
-        // },
-    ]);
+    const [dishes, setDishes] = useState([ ]);
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -129,7 +107,7 @@ const DineInMenu = (props) => {
       };
 
     return (
-        <>
+        <div style={styles.page}>
             <ThemeProvider theme={mdTheme}>
                 <div style={styles.page}>
                     <Grid container >
@@ -189,7 +167,7 @@ const DineInMenu = (props) => {
                     </Grid> */}
                 </div>
             </ThemeProvider >
-        </>
+            </div>
     )
 }
 

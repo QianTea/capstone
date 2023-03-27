@@ -40,7 +40,7 @@ import EmpLogout from './orderSystem/components/empLogout';
 
 import OrderHome from './orderSystem';
 import PageDineInOrder from './orderSystem/pages/pageDineInOrder';
-import TakeOutOrderInterface from './orderSystem/pages/takeOutOrder';
+import TakeOutOrderInterface from './orderSystem/pages/pageTakeoutOrder';
 import OrdersHistory from './orderSystem/pages/pageOrderHistory';
 import CurrentOrders from './orderSystem/pages/pageCurrentOrder';
 import PhoneOrderPage from './orderSystem/pages/pagePhoneOrder';
