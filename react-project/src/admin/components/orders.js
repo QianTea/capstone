@@ -1,4 +1,8 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+// api
+import axios from 'axios';
+//mui
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,17 +11,39 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './title';
 
-//data
-// today's orders, should updated once a new order completed, show last 5 today's orders only,
-const ordersData = [
-  { time: '11:30 AM', orderType: 'Take Out', pmtType: 'cash', amount: '11.99', server: 'Ivy.L' },
-  { time: '12:15 PM', orderType: 'Dine In', pmtType: 'credit', amount: '23.45', server: 'Jack.M' },
-  { time: '1:00 PM', orderType: 'Take Out', pmtType: 'credit', amount: '8.75', server: 'Grace.K' },
-  { time: '2:30 PM', orderType: 'Dine In', pmtType: 'cash', amount: '45.67', server: 'Bob.T' },
-];
-const firstFiveOrders = ordersData.slice(0, 5);
-
 export default function Orders() {
+  const [orders, setOrders] = useState([]);
+  const [firstFiveOrders, setFirstFiveOrders] = useState([]);
+  
+  const token = localStorage.getItem('token');
+    
+  useEffect(() => {
+    const config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:5500/admin-orders/todayOrders',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      },
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        setOrders(response.data.data.orders);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  useEffect(() => {
+    setFirstFiveOrders(orders.slice(0, 5));
+  }, [orders]);
+
+  const formatTime = (timeString) => {
+    const date = new Date(timeString);
+    return date.toLocaleString().replace(', ', ' ');
+  };
   return (
     <React.Fragment>
       <Title>Today's Orders</Title>
@@ -26,7 +52,6 @@ export default function Orders() {
           <TableRow>
             <TableCell align="center">Time</TableCell>
             <TableCell align="center">Order Type</TableCell>
-            <TableCell align="center">Payment Type</TableCell>
             <TableCell align="center">Sale Amount</TableCell>
             <TableCell align="center">Server</TableCell>
           </TableRow>
@@ -34,11 +59,10 @@ export default function Orders() {
         <TableBody>
           {firstFiveOrders.map((o) => (
             <TableRow>
-              <TableCell align="center">{o.time}</TableCell>
+              <TableCell align="center">{formatTime(o.completedTime)}</TableCell>
               <TableCell align="center">{o.orderType}</TableCell>
-              <TableCell align="center">{o.pmtType}</TableCell>
-              <TableCell align="center">{`$${o.amount}`}</TableCell>
-              <TableCell align="center">{o.server}</TableCell>
+              <TableCell align="center">{`$${o.totalCost}`}</TableCell>
+              <TableCell align="center">{o.staff}</TableCell>
             </TableRow>
           ))}
         </TableBody>
