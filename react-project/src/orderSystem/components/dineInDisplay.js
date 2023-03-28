@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+// api
+import axios from 'axios';
+//mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -137,8 +139,38 @@ const DineInDisplay = (props) => {
     const handleBackClick = () => {
         link('/order/home');
     };
+
+    // Table Numbers
+    const token = localStorage.getItem('token');
+
+    const [tables, setTables] = useState([]);
+
+    useEffect(() => {
+        const config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:5500/tables',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+        };
+
+        axios
+            .request(config)
+            .then((response) => {
+                setTables(response.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+    // get table list
+    const availableTables = tables.filter(table => table.tableStatus === 'available');
+    const availableTableNumbers = availableTables.map(table => table.tableNumber);
+    
     // drop down - table
-    const [selectedTable, setSelectedTable] = useState(tables[0].value);
+    const [selectedTable, setSelectedTable] = useState(tables[0]?.tableNumber);
+
     const handleTableChange = (event) => {
         setSelectedTable(event.target.value);
     };
@@ -208,10 +240,10 @@ const DineInDisplay = (props) => {
             beforeTax: beforeTaxCost,
             food: props.data,
             note: noteValue,
-            customer:{
-                name:cusName,
-                phone:cusPhone,
-                pickUpTime:pickupTime,
+            customer: {
+                name: cusName,
+                phone: cusPhone,
+                pickUpTime: pickupTime,
             }
         };
         console.log(order);
@@ -259,15 +291,15 @@ const DineInDisplay = (props) => {
                             value={selectedTable}
                             onChange={handleTableChange}
                         >
-                            {tables.map((t) => (
-                                <MenuItem key={t.value} value={t.value}>
-                                    {t.value}
+                            {availableTableNumbers.map((t) => (
+                                <MenuItem key={t} value={t}>
+                                    {t}
                                 </MenuItem>
                             ))}
                         </Select>
                     </Grid>
                 </Grid>
-                
+
                 {/* Order detail list */}
                 <Grid container>
                     <Grid item xs={12}
@@ -300,6 +332,7 @@ const DineInDisplay = (props) => {
                         </TableContainer>
                     </Grid>
                 </Grid>
+
                 {/* Note & Order subtotal list */}
                 <Grid container >
                     {/* Note Display Here */}
@@ -351,7 +384,7 @@ const DineInDisplay = (props) => {
                                 ref={totalCostRef}
                                 style={styles.subtotaltxt}
                                 align="right">
-                                 {getTaxAndTotal()}
+                                {getTaxAndTotal()}
                             </TableCell>
                         </TableRow>
                     </Grid>
@@ -400,6 +433,7 @@ const DineInDisplay = (props) => {
                         </IconButton>
                     </Grid>
                 </Grid>
+
                 {/* Buttons: Done-order status & Pay-pmy status */}
                 <Grid container style={styles.space}>
                     <Grid item xs={3}>

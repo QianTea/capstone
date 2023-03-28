@@ -1,5 +1,7 @@
-import React from 'react';
-// mui
+import React, { useState, useEffect } from 'react';
+// api
+import axios from 'axios';
+//mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -14,11 +16,39 @@ import AvailableTables from '../components/avaliableTables';
 
 const mdTheme = createTheme();
 
-const availableTables = 7;
-const orderedTables = 5;
+
 
 function DashboardContent() {
+    const [tables, setTables] = useState([]);
 
+    const token = localStorage.getItem('token');
+  
+    useEffect(() => {
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:5500/tables',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      };
+  
+      axios
+        .request(config)
+        .then((response) => {
+            setTables(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, []);
+    // get table list
+    const availableTables = tables.filter(table => table.tableStatus === 'available');
+    const usedTables = tables.filter(table => table.tableStatus === 'used');
+    // count number
+    const numAvailableTables = availableTables.length;
+    const numUsedTables = usedTables.length;
+    
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -50,8 +80,8 @@ function DashboardContent() {
                                 > */}
                                     {/* <Charts /> */}
                                     <AvailableTables
-                                        availableTables={availableTables}
-                                        orderedTables={orderedTables}
+                                        availableTables={numAvailableTables}
+                                        orderedTables={numUsedTables}
                                     />
                                 {/* </Paper> */}
                             </Grid>

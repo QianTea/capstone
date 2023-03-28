@@ -1,6 +1,8 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// mui
+// api
+import axios from 'axios';
+//mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -58,10 +60,7 @@ const pages = [
     { label: 'Current Orders', value: 'handleCurrentOrdersClick', color: '#53c653', icon: 'HistoryIcon style={styles.icon} ' },
     { label: 'Order History', value: 'handleOrdersHistoryClick', color: '#a6a6a6', icon: 'HistoryIcon style={styles.icon} ' },
 ];
-const tables = {
-    availableTables: 7,
-    orderedTables: 5,
-};
+
 // Home page of order system
 const OrderHome = () => {
     // navigation
@@ -81,7 +80,35 @@ const OrderHome = () => {
     const handleOrdersHistoryClick = () => {
         link('/order/orders-history');
     };
+    const [tables, setTables] = useState([]);
 
+    const token = localStorage.getItem('token');
+  
+    useEffect(() => {
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:5500/tables',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      };
+  
+      axios
+        .request(config)
+        .then((response) => {
+            setTables(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, []);
+    // get table list
+    const availableTables = tables.filter(table => table.tableStatus === 'available');
+    const usedTables = tables.filter(table => table.tableStatus === 'used');
+    // count number
+    const numAvailableTables = availableTables.length;
+    const numUsedTables = usedTables.length;
     return (
         <div style={styles.page}>
             <ThemeProvider theme={theme} >
@@ -137,13 +164,13 @@ const OrderHome = () => {
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <Box>
                                     <div>Available tables:</div>
-                                    <div style={{ color: green[500] }}>{tables.availableTables}</div>
+                                    <div style={{ color: green[500] }}>{numAvailableTables}</div>
                                 </Box>
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
                                 <Box>
                                     <div >Ordered tables:</div>
-                                    <div style={{ color: red[500] }}>{tables.orderedTables}</div>
+                                    <div style={{ color: red[500] }}>{numUsedTables}</div>
                                 </Box>
                             </Box>
                         </div>
