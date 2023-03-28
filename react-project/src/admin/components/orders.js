@@ -35,9 +35,7 @@ export default function Orders() {
         console.log(error);
       });
   }, []);
-  useEffect(() => {
-    setFirstFiveOrders(orders.slice(0, 5));
-  }, [orders]);
+  console.log(orders);
 
   const formatTime = (timeString) => {
     const date = new Date(timeString);
@@ -56,7 +54,7 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {firstFiveOrders.map((o) => (
+          {orders.map((o) => (
             <TableRow>
               <TableCell align="center">{formatTime(o.completedTime)}</TableCell>
               <TableCell align="center">{o.orderType}</TableCell>
