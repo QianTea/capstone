@@ -47,6 +47,7 @@ const PageDineInOrder = () => {
     const toggleOrderClose = (e) => {
         setIsOrderOpen(true);
     }
+
     // pass data
     const [data, setData] = useState([]);
     const handleDataChange = (newData) =>{
