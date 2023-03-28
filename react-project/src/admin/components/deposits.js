@@ -1,4 +1,7 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+// api
+import axios from 'axios';
+//mui
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
@@ -14,19 +17,46 @@ const todayRevenue = {
 };
 
 export default function Deposits() {
+  const today = new Date();
+  const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = today.toLocaleDateString('en-US', dateOptions);
+
+  const [orders, setOrders] = useState([]);
+
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    const config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:5500/admin-orders/todayOrders',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      },
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        setOrders(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <React.Fragment>
       <Title>Today's Revenue</Title>
       <Typography component="p" variant="h4">
-        ${todayRevenue.total}
+        ${orders.revenue}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on {todayRevenue.date}
+        on {formattedDate}
       </Typography>
       <div>
-        <Link color="primary" 
-        href="/admin/revenuehistory" 
-        onClick={''}>
+        <Link color="primary"
+          href="/admin/revenuehistory"
+          onClick={''}>
           View more balance
         </Link>
       </div>
