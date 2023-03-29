@@ -48,7 +48,7 @@ export default function Deposits() {
     <React.Fragment>
       <Title>Today's Revenue</Title>
       <Typography component="p" variant="h4">
-        ${orders.revenue}
+        ${orders.revenue.toFixed(2)}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
         on {formattedDate}

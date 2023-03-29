@@ -36,14 +36,14 @@ export default function Orders() {
       });
   }, []);
   console.log(orders);
-
+  const lastFiveOrders = orders.reverse().slice(0, 5);
   const formatTime = (timeString) => {
     const date = new Date(timeString);
     return date.toLocaleString().replace(', ', ' ');
   };
   return (
     <React.Fragment>
-      <Title>Today's Orders</Title>
+      <Title>Last 5 Orders</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -54,7 +54,7 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((o) => (
+          {lastFiveOrders.map((o) => (
             <TableRow>
               <TableCell align="center">{formatTime(o.completedTime)}</TableCell>
               <TableCell align="center">{o.orderType}</TableCell>

@@ -22,25 +22,25 @@ function DashboardContent() {
     const [tables, setTables] = useState([]);
 
     const token = localStorage.getItem('token');
-  
+
     useEffect(() => {
-      const config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: 'http://localhost:5500/tables',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-        },
-      };
-  
-      axios
-        .request(config)
-        .then((response) => {
-            setTables(response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        const config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:5500/tables',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+        };
+
+        axios
+            .request(config)
+            .then((response) => {
+                setTables(response.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
     // get table list
     const availableTables = tables.filter(table => table.tableStatus === 'available');
@@ -48,7 +48,7 @@ function DashboardContent() {
     // count number
     const numAvailableTables = availableTables.length;
     const numUsedTables = usedTables.length;
-    
+
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -70,20 +70,11 @@ function DashboardContent() {
                         <Grid container spacing={3}>
                             {/* Blank-Avaliable Tables*/}
                             <Grid item xs={12} md={3} lg={3}>
-                                {/* <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                > */}
-                                    {/* <Charts /> */}
-                                    <AvailableTables
-                                        availableTables={numAvailableTables}
-                                        orderedTables={numUsedTables}
-                                    />
-                                {/* </Paper> */}
+                                {/* <Charts /> */}
+                                <AvailableTables
+                                    availableTables={numAvailableTables}
+                                    orderedTables={numUsedTables}
+                                />
                             </Grid>
                             <Grid item xs={12} md={3} lg={3}>
                                 <Paper
