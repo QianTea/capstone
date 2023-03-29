@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+// api
+import axios from 'axios';
+//mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -214,10 +216,32 @@ const PhoneDisplay = (props) => {
             customer:{
                 name:cusName,
                 phone:cusPhone,
-                pickUpTime:pickupTime,
+                takeOutTime:pickupTime,
             }
         };
         console.log(order);
+        //api
+        const token = localStorage.getItem('token');
+        let data = order;
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:5500/orders',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                console.log(response.data);
+                console.log(token);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
     const orderDone = () => {
 

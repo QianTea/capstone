@@ -85,26 +85,6 @@ const styles = {
         textAlign: 'center',
     },
 };
-// Define the table data
-const dineInOrders = [
-    { id: 1, type: 'dine in', orderTime: new Date('2023-03-10T12:00:00'), tableNumber: 4, dishes: ['Cod/C'], amount: 20.5 },
-    { id: 4, type: 'dine in', orderTime: new Date('2023-03-10T13:15:00'), tableNumber: 6, dishes: ['HB/C', 'M-P'], amount: 33.0 },
-    { id: 7, type: 'dine in', orderTime: new Date('2023-03-10T12:00:00'), tableNumber: 4, dishes: ['Cod/C'], amount: 20.5 },
-    { id: 8, type: 'dine in', orderTime: new Date('2023-03-10T13:15:00'), tableNumber: 6, dishes: ['HB/C', 'M-P'], amount: 33.0 },
-];
-
-const takeoutOrders = [
-    { id: 2, type: 'take out', orderTime: new Date('2023-03-10T12:30:00'), dishes: ['HB Family', 'Gravy(L)'], amount: 95.0, note: 'fries well done.' },
-    { id: 6, type: 'take out', orderTime: new Date('2023-03-10T14:30:00'), dishes: ['HD/C', 'SFP'], amount: 49.5, note: '' },
-];
-
-const phoneOrders = [
-    { id: 3, type: 'phone', orderTime: new Date('2023-03-10T13:00:00'), dishes: ['HB Family', 'Gravy(L)'], amount: 98.5, customerName: 'John', customerPhone: '123-456-7890', pickupTime: new Date('2023-03-10T13:00') },
-    { id: 5, type: 'phone', orderTime: new Date('2023-03-10T14:00:00'), dishes: ['HD/C', 'SFP'], amount: 32.0, customerName: 'Jane', customerPhone: '987-654-3210', pickupTime: new Date('2023-03-10T14:00') },
-    { id: 9, type: 'phone', orderTime: new Date('2023-03-10T13:00:00'), dishes: ['HB Family', 'Gravy(L)'], amount: 98.5, customerName: 'John', customerPhone: '123-456-7890', pickupTime: new Date('2023-03-10T13:00') },
-    { id: 10, type: 'phone', orderTime: new Date('2023-03-10T14:00:00'), dishes: ['HD/C', 'SFP'], amount: 32.0, customerName: 'Jane', customerPhone: '987-654-3210', pickupTime: new Date('2023-03-10T14:00') },
-
-];
 
 const CurrentOrders = () => {
     const [orders, setOrders] = useState({
@@ -205,7 +185,7 @@ const OrderCard = ({ order }) => {
             <div>
                 <div>Name: {order.customer.name}</div>
                 <div>Phone: {order.customer.phone}</div>
-                <div>Pickup: {order.customer.pickUpTime}</div>
+                <div>Pickup: {order.customer.takeOutTime}</div>
             </div>
             
         );

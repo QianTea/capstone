@@ -167,7 +167,7 @@ const DineInDisplay = (props) => {
     // get table list
     const availableTables = tables.filter(table => table.tableStatus === 'available');
     const availableTableNumbers = availableTables.map(table => table.tableNumber);
-    
+
     // drop down - table
     const [selectedTable, setSelectedTable] = useState(tables[0]?.tableNumber);
 
@@ -220,14 +220,13 @@ const DineInDisplay = (props) => {
 
 
     // bottom buttons
+    // Print Button - create order
     const totalCostRef = useRef(null);
     const taxRef = useRef(null);
     const beforeTaxRef = useRef(null);
+
     const orderPrint = () => {
         // get order data
-        let cusName = '';
-        let cusPhone = '';
-        let pickupTime = '';
         let totalCost = parseFloat(totalCostRef.current?.textContent);
         let taxCost = parseFloat(taxRef.current?.textContent);
         let beforeTaxCost = parseFloat(beforeTaxRef.current?.textContent);
@@ -240,14 +239,35 @@ const DineInDisplay = (props) => {
             beforeTax: beforeTaxCost,
             food: props.data,
             note: noteValue,
-            customer: {
-                name: cusName,
-                phone: cusPhone,
-                pickUpTime: pickupTime,
-            }
+            customer: null,
         };
         console.log(order);
+        //api
+        let data = order;
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:5500/orders',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                console.log(response.data);
+                console.log(token);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
+
+
+    // button done & pay
     const orderDone = () => {
 
     }
