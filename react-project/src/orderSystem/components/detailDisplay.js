@@ -120,16 +120,14 @@ const styles = {
 
 // default export 
 const DetailDisplay = (props) => {
+    const [isDoneButtonDisabled, setIsDoneButtonDisabled] = useState(false);
+    const [isPayButtonDisabled, setIsPayButtonDisabled] = useState(false);
     // back button
     const link = useNavigate();
     const handleBackClick = () => {
         link('/order/home');
     };
-    // drop down - table
-    //const [selectedTable, setSelectedTable] = useState(tables[0].value);
-    const handleTableChange = (event) => {
-        //setSelectedTable(event.target.value);
-    };
+
     // calculate subtotal
     let defaultTotal = 0;
     let tax = 0;
@@ -158,13 +156,9 @@ const DetailDisplay = (props) => {
     const beforeTaxRef = useRef(null);
 
 
-    const orderDone = () => {
-
-    }
-
-    // get note
+    // get data
     let note = props.data.note !== undefined ? `${props.data.note}` : '';
-
+    let id = props.data._id;
     // dine in order only
     let table = props.data.table !== undefined ? `${props.data.table}` : '';
 
@@ -174,25 +168,62 @@ const DetailDisplay = (props) => {
     let pickUpTime = props.data.customer && props.data.customer.pickupTime ? `${props.data.customer.pickupTime}` : '';
 
     // Button Pay: dialog
-    const [noteValue, setNoteValue] = useState('');
+
     const [Dialogopen, setDialogOpen] = useState(false);
     // open
     const handlePayClickOpen = () => {
+        setIsPayButtonDisabled(true);
         setDialogOpen(true);
     };
 
     // close
     const handlePayCancel = () => {
-        setNoteValue('');
         setDialogOpen(false);
     };
 
+    //api- payment status
+    const updatePMTStatus = async (orderId) => {
+        const token = localStorage.getItem('token');
+        try {
+            const result = await axios.get(`http://localhost:5500/orders/pay/${orderId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+            });
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+        }
+    };
     // change pmt status data
     const handlePayConfirm = () => {
-        setNoteValue(noteValue);
         setDialogOpen(false);
-    };
+        updatePMTStatus(id);
 
+        setIsPayButtonDisabled(true);
+        setIsDoneButtonDisabled(false);
+    };
+    //api- order status
+    const updateOrderStatus = async (orderId) => {
+        const token = localStorage.getItem('token');
+        try {
+            const result = await axios.get(`http://localhost:5500/orders/complete/${orderId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+            });
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    // Button Done
+    const orderDone = () => {
+        updateOrderStatus(id);
+        link('/order/current-orders');
+    }
     return (
         <div>
             <ThemeProvider theme={theme}>
@@ -363,6 +394,7 @@ const DetailDisplay = (props) => {
                             variant="contained"
                             fullWidth
                             color='success'
+                            disabled={isDoneButtonDisabled}
                         >
                             Done
                         </Button>
@@ -373,6 +405,7 @@ const DetailDisplay = (props) => {
                             variant="contained"
                             fullWidth
                             onClick={handlePayClickOpen}
+                            disabled={isPayButtonDisabled}
                         >
                             Pay &nbsp;&nbsp; $ {getTaxAndTotal()}
                         </Button>

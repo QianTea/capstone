@@ -264,6 +264,7 @@ const DineInDisplay = (props) => {
             .catch((error) => {
                 console.log(error);
             });
+            link('/order/home');
     }
 
 
@@ -455,7 +456,7 @@ const DineInDisplay = (props) => {
                 </Grid>
 
                 {/* Buttons: Done-order status & Pay-pmy status */}
-                <Grid container style={styles.space}>
+                {/* <Grid container style={styles.space}>
                     <Grid item xs={3}>
                         <Button
                             onClick={orderDone}
@@ -477,7 +478,7 @@ const DineInDisplay = (props) => {
                             Pay &nbsp;&nbsp; $ {getTaxAndTotal()}
                         </Button>
                     </Grid>
-                </Grid>
+                </Grid> */}
             </ThemeProvider>
 
             {/* Pop-up Window */}

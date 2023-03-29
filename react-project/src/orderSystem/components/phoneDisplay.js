@@ -242,6 +242,7 @@ const PhoneDisplay = (props) => {
             .catch((error) => {
                 console.log(error);
             });
+            link('/order/home');
     }
     const orderDone = () => {
 
@@ -448,7 +449,7 @@ const PhoneDisplay = (props) => {
                     </Grid>
                 </Grid>
                 {/* Buttons: Done-order status & Pay-pmy status */}
-                <Grid container style={styles.space}>
+                {/* <Grid container style={styles.space}>
                     <Grid item xs={3}>
                         <Button
                             onClick={orderDone}
@@ -470,7 +471,7 @@ const PhoneDisplay = (props) => {
                             Pay &nbsp;&nbsp; $ {getTaxAndTotal()}
                         </Button>
                     </Grid>
-                </Grid>
+                </Grid> */}
             </ThemeProvider>
 
             {/* Pop-up Window */}
