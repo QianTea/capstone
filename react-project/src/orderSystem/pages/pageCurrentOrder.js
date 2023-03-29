@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState, useEffect, useRef } from 'react';
+// api
+import axios from 'axios';
+//mui
 import Link from '@mui/material/Link';
 import { Grid } from '@mui/material';
 import { Card, CardHeader, CardContent } from '@mui/material';
@@ -32,15 +36,20 @@ const styles = {
     },
     itemTotal: {
         marginTop: '1%',
-        fontSize: '1.5rem',
+        fontSize: '1.8rem',
         fontWeight: 'bold',
         textAlign: 'right',
+    },
+    majorText: {
+        fontSize: '1.5rem',
+        // fontWeight: 'bold',
+        textAlign: 'left',
     },
     infoText: {
         marginTop: '1%',
         fontSize: '1.1rem',
-        fontWeight: 'bold',
-        textAlign: 'center',
+        // fontWeight: 'bold',
+        textAlign: 'right',
     },
     itemLabel: {
         fontWeight: 'bold',
@@ -97,46 +106,55 @@ const phoneOrders = [
 
 ];
 
+const CurrentOrders = () => {
+    const [orders, setOrders] = useState({
+        dineIn: [],
+        takeOut: [],
+        phoneOrder: []
+    });
+    useEffect(() => {
+        const fetchOrders = async () => {
+            const token = localStorage.getItem('token');
+            const config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:5500/orders/pendingOrders',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+            };
 
-const OrderCard = ({ order }) => {
-    let firstTwoDishes = '';
-    firstTwoDishes = order.dishes.slice(0, 2).join(', ');
+            try {
+                const response = await axios.request(config);
+                setOrders(response.data.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
 
-    let infoText = '';
-    if (order.type === 'dine in') {
-        infoText = `Table ${order.tableNumber}`;
-    } else if (order.type === 'take out') {
-        infoText = order.note;
-    } else if (order.type === 'phone') {
-        const pickupTimeOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
-        const pickupTime = order.pickupTime.toLocaleTimeString('en-US', pickupTimeOptions);
-        infoText = (
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ flex: '1 1 auto' }}>Pickup: {pickupTime}</span>
-                <span style={{ flex: '1 1 auto', textAlign: 'right' }}>{order.customerName}: {order.customerPhone}</span>
-            </div>
-        );
-    }
-
+        fetchOrders();
+    }, []);
+    console.log(orders.dineIn);
     return (
-        <Card style={styles.card}>
-            <CardHeader title={`${order.type} #${order.id}`} style={styles.cardHeader} />
-            <CardContent style={styles.cardContent}>
-                <Grid container>
-                    <Grid item xs={12} sm={8}>
-                        <div style={styles.itemLabel}>Items:</div>
-                        <div style={styles.itemList}>{firstTwoDishes}</div>
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                        {/* <div style={styles.itemLabel}>Total:</div> */}
-                        <div style={styles.itemTotal}>{`$${order.amount.toFixed(2)}`}</div>
-                    </Grid>
+        <div>
+            <Grid container spacing={2} style={styles.page}>
+                <Grid item xs={12} md={4} style={styles.dineInOrders}>
+                    <DineInOrders orders={orders.dineIn} />
                 </Grid>
-                <div style={styles.itemLabel}>{infoText}</div>
-            </CardContent>
-        </Card>
+                <Grid item xs={12} md={4} style={styles.takeoutOrders}>
+                    <TakeoutOrders orders={orders.takeOut} />
+                </Grid>
+                <Grid item xs={12} md={4} style={styles.phoneOrders}>
+                    <PhoneOrders orders={orders.phoneOrder} />
+                </Grid>
+            </Grid>
+            <Link color="primary" href="/order/home" onClick={''} sx={{ mt: 3 }}>
+                Back to home
+            </Link>
+        </div>
     );
 };
+export default CurrentOrders;
 
 
 const DineInOrders = ({ orders }) => {
@@ -144,7 +162,7 @@ const DineInOrders = ({ orders }) => {
         <div style={styles.orderSectionDI}>
             <h2 style={styles.sectionTitle}>Dine In Orders</h2>
             {orders.map((order) => (
-                <OrderCard order={order} key={order.id} />
+                <OrderCard order={order} key={order._id} />
             ))}
         </div>
     );
@@ -155,7 +173,7 @@ const TakeoutOrders = ({ orders }) => {
         <div style={styles.orderSectionTO}>
             <h2 style={styles.sectionTitle}>Takeout Orders</h2>
             {orders.map((order) => (
-                <OrderCard order={order} key={order.id} />
+                <OrderCard order={order} key={order._id} />
             ))}
         </div>
     );
@@ -166,31 +184,48 @@ const PhoneOrders = ({ orders }) => {
         <div style={styles.orderSectionP}>
             <h2 style={styles.sectionTitle}>Phone Orders</h2>
             {orders.map((order) => (
-                <OrderCard order={order} key={order.id} />
+                <OrderCard order={order} key={order._id} />
             ))}
         </div>
     );
 };
-const CurrentOrders = () => {
+
+const OrderCard = ({ order }) => {
+    let majorText ='';
+    let infoText = '';
+
+    if (order.orderType === 'DineIn') {
+        majorText = `Table ${order.table}`;
+        infoText = `Note: ${order.note}`;
+    } else if (order.orderType === 'TakeOut') {
+        infoText = `Note: ${order.note}`;
+    } else if (order.orderType === 'Phone') {
+        infoText = `Note: ${order.note}`;
+        majorText = (
+            <div>
+                <div>Name: {order.customer.name}</div>
+                <div>Phone: {order.customer.phone}</div>
+                <div>Pickup: {order.customer.pickUpTime}</div>
+            </div>
+            
+        );
+    }
 
     return (
-        <div>
-            <Grid container spacing={2} style={styles.page}>
-                <Grid item xs={12} md={4} style={styles.dineInOrders}>
-                    <DineInOrders orders={dineInOrders} />
+        <Card style={styles.card}>
+            <CardHeader title={` #${order._id.slice(-4)}`} style={styles.cardHeader} />
+            <CardContent style={styles.cardContent}>
+                <Grid container>
+                    <Grid item xs={12} sm={8}>
+                        <div style={styles.majorText}>{majorText}</div>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <div style={styles.itemTotal}>{`$${order.totalCost.toFixed(2)}`}</div>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={4} style={styles.takeoutOrders}>
-                    <TakeoutOrders orders={takeoutOrders} />
-                </Grid>
-                <Grid item xs={12} md={4} style={styles.phoneOrders}>
-                    <PhoneOrders orders={phoneOrders} />
-                </Grid>
-            </Grid>
-            <Link color="primary" href="/order/home" onClick={''} sx={{ mt: 3 }}>
-                Back to home
-            </Link>
-        </div>
+                <div style={styles.infoText}>{infoText}</div>
+            </CardContent>
+        </Card>
     );
 };
 
-export default CurrentOrders;

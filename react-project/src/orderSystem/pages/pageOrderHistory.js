@@ -57,14 +57,6 @@ const styles = {
     },
 };
 
-// Define the orders data
-const allOrders = [
-    { id: '#047890', datetime: '3 Mar, 2023, 2:30 PM', orderType: 'Dine In', table: 'T1', pmtType: 'cash', amount: '51.67', server: 'Bob.T' },
-    { id: '#223578', datetime: '3 Mar, 2023, 11:30 AM', orderType: 'Take Out', table: '', pmtType: 'credit', amount: '15.99', server: 'Ivy.L' },
-    { id: '#047892', datetime: '3 Mar, 2023, 2:30 PM', orderType: 'Dine In', table: 'T9', pmtType: 'cash', amount: '51.67', server: 'Bob.T' },
-    { id: '#223579', datetime: '3 Mar, 2023, 11:30 AM', orderType: 'Take Out', table: '', pmtType: 'credit', amount: '15.99', server: 'Ivy.L' },
-];
-
 /**
  * A component that displays a table of orders.
  */
@@ -152,7 +144,7 @@ export default function AdminOrdersHistory() {
                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((order) => (
                             <TableRow key={order._id}>
-                                <TableCell align="center">{order._id}</TableCell>
+                                <TableCell align="center">{order._id.slice(-4)}</TableCell>
                                 <TableCell align="center">{formatTime(order.completedTime)}</TableCell>
                                 <TableCell align="center">
                                     <div style={getOrderTypeCellStyle(order.orderType)}>
