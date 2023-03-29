@@ -62,6 +62,29 @@ export default function Login() {
     });
   };
 
+  const forgotPswd = (name) =>{
+    let data = JSON.stringify({
+      "username": name
+    });
+    
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:5500/auth/forgot-password',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -115,7 +138,7 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="#" onClick={forgotPswd} variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
