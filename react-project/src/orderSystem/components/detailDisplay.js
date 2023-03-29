@@ -152,33 +152,7 @@ const DetailDisplay = (props) => {
         return `${total.toFixed(2)}`;
     }
 
-
-    // Button Note: dialog
-    const [noteValue, setNoteValue] = useState('');
-    const [Dialogopen, setDialogOpen] = useState(false);
-    // open
-    const handleNoteClickOpen = () => {
-        setDialogOpen(true);
-    };
-    // save note data
-    const handleNoteChange = (event) => {
-        setNoteValue(event.target.value);
-    };
-    const handleNoteSave = () => {
-        setNoteValue(noteValue);
-        setDialogOpen(false);
-    };
-    // close
-    const handleNoteClose = () => {
-        setNoteValue('');
-        setDialogOpen(false);
-    };
-
-
     // bottom buttons
-    const cusNameRef = useRef(null);
-    const cusPhoneRef = useRef(null);
-    const pickupTimeRef = useRef(null);
     const totalCostRef = useRef(null);
     const taxRef = useRef(null);
     const beforeTaxRef = useRef(null);
@@ -187,19 +161,37 @@ const DetailDisplay = (props) => {
     const orderDone = () => {
 
     }
-    const orderPaid = () => {
 
-    }
-    // pop-up window: New Feature Coming Soon!
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+    // get note
+    let note = props.data.note !== undefined ? `${props.data.note}` : '';
+
+    // dine in order only
+    let table = props.data.table !== undefined ? `${props.data.table}` : '';
+
+    // phone order only
+    let cusName = props.data.customer && props.data.customer.name ? `${props.data.customer.name}` : '';
+    let cusPhone = props.data.customer && props.data.customer.phone ? `${props.data.customer.phone}` : '';
+    let pickUpTime = props.data.customer && props.data.customer.pickupTime ? `${props.data.customer.pickupTime}` : '';
+
+    // Button Pay: dialog
+    const [noteValue, setNoteValue] = useState('');
+    const [Dialogopen, setDialogOpen] = useState(false);
+    // open
+    const handlePayClickOpen = () => {
+        setDialogOpen(true);
     };
-    const handleClose = () => {
-        setAnchorEl(null);
+
+    // close
+    const handlePayCancel = () => {
+        setNoteValue('');
+        setDialogOpen(false);
     };
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
+
+    // change pmt status data
+    const handlePayConfirm = () => {
+        setNoteValue(noteValue);
+        setDialogOpen(false);
+    };
 
     return (
         <div>
@@ -215,48 +207,64 @@ const DetailDisplay = (props) => {
                                 style={styles.backIcon} />
                         </IconButton>
                     </Grid>
-                    {/* Head: Order Type:  Dine in */}
+
+                    {/* Head: Order Type: */}
                     <Grid item xs={5} style={styles.orderTypeTxt} >
                         {props.data.orderType}
                     </Grid>
+                    {/* Head (Dine In Only): Table Number */}
+                    {props.data.orderType === 'DineIn' && (
+                        <Grid item xs={3} style={styles.dropdownTxt}>
+                            Table:
+                            <Select
+                                style={styles.dropdown}
+                                value={table}
+                                readOnly
+                            >
+                                <MenuItem value={table}>{table}</MenuItem>
+                            </Select>
+                        </Grid>
+                    )}
 
                 </Grid>
                 {/* phone order only */}
-                <Grid container>
-                    <Grid item xs={4} >
-                        <TextField
-                            variant="filled"
-                            size="small"
-                            margin="normal"
-                            required
-                            id="cusName" name="cusName"
-                            label="Customer Name"
-                            inputRef={cusNameRef}
-                            defaultValue={props.data.customer.name}
-                        />
+                {props.data.orderType === 'Phone' && (
+                    <Grid container>
+                        <Grid item xs={4} >
+                            <TextField
+                                size="small"
+                                margin="normal"
+                                disabled
+                                id="cusName" name="cusName"
+                                label="Customer Name"
+                                // inputRef={cusNameRef}
+                                value={cusName}
+                            />
+                        </Grid>
+                        <Grid item xs={3} >
+                            <TextField
+                                size="small"
+                                margin="normal"
+                                disabled
+                                id="cusPhone" name="cusPhone"
+                                label="Phone"
+                                // inputRef={cusPhoneRef}
+                                value={cusPhone}
+                            />
+                        </Grid>
+                        <Grid item xs={5} >
+                            <TextField
+                                size="small"
+                                margin="normal"
+                                disabled
+                                id="pickupTime" name="pickupTime"
+                                label="Pick Up Time"
+                                // inputRef={pickupTimeRef}
+                                value={pickUpTime}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={3} >
-                        <TextField
-                            variant="filled"
-                            size="small"
-                            margin="normal"
-                            id="cusPhone" name="cusPhone"
-                            label="Phone"
-                            inputRef={cusPhoneRef}
-                        />
-                    </Grid>
-                    <Grid item xs={5} >
-                        <TextField
-                            variant="filled"
-                            size="small"
-                            margin="normal"
-                            required
-                            id="pickupTime" name="pickupTime"
-                            label="Pick Up Time"
-                            inputRef={pickupTimeRef}
-                        />
-                    </Grid>
-                </Grid>
+                )}
                 {/* Order detail list */}
                 <Grid container>
                     <Grid item xs={12}
@@ -299,7 +307,7 @@ const DetailDisplay = (props) => {
                             maxHeight: '4rem', overflow: 'scroll',
                             marginLeft: '7%'
                         }}>
-                            {noteValue}
+                            {note}
                         </p>
                     </Grid>
                     {/* Subtotal */}
@@ -361,10 +369,10 @@ const DetailDisplay = (props) => {
                     </Grid>
                     <Grid item xs={8}>
                         <Button
-                            onClick={orderPaid}
                             style={styles.button}
                             variant="contained"
                             fullWidth
+                            onClick={handlePayClickOpen}
                         >
                             Pay &nbsp;&nbsp; $ {getTaxAndTotal()}
                         </Button>
@@ -372,20 +380,19 @@ const DetailDisplay = (props) => {
                 </Grid>
             </ThemeProvider>
 
-            {/* Pop-up Window */}
-            <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-            >
-                <Typography sx={{ p: 2 }}>New Feature Coming Soon!</Typography>
-            </Popover>
-
+            {/* Dialog Window */}
+            <Dialog open={Dialogopen} onClose={handlePayCancel}>
+                <DialogTitle>Payment Confirm</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Is this order paid?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handlePayCancel}>Cancel</Button>
+                    <Button onClick={handlePayConfirm}>Yes</Button>
+                </DialogActions>
+            </Dialog>
         </div >
     )
 }

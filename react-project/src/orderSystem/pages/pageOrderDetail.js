@@ -39,16 +39,6 @@ const styles = {
 
 const PageDineInOrder = () => {
     const {id} = useParams();
-    
-    const [isOrderOpen, setIsOrderOpen] = useState(false);
-
-    const toggleOrderOpen = (e) => {
-        setIsOrderOpen(false);
-    };
-
-    const toggleOrderClose = (e) => {
-        setIsOrderOpen(true);
-    }
 
     // pass data
     const [data, setData] = useState([]);
@@ -78,19 +68,16 @@ const PageDineInOrder = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Grid container style={styles.page}>
-
-                    <Grid item xs={6}
+                <Grid item xs={2}></Grid>
+                    <Grid item xs={8}
                         style={{
                             ...styles.leftContainer,
                         }}
-                        onClick={toggleOrderClose}
                     >
                         <DetailDisplay data={data}/>
                     </Grid>
                 </Grid>
             </ThemeProvider>
-
-
         </>
     )
 }
