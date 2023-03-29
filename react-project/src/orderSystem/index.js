@@ -104,8 +104,8 @@ const OrderHome = () => {
         });
     }, []);
     // get table list
-    const availableTables = tables.filter(table => table.tableStatus === 'available');
-    const usedTables = tables.filter(table => table.tableStatus === 'used');
+    const availableTables = tables && tables.filter(table => table.tableStatus === 'available');
+    const usedTables = tables && tables.filter(table => table.tableStatus === 'used');
     // count number
     const numAvailableTables = availableTables.length;
     const numUsedTables = usedTables.length;

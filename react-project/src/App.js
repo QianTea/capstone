@@ -44,6 +44,7 @@ import TakeOutOrderInterface from './orderSystem/pages/pageTakeoutOrder';
 import OrdersHistory from './orderSystem/pages/pageOrderHistory';
 import CurrentOrders from './orderSystem/pages/pageCurrentOrder';
 import PhoneOrderPage from './orderSystem/pages/pagePhoneOrder';
+import PageOrderDetail from './orderSystem/pages/pageOrderDetail';
 
 
 
@@ -96,6 +97,7 @@ function App() {
           <Route path='/order/phone-order' element={<PhoneOrderPage />} />
           <Route path='/order/orders-history' element={<OrdersHistory />} />
           <Route path='/order/current-orders' element={<CurrentOrders />} />
+          <Route path='/order/order-display/:id' element={<PageOrderDetail />} />
 
         </Route>
 

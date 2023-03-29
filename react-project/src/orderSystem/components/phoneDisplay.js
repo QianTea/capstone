@@ -216,7 +216,7 @@ const PhoneDisplay = (props) => {
             customer:{
                 name:cusName,
                 phone:cusPhone,
-                takeOutTime:pickupTime,
+                pickupTime:pickupTime,
             }
         };
         console.log(order);

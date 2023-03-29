@@ -6,6 +6,7 @@ import axios from 'axios';
 import Link from '@mui/material/Link';
 import { Grid } from '@mui/material';
 import { Card, CardHeader, CardContent } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 // styles
 const styles = {
@@ -142,7 +143,7 @@ const DineInOrders = ({ orders }) => {
         <div style={styles.orderSectionDI}>
             <h2 style={styles.sectionTitle}>Dine In Orders</h2>
             {orders.map((order) => (
-                <OrderCard order={order} key={order._id} />
+                <OrderCard  order={order} key={order._id} />
             ))}
         </div>
     );
@@ -171,6 +172,7 @@ const PhoneOrders = ({ orders }) => {
 };
 
 const OrderCard = ({ order }) => {
+    const link = useNavigate();
     let majorText ='';
     let infoText = '';
 
@@ -185,14 +187,14 @@ const OrderCard = ({ order }) => {
             <div>
                 <div>Name: {order.customer.name}</div>
                 <div>Phone: {order.customer.phone}</div>
-                <div>Pickup: {order.customer.takeOutTime}</div>
+                <div>Pickup: {order.customer.pickupTime}</div>
             </div>
             
         );
     }
 
     return (
-        <Card style={styles.card}>
+        <Card style={styles.card} onClick={() => {link(`/order/order-display/${order._id}`)}}>
             <CardHeader title={` #${order._id.slice(-4)}`} style={styles.cardHeader} />
             <CardContent style={styles.cardContent}>
                 <Grid container>
