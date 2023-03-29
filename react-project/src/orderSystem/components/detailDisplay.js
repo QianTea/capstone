@@ -232,6 +232,7 @@ const DetailDisplay = (props) => {
                             id="cusName" name="cusName"
                             label="Customer Name"
                             inputRef={cusNameRef}
+                            defaultValue={props.data.customer.name}
                         />
                     </Grid>
                     <Grid item xs={3} >

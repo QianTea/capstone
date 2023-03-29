@@ -78,6 +78,7 @@ const AddEmployee = () => {
                             id="staffPswd"
                             label="password"
                             variant="outlined"
+                            type="password"
                         />
                     </div>
                     {/* <button type="submit">submit</button> */}

@@ -111,6 +111,7 @@ const EditEmployee = () => {
                             label="Password"
                             variant="outlined"
                             value={password}
+                            type="password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
