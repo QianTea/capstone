@@ -36,7 +36,8 @@ export default function Orders() {
       });
   }, []);
   console.log(orders);
-  const lastFiveOrders = orders.reverse().slice(0, 5);
+  const lastFiveOrders = orders ? orders.slice().reverse().slice(0, 5) : [];
+
   const formatTime = (timeString) => {
     const date = new Date(timeString);
     return date.toLocaleString().replace(', ', ' ');

@@ -44,11 +44,13 @@ export default function Deposits() {
         console.log(error);
       });
   }, []);
+  let revenue = orders.revenue ? orders.revenue.toFixed(2) : '';
+
   return (
     <React.Fragment>
       <Title>Today's Revenue</Title>
       <Typography component="p" variant="h4">
-        ${orders.revenue.toFixed(2)}
+        ${revenue}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
         on {formattedDate}
