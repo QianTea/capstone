@@ -91,7 +91,19 @@ const Employee = () => {
         };
         fetchData();
     }, [setEmployeeList]);
-
+    const getEmps = async () => {
+        try {
+            const result = await axios.get('http://localhost:5500/staffs', {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+            });
+            setEmployeeList(result.data.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
     // delete employee function
     const handleEmployeeDelete = (_id) => {
         const employeeToDelete = employeeList.data[_id];
@@ -102,10 +114,7 @@ const Employee = () => {
         })
             .then((response) => {
                 console.log(response.data);
-                setEmployeeList((prev) => ({
-                    ...prev,
-                    data: prev.data.filter((employee, index) => index !== _id),
-                }));
+                getEmps();
                 setShowAlert(true);
                 setAlertSeverity('success');
                 setAlertMessage('Employee deleted successfully');
@@ -225,7 +234,7 @@ const Employee = () => {
                                 {employeeList.data.map((employee, _id) => (
                                     <TableRow key={_id}>
                                         <TableCell>{employee.name}</TableCell>
-                                        <TableCell>{employee.role.name}</TableCell>
+                                        <TableCell>{employee.role ? employee.role.name : ''}</TableCell>
                                         <TableCell>
                                             {/* <Link to={`/admin/employee/editEmployee/${employee._id}`}>
                                                 <IconButton aria-label="edit" color="primary">
