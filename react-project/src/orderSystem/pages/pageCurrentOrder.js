@@ -99,7 +99,7 @@ const CurrentOrders = () => {
             const config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://192.168.3.156:5500/orders/pendingOrders',
+                url: 'http://localhost:5500/orders/pendingOrders',
                 headers: {
                     'Authorization': 'Bearer ' + token,
                 },

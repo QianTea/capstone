@@ -185,7 +185,7 @@ const DetailDisplay = (props) => {
     const updatePMTStatus = async (orderId) => {
         const token = localStorage.getItem('token');
         try {
-            const result = await axios.get(`http://192.168.3.156:5500/orders/pay/${orderId}`, {
+            const result = await axios.get(`http://localhost:5500/orders/pay/${orderId}`, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
@@ -208,7 +208,7 @@ const DetailDisplay = (props) => {
     const updateOrderStatus = async (orderId) => {
         const token = localStorage.getItem('token');
         try {
-            const result = await axios.get(`http://192.168.3.156:5500/orders/complete/${orderId}`, {
+            const result = await axios.get(`http://localhost:5500/orders/complete/${orderId}`, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'

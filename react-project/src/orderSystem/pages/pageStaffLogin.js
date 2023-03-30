@@ -40,7 +40,7 @@ export default function StaffLogin() {
     axios({
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://192.168.3.156:5500/auth/login',
+      url: 'http://localhost:5500/auth/login',
       headers: {
         'Content-Type': 'application/json'
       },

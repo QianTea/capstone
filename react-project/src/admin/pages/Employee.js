@@ -30,117 +30,58 @@ const styles = {
         margin: '2%',
     },
 };
-//data
-const roles = [
-    { id: 1, name: 'Admin', description: 'The system administrator, with the highest level of permissions.' },
-    { id: 2, name: 'Manager', description: 'The restaurant manager, responsible for managing the daily operations of the restaurant.' },
-    { id: 3, name: 'Chef', description: 'The chef, responsible for cooking in the restaurant.' },
-    { id: 4, name: 'Waiter', description: 'The waiter, responsible for providing service and taking orders for customers.' },
-    { id: 5, name: 'Cashier', description: 'The cashier, responsible for handling the restaurant\'s cash transactions.' }
-];
-const employees = [
-    { id: 1, name: 'Ivy', email: 'ivylin1949@gmail.com', role: 'Admin' },
-    { id: 2, name: 'Bob', email: '', role: 'Waiter' },
-    { id: 3, name: 'Charlie', email: '', role: 'Waiter' },
-    { id: 4, name: 'David', email: '', role: 'Cashier' },
-    { id: 5, name: 'Emily', email: '', role: 'Waiter' }
-];
-
 
 const Employee = () => {
+    const token = localStorage.getItem('token');
+
     // API - get role 
-    const [roleList, setRoleList] = useState([
-        {
-            "_id": "63f12ea779b265e394bf562d",
-            "name": "admin",
-            "description": "The system administrator, with the highest level of permissions.",
-            "level": 1,
-        },
-        {
-            "_id": "640f6a71ad7ce9e8b974a70f",
-            "name": "waiter",
-            "description": "waiter, only have access to login to Order System",
-            "level": 2,
-        },
-    ]);
+    const [roleList, setRoleList] = useState([{}]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get('http://192.168.3.156:5500/staff-roles');
-            setRoleList(result.data.map((item) => ({
-                _id: item._id,
-                name: item.name,
-                description: item.description,
-                level: item.level,
-            })));
+            try {
+                const result = await axios.get('http://localhost:5500/staff-roles', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                });
+                setRoleList(result.data.data);
+            } catch (error) {
+                console.error(error);
+            }
+
         };
         fetchData();
     }, [setRoleList]);
 
     //API - get employee
-    const [employeeList, setEmployeeList] = useState({
-        data: [
-            {
-                _id: "63f130c67a4313b1aec604a6",
-                name: "ivy",
-                role: {
-                    _id: "63f12ea779b265e394bf562d",
-                    description: "",
-                    level: 1,
-                    name: "admin",
-                },
-                email: "echoaiyaya@gmail.com",
-            },
-            {
-                _id: "6407eadf0fef37ef130fb627",
-                name: "echoaiyaya",
-                role: {
-                    _id: "63f12ea779b265e394bf562d",
-                    description: "",
-                    level: 1,
-                    name: "admin",
-                },
-            },
-            {
-                _id: "6408b51b3fc89c9dbe2365f0",
-                name: "ivyLChange",
-                role: {
-                    _id: "63f12ea779b265e394bf562d",
-                    description: "",
-                    level: 1,
-                    name: "admin",
-                },
-                email: "echoaiyaya@gmail.com",
-            },
-        ],
-    });
+    const [employeeList, setEmployeeList] = useState({data: []});
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get('http://192.168.3.156:5500/staffs');
-            setEmployeeList(result.data.map((item) => ({
-                _id: item._id,
-                name: item.name,
-                role: {
-                    _id: item.role._id,
-                    description: item.role.description,
-                    level: item.role.level,
-                    name: item.role.name,
-                },
-                email: item.email,
-            })));
+            try {
+                const result = await axios.get('http://localhost:5500/staffs', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                });
+                setEmployeeList(result.data);
+            } catch (error) {
+                console.error(error);
+            }
         };
         fetchData();
     }, [setEmployeeList]);
+
     // delete role function
     const handleRoleDelete = (id) => {
-        const newList = roleList.filter((role) => role.id !== id);
-        setRoleList(newList);
+
     };
 
     // delete employee function
     const handleEmployeeDelete = (id) => {
-        const newList = employeeList.filter((employee) => employee.id !== id);
-        setEmployeeList(newList);
+
     };
     return (
         <ThemeProvider theme={mdTheme}>

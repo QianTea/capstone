@@ -47,7 +47,7 @@ const PageDineInOrder = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://192.168.3.156:5500/orders/' + id,
+            url: 'http://localhost:5500/orders/' + id,
             headers: { 
               'Authorization': 'Bearer ' + token
             }

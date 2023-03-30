@@ -31,7 +31,7 @@ export default function Login() {
     axios({
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://192.168.3.156:5500/auth/login',
+      url: 'http://localhost:5500/auth/login',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -72,7 +72,7 @@ export default function Login() {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://192.168.3.156:5500/auth/forgot-password',
+      url: 'http://localhost:5500/auth/forgot-password',
       headers: { 
         'Content-Type': 'application/json'
       },

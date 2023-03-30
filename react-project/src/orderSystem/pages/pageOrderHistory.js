@@ -88,7 +88,7 @@ export default function AdminOrdersHistory() {
         const config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://192.168.3.156:5500/orders/todayHistory',
+            url: 'http://localhost:5500/orders/todayHistory',
             headers: {
                 'Authorization': 'Bearer ' + token,
             },

@@ -29,7 +29,7 @@ export default function Deposits() {
     const config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://192.168.3.156:5500/admin-orders/todayOrders',
+      url: 'http://localhost:5500/admin-orders/todayOrders',
       headers: {
         'Authorization': 'Bearer ' + token,
       },

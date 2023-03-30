@@ -1,8 +1,8 @@
-import React from "react";
-import { Link, useParams } from 'react-router-dom'
-
-import Staff from '../pages/Employee';
-
+import React, { useState } from "react";
+import { Link, useParams } from 'react-router-dom';
+//api
+import axios from 'axios';
+//mui
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -11,9 +11,20 @@ import SendIcon from '@mui/icons-material/Send';
 
 
 const AddRole = () => {
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // handle form submit logic here
+        const data = { name, description };
+        axios.post('http://localhost:5500/staff-roles', data)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
     return (
         <Box
@@ -36,6 +47,8 @@ const AddRole = () => {
                             id="roleName"
                             label="name"
                             variant="outlined"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
 
@@ -47,9 +60,12 @@ const AddRole = () => {
                             variant="outlined"
                             multiline
                             minRows={4}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
                     <Button fullWidth
+                        type="submit"
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                         startIcon={<SendIcon />}
@@ -61,7 +77,7 @@ const AddRole = () => {
                 <Link
                     variant="body2"
                     to="/admin/employee">
-                     Go back to employee management page
+                    Go back to employee management page
                 </Link>
             </Box>
         </Box>

@@ -29,7 +29,7 @@ function DashboardContent() {
         const config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://192.168.3.156:5500/tables',
+            url: 'http://localhost:5500/tables',
             headers: {
                 'Authorization': 'Bearer ' + token,
             },
