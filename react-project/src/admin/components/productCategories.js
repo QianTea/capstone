@@ -17,6 +17,8 @@ import {
     TableContainer, TableHead, TableRow
 } from "@mui/material";
 import Container from '@mui/material/Container';
+// alert
+import { Alert, AlertTitle } from '@mui/material';
 
 // styles
 const mdTheme = createTheme();
@@ -34,8 +36,14 @@ const styles = {
 //data
 
 const Categories = () => {
+    const token = localStorage.getItem('token');
+    // alert
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertSeverity, setAlertSeverity] = useState('success');
+    const [alertMessage, setAlertMessage] = useState('');
+
     // API - get categories 
-    const [categories, setCategories] = useState([ ]);
+    const [categories, setCategories] = useState([]);
     useEffect(() => {
         const token = localStorage.getItem('token');
 
@@ -48,18 +56,49 @@ const Categories = () => {
                     },
                 });
                 console.log(result.data);
-                setCategories(result.data.data.map((item) => ({
-                    _id: item._id,
-                    name: item.name,
-                    description: item.description,
-                })));
+                setCategories(result.data.data);
                 console.log(result.data.data);
             } catch (error) {
                 console.error(error);
             }
         };
         fetchData();
-    },[setCategories]);
+    }, [setCategories]);
+    const getCategories = async () => {
+        try {
+            const result = await axios.get('http://localhost:5500/products-categories', {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+            });
+            setCategories(result.data.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    // delete category function
+    const handleCateDelete = (_id) => {
+        const CateToDelete = _id;
+        axios.delete(`http://localhost:5500/products-categories/${CateToDelete}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+            .then((response) => {
+                console.log(response.data);
+                getCategories();
+                setShowAlert(true);
+                setAlertSeverity('success');
+                setAlertMessage('Category deleted successfully');
+            })
+            .catch((error) => {
+                console.log(error);
+                setShowAlert(true);
+                setAlertSeverity('error');
+                setAlertMessage('Error deleting category. Please try again later.');
+            });
+    };
     return (
         <Box
             component="form"
@@ -73,6 +112,15 @@ const Categories = () => {
                         Add Category
                     </Button>
                 </Link>
+                <p>Delete the products before delete theirs category.</p>
+
+                {/* // alert */}
+                {showAlert &&
+                    <Alert severity={alertSeverity} onClose={() => setShowAlert(false)} sx={{ mb: 2 }}>
+                        <AlertTitle>{alertSeverity === 'success' ? 'Success' : 'Error'}</AlertTitle>
+                        {alertMessage}
+                    </Alert>
+                }
                 <TableContainer component={Paper} style={styles.table}>
                     <Table >
                         <TableHead>
@@ -88,16 +136,18 @@ const Categories = () => {
                                     <TableCell>{v.name}</TableCell>
                                     <TableCell>{v.description}</TableCell>
                                     <TableCell>
-                                        <IconButton
+                                        {/* <IconButton
                                             aria-label="edit"
                                             color="primary"
                                             component={Link}
                                             to={`/admin/menu/editCategory/${v._id}`}
                                         >
                                             <EditIcon />
-                                        </IconButton>
+                                        </IconButton> */}
 
-                                        <IconButton aria-label="delete" color="error">
+                                        <IconButton aria-label="delete" color="error"
+                                            onClick={() => handleCateDelete(v._id)}
+                                        >
                                             <DeleteIcon />
                                         </IconButton>
                                     </TableCell>
