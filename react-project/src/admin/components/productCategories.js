@@ -35,48 +35,7 @@ const styles = {
 
 const Categories = () => {
     // API - get categories 
-    const [categories, setCategories] = useState([
-        {
-            _id: "64123da34b850b3e5391a0e8",
-            name: 'Uncategorized', description: 'Uncategorized',
-        },
-        {
-            _id: "64123da34b850b3e5391a0e1",
-            name: '2pcDinner', description: '2pc Fish and Chip Dinners',
-        },
-        {
-            _id: "64123da34b850b3e5391a0e2",
-            name: 'family', description: 'Family Packs',
-        },
-        {
-            _id: "64123da34b850b3e5391a0e3",
-            name: '2pcOnly', description: '2pc Fish Only',
-        },
-        {
-            _id: "64123da34b850b3e5391a0e4",
-            name: 'sfp', description: 'Sea Food Platter',
-        },
-        {
-            _id: "64123da34b850b3e5391a0e5",
-            name: 'fries', description: 'Homemade Fries',
-        },
-        {
-            _id: "64123da34b850b3e5391a0e6",
-            name: 'shrimpSpecial', description: 'Shrimp Special',
-        },
-        {
-            _id: "64123da34b850b3e5391a0e7",
-            name: 'kid', description: 'Kid\'s Combo',
-        },
-        {
-            _id: "64123da34b850b3e5391a0e8",
-            name: 'side', description: 'Side Orders',
-        },
-        {
-            _id: "64123da34b850b3e5391a0e9",
-            name: 'beverage', description: 'Beverages',
-        },
-    ]);
+    const [categories, setCategories] = useState([ ]);
     useEffect(() => {
         const token = localStorage.getItem('token');
 

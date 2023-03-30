@@ -36,43 +36,7 @@ const styles = {
 const Tags = () => {
 
     // API - get tags 
-    const [tags, setTags] = useState([
-        {
-            _id: "64123da34b850b3e5391a0e8",
-            name: "fish type 3",
-            description: "",
-        },
-        {
-            _id: "64123da34b850b3e5391a0e1",
-            name: "TakeOutMenu",
-            description: "Menu for Take Out Order and Phone Order",
-        },
-        {
-            _id: "64123da34b850b3e5391a0e2",
-            name: "Dine-In Menu",
-            description: "Menu for Dine-In Order",
-        },
-        {
-            _id: "64123da34b850b3e5391a0e3",
-            name: "Fish",
-            description: "Fish dishes",
-        },
-        {
-            _id: "64123da34b850b3e5391a0e4",
-            name: "Sides",
-            description: "Side dishes",
-        },
-        {
-            _id: "64123da34b850b3e5391a0e5",
-            name: "Beverage",
-            description: "Beverages",
-        },
-        {
-            _id: "64123da34b850b3e5391a0e6",
-            name: "Special",
-            description: "Specialty dishes",
-        },
-    ]);
+    const [tags, setTags] = useState([{}]);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -86,11 +50,7 @@ const Tags = () => {
                     },
                 });
                 console.log(result.data);
-                setTags(result.data.data.map((item) => ({
-                    _id: item._id,
-                    name: item.name,
-                    description: item.description,
-                })));
+                setTags(result.data.data);
                 console.log(result.data.data);
             } catch (error) {
                 console.error(error);

@@ -17,6 +17,8 @@ import {
   TableContainer, TableHead, TableRow
 } from "@mui/material";
 import Container from '@mui/material/Container';
+// alert
+import { Alert, AlertTitle } from '@mui/material';
 
 // styles
 const mdTheme = createTheme();
@@ -34,33 +36,14 @@ const styles = {
 //data
 
 const Dishes = () => {
-  const [dishes, setDishes] = useState([
-    {
-      "_id": "64123d0d4b850b3e5391a0e4",
-      "name": "2pc Wihtefish & chips",
-      // "altName": "2pc W/C",
-      "description": "This is a new product",
-      "dineInPrice": 10.99,
-      "takeOutPrice": 9.99,
-      // "quality": 23,
-      // "image": "https://example.com/new-product.png",
-      "category": {
-        "_id": "64123f4010002a94245bddd6",
-        "name": "fish test3",
-        "description": "",
-      },
-      "foodType": [
-        {
-          "_id": "64123da34b850b3e5391a0e8",
-          "name": "fish type 2",
-          "description": "",
-        },
-      ]
-    },
-  ]);
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
+    // alert
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertSeverity, setAlertSeverity] = useState('success');
+    const [alertMessage, setAlertMessage] = useState('');
 
+  const [dishes, setDishes] = useState([]);
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await axios.get('http://localhost:5500/products', {
@@ -70,15 +53,7 @@ const Dishes = () => {
           },
         });
         console.log(result.data);
-        setDishes(result.data.data.map((item) => ({
-          _id: item._id,
-          name: item.name,
-          description: item.description,
-          dineInPrice: item.dineInPrice,
-          takeOutPrice: item.takeOutPrice,
-          category: item.category.name,
-          foodType: item.foodType,
-        })));
+        setDishes(result.data.data);
         console.log(result.data.data);
       } catch (error) {
         console.error(error);
@@ -86,6 +61,41 @@ const Dishes = () => {
     };
     fetchData();
   }, [setDishes]);
+  const getDishes = async () => {
+    try {
+      const result = await axios.get('http://localhost:5500/products', {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+      });
+      setDishes(result.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  // delete product function
+  const handleProductDelete = (_id) => {
+    const productToDelete = dishes[_id];
+    axios.delete(`http://localhost:5500/products/${productToDelete._id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        getDishes();
+        setShowAlert(true);
+        setAlertSeverity('success');
+        setAlertMessage('Product deleted successfully');
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowAlert(true);
+        setAlertSeverity('error');
+        setAlertMessage('Error deleting product. Please try again later.');
+      });
+  };
   return (
     <Box
       component="form"
@@ -100,11 +110,19 @@ const Dishes = () => {
             Add Dishes
           </Button>
         </Link>
+        {/* // alert */}
+        {showAlert &&
+          <Alert severity={alertSeverity} onClose={() => setShowAlert(false)} sx={{ mb: 2 }}>
+            <AlertTitle>{alertSeverity === 'success' ? 'Success' : 'Error'}</AlertTitle>
+            {alertMessage}
+          </Alert>
+        }
         <TableContainer component={Paper} style={styles.table}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
+                <TableCell>Alt Name</TableCell>
                 <TableCell>Dine-In Price</TableCell>
                 <TableCell>Take Out Price</TableCell>
                 <TableCell>Category</TableCell>
@@ -113,25 +131,27 @@ const Dishes = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {dishes.map((product) => (
-                <TableRow key={product._id}>
+              {dishes.map((product,_id) => (
+                <TableRow key={_id}>
                   <TableCell>{product.name}</TableCell>
+                  <TableCell>{product.altName}</TableCell>
                   <TableCell>{product.dineInPrice}</TableCell>
                   <TableCell>{product.takeOutPrice}</TableCell>
-                  <TableCell>{product.category.name}</TableCell>
                   <TableCell>
-                    {product.foodType.map((tag) => (
-                      <div key={tag._id}>{tag.name}</div>
-                    ))}
+                    {product.category ? product.category.name : ''}
                   </TableCell>
-
+                  <TableCell>{product.foodType.length > 0 ? product.foodType[0].name : ''}</TableCell>
                   <TableCell>
                     {/* <Link to={`/admin/menu/editDish/${id}`}></Link> */}
-                    <IconButton aria-label="edit" color="primary" >
+                    {/* <IconButton aria-label="edit" color="primary" >
                       <EditIcon />
-                    </IconButton>
+                    </IconButton> */}
 
-                    <IconButton aria-label="delete" color="error">
+                    <IconButton
+                      aria-label="delete"
+                      color="error"
+                      onClick={() => handleProductDelete(_id)}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>
