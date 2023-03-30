@@ -16,6 +16,8 @@ import {
     TableContainer, TableHead, TableRow
 } from "@mui/material";
 import Container from '@mui/material/Container';
+// alert
+import { Alert, AlertTitle } from '@mui/material';
 
 // styles
 const mdTheme = createTheme();
@@ -33,6 +35,10 @@ const styles = {
 
 const Employee = () => {
     const token = localStorage.getItem('token');
+    // alert
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertSeverity, setAlertSeverity] = useState('success');
+    const [alertMessage, setAlertMessage] = useState('');
 
     // API - get role 
     const [roleList, setRoleList] = useState([{}]);
@@ -54,9 +60,21 @@ const Employee = () => {
         };
         fetchData();
     }, [setRoleList]);
-
+    const getRoles = async () => {
+        try {
+            const result = await axios.get('http://localhost:5500/staff-roles', {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+            });
+            setRoleList(result.data.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
     //API - get employee
-    const [employeeList, setEmployeeList] = useState({data: []});
+    const [employeeList, setEmployeeList] = useState({ data: [] });
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -74,14 +92,52 @@ const Employee = () => {
         fetchData();
     }, [setEmployeeList]);
 
-    // delete role function
-    const handleRoleDelete = (id) => {
-
-    };
-
     // delete employee function
-    const handleEmployeeDelete = (id) => {
-
+    const handleEmployeeDelete = (_id) => {
+        const employeeToDelete = employeeList.data[_id];
+        axios.delete(`http://localhost:5500/staffs/${employeeToDelete._id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+            .then((response) => {
+                console.log(response.data);
+                setEmployeeList((prev) => ({
+                    ...prev,
+                    data: prev.data.filter((employee, index) => index !== _id),
+                }));
+                setShowAlert(true);
+                setAlertSeverity('success');
+                setAlertMessage('Employee deleted successfully');
+            })
+            .catch((error) => {
+                console.log(error);
+                setShowAlert(true);
+                setAlertSeverity('error');
+                setAlertMessage('Error deleting employee. Please try again later.');
+            });
+    };
+    // delete role function
+    const handleRoleDelete = (_id) => {
+        const RoleToDelete = _id;
+        axios.delete(`http://localhost:5500/staff-roles/${RoleToDelete}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+            .then((response) => {
+                console.log(response.data);
+                getRoles();
+                setShowAlert(true);
+                setAlertSeverity('success');
+                setAlertMessage('Role deleted successfully');
+            })
+            .catch((error) => {
+                console.log(error);
+                setShowAlert(true);
+                setAlertSeverity('error');
+                setAlertMessage('Error deleting role. Please try again later.');
+            });
     };
     return (
         <ThemeProvider theme={mdTheme}>
@@ -93,6 +149,13 @@ const Employee = () => {
             >
                 <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                     <h1>Employees Management</h1>
+                    {/* // alert */}
+                    {showAlert &&
+                        <Alert severity={alertSeverity} onClose={() => setShowAlert(false)} sx={{ mb: 2 }}>
+                            <AlertTitle>{alertSeverity === 'success' ? 'Success' : 'Error'}</AlertTitle>
+                            {alertMessage}
+                        </Alert>
+                    }
                     <span style={styles.tbTitle}>Role</span>
                     <Link to="/admin/employee/addRole">
                         <Button variant="contained" startIcon={<AddIcon />} color="primary" >
@@ -109,16 +172,16 @@ const Employee = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {roleList.map((role) => (
-                                    <TableRow key={role._id}>
+                                {roleList.map((role, _id) => (
+                                    <TableRow key={_id}>
                                         <TableCell>{role.name}</TableCell>
                                         <TableCell>{role.description}</TableCell>
                                         <TableCell>
-                                            <Link to={`/admin/employee/editRole/${role._id}`}>
+                                            {/* <Link to={`/admin/employee/editRole/${role._id}`}>
                                                 <IconButton aria-label="edit" color="primary">
                                                     <EditIcon />
                                                 </IconButton>
-                                            </Link>
+                                            </Link> */}
                                             <IconButton
                                                 aria-label="delete"
                                                 color="error"
@@ -148,6 +211,7 @@ const Employee = () => {
                             Add Employee
                         </Button>
                     </Link>
+
                     <TableContainer component={Paper} style={styles.table}>
                         <Table >
                             <TableHead>
@@ -158,20 +222,20 @@ const Employee = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {employeeList.data.map((employee, index) => (
-                                    <TableRow key={index}>
+                                {employeeList.data.map((employee, _id) => (
+                                    <TableRow key={_id}>
                                         <TableCell>{employee.name}</TableCell>
                                         <TableCell>{employee.role.name}</TableCell>
                                         <TableCell>
-                                            <Link to={`/admin/employee/editEmployee/${employee._id}`}>
+                                            {/* <Link to={`/admin/employee/editEmployee/${employee._id}`}>
                                                 <IconButton aria-label="edit" color="primary">
                                                     <EditIcon />
                                                 </IconButton>
-                                            </Link>
+                                            </Link> */}
                                             <IconButton
                                                 aria-label="delete"
                                                 color="error"
-                                                onClick={() => handleEmployeeDelete(index)}
+                                                onClick={() => handleEmployeeDelete(_id)}
                                             >
                                                 <DeleteIcon />
                                             </IconButton>
