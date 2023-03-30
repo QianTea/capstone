@@ -17,6 +17,8 @@ import {
     TableContainer, TableHead, TableRow
 } from "@mui/material";
 import Container from '@mui/material/Container';
+// alert
+import { Alert, AlertTitle } from '@mui/material';
 
 // styles
 const mdTheme = createTheme();
@@ -34,13 +36,16 @@ const styles = {
 //data
 
 const Tags = () => {
+    const token = localStorage.getItem('token');
+    // alert
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertSeverity, setAlertSeverity] = useState('success');
+    const [alertMessage, setAlertMessage] = useState('');
 
     // API - get tags 
     const [tags, setTags] = useState([{}]);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-    
         const fetchData = async () => {
             try {
                 const result = await axios.get('http://localhost:5500/product-foodtype', {
@@ -58,7 +63,41 @@ const Tags = () => {
         };
         fetchData();
     }, [setTags]);
-    
+    const getTags = async () => {
+        try {
+            const result = await axios.get('http://localhost:5500/product-foodtype', {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+            });
+            setTags(result.data.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+        // delete food tag function
+        const handleTagDelete = (_id) => {
+            const TagToDelete = _id;
+            axios.delete(`http://localhost:5500/product-foodtype/${TagToDelete}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+                .then((response) => {
+                    console.log(response.data);
+                    getTags();
+                    setShowAlert(true);
+                    setAlertSeverity('success');
+                    setAlertMessage('Tag deleted successfully');
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setShowAlert(true);
+                    setAlertSeverity('error');
+                    setAlertMessage('Error deleting tag. Please try again later.');
+                });
+        };
     return (
         <Box
             component="form"
@@ -72,7 +111,13 @@ const Tags = () => {
                         Add Tag
                     </Button>
                 </Link>
-
+                {/* // alert */}
+                {showAlert &&
+                    <Alert severity={alertSeverity} onClose={() => setShowAlert(false)} sx={{ mb: 2 }}>
+                        <AlertTitle>{alertSeverity === 'success' ? 'Success' : 'Error'}</AlertTitle>
+                        {alertMessage}
+                    </Alert>
+                }
                 <TableContainer component={Paper} style={styles.table}>
                     <Table >
                         <TableHead>
@@ -83,17 +128,20 @@ const Tags = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {tags.map((tag) => (
-                                <TableRow key={tag._id}>
+                            {tags.map((tag,_id) => (
+                                <TableRow key={_id}>
                                     <TableCell>{tag.name}</TableCell>
                                     <TableCell>{tag.description}</TableCell>
                                     <TableCell>
-                                        <Link to={`/admin/menu/editFoodTag/${tag._id}`}>
+                                        {/* <Link to={`/admin/menu/editFoodTag/${tag._id}`}>
                                             <IconButton aria-label="edit" color="primary">
                                                 <EditIcon />
                                             </IconButton>
-                                        </Link>
-                                        <IconButton aria-label="delete" color="error">
+                                        </Link> */}
+                                        <IconButton 
+                                        aria-label="delete" color="error"
+                                        onClick={() => handleTagDelete(tag._id)}
+                                        >
                                             <DeleteIcon />
                                         </IconButton>
                                     </TableCell>
