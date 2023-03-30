@@ -93,7 +93,7 @@ function ResponsiveAppBar(props) {
               }}
             >
               {props.pages && props.pages.map((page) => (
-                <MenuItem key={page.value} onClick={clickPage}>
+                <MenuItem key={page.label} onClick={clickPage}>
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
@@ -124,7 +124,7 @@ function ResponsiveAppBar(props) {
 
               <Link to={`/${page.value}`}>
                 <Button
-                  key={page}
+                  key={page.label}
                   // onClick={() => clickPage(page)}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >

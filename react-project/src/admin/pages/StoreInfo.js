@@ -83,14 +83,14 @@ const BusinessHour = (props) => {
 
 
         const fetchData = async () => {
-            const result = await axios.get('http://localhost:5500/website/business-hours');
+            const result = await axios.get('http://192.168.3.156:5500/website/business-hours');
             console.log(result.data.data);
             setBusinessHour(result.data.data);
             console.log(businessHour);
             props.getTime(result.data.data);
         };
         fetchData();
-    }, []);
+    }, [props.getTime, setBusinessHour]);
 
     return (
         <div >
@@ -145,7 +145,7 @@ const StoreInfo = () => {
                     axios.request({
                         method: 'put',
                         maxBodyLength: Infinity,
-                        url: 'http://localhost:5500/website-update/business-hours/'+v._id,
+                        url: 'http://192.168.3.156:5500/website-update/business-hours/'+v._id,
                         headers: {
                             'Authorization': 'Bearer ' + token,
                             'Content-Type': 'application/json'
@@ -182,7 +182,7 @@ const StoreInfo = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:5500/website-update',
+            url: 'http://192.168.3.156:5500/website-update',
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
@@ -221,11 +221,11 @@ const StoreInfo = () => {
     useEffect(() => {
 
         const fetchData = async () => {
-            const result = await axios.get('http://localhost:5500/website');
+            const result = await axios.get('http://192.168.3.156:5500/website');
             setStoreInfo(result.data.data);
         };
         fetchData();
-    }, []);
+    }, [setStoreInfo]);
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{

@@ -224,7 +224,7 @@ const TakeoutDisplay = (props) => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:5500/orders',
+            url: 'http://192.168.3.156:5500/orders',
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'

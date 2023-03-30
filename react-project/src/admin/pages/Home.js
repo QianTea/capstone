@@ -13,6 +13,8 @@ import Paper from '@mui/material/Paper';
 import Deposits from '../components/deposits';
 import Orders from '../components/orders';
 import AvailableTables from '../components/avaliableTables';
+import { useNavigate } from 'react-router-dom';
+import { removeAuthService } from '../services/clearAuth';
 
 const mdTheme = createTheme();
 
@@ -20,14 +22,14 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
     const [tables, setTables] = useState([]);
-
+    const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
     useEffect(() => {
         const config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:5500/tables',
+            url: 'http://192.168.3.156:5500/tables',
             headers: {
                 'Authorization': 'Bearer ' + token,
             },
@@ -36,15 +38,20 @@ function DashboardContent() {
         axios
             .request(config)
             .then((response) => {
+                if (response.data.status == 401) {
+                    
+                    removeAuthService();
+                    navigate('/admin/logout');
+                }
                 setTables(response.data.data);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [setTables, navigate]);
     // get table list
-    const availableTables = tables.filter(table => table.tableStatus === 'available');
-    const usedTables = tables.filter(table => table.tableStatus === 'used');
+    const availableTables = tables && tables.filter(table => table.tableStatus === 'available');
+    const usedTables = tables && tables.filter(table => table.tableStatus === 'used');
     // count number
     const numAvailableTables = availableTables.length;
     const numUsedTables = usedTables.length;

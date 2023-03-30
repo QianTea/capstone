@@ -20,7 +20,7 @@ export default function Orders() {
     const config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:5500/admin-orders/todayOrders',
+      url: 'http://192.168.3.156:5500/admin-orders/todayOrders',
       headers: {
         'Authorization': 'Bearer ' + token,
       },
@@ -34,7 +34,7 @@ export default function Orders() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [setOrders]);
   console.log(orders);
   const lastFiveOrders = orders ? orders.slice().reverse().slice(0, 5) : [];
 
@@ -56,8 +56,8 @@ export default function Orders() {
         </TableHead>
         <TableBody>
           {lastFiveOrders.map((o) => (
-            <TableRow>
-              <TableCell align="center">{formatTime(o.completedTime)}</TableCell>
+            <TableRow key={o._id}>
+              <TableCell  align="center">{formatTime(o.completedTime)}</TableCell>
               <TableCell align="center">{o.orderType}</TableCell>
               <TableCell align="center">{`$${o.totalCost}`}</TableCell>
               <TableCell align="center">{o.staff}</TableCell>
@@ -67,7 +67,8 @@ export default function Orders() {
       </Table>
       <Link color="primary" 
       href="/admin/orderhistory" 
-      onClick={''} sx={{ mt: 3 }}>
+      //onClick={''} 
+      sx={{ mt: 3 }}>
         See more orders
       </Link>
     </React.Fragment>

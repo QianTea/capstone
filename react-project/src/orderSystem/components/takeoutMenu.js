@@ -76,7 +76,7 @@ const TakeOutMenu = (props) => {
 
     const fetchData = async () => {
       try {
-        const result = await axios.get('http://localhost:5500/products', {
+        const result = await axios.get('http://192.168.3.156:5500/products', {
           headers: {
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ const TakeOutMenu = (props) => {
       }
     };
     fetchData();
-  }, []);
+  }, [setDishes]);
   // add item to order
   const [orderDishes, setOrderDishes] = useState([]);
 

@@ -21,7 +21,7 @@ const OrderLayout = () => {
         const currentPath = location.pathname;
         let isLoggedIn = staffLoginService();
         if (!isLoggedIn) {
-            navigate('/order/login');
+            if (currentPath != '/order/login') navigate('/order/login');
             setPages((p) => [{ 'label': 'login', value: 'order/login' }]);
         } else {
             setPages(p => [{ value: 'order/home', label: 'Home' },
@@ -33,8 +33,8 @@ const OrderLayout = () => {
             { value: 'order/orders-history', label: 'History' },
             { value: 'order/logout', label: 'logout'  }]);
         }
-        if (currentPath == '/order') navigate('/order/home');
-    }, [navigate, location]);
+        if (currentPath == '/order/layout') navigate('/order/home');
+    }, [navigate, location, setPages]);
     return (
         <div style={styles.page}>
             <OrderNav pages={pages} />

@@ -99,7 +99,7 @@ const CurrentOrders = () => {
             const config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:5500/orders/pendingOrders',
+                url: 'http://192.168.3.156:5500/orders/pendingOrders',
                 headers: {
                     'Authorization': 'Bearer ' + token,
                 },
@@ -114,7 +114,7 @@ const CurrentOrders = () => {
         };
 
         fetchOrders();
-    }, []);
+    }, [setOrders]);
     console.log(orders.dineIn);
     return (
         <div>

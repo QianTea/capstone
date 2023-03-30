@@ -10,7 +10,7 @@ const Logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('isLoggedIn');
         navigate('/admin/login');
-    }, []);
+    }, [navigate]);
     return null;
 }
 export default Logout;

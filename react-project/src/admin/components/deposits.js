@@ -29,7 +29,7 @@ export default function Deposits() {
     const config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:5500/admin-orders/todayOrders',
+      url: 'http://192.168.3.156:5500/admin-orders/todayOrders',
       headers: {
         'Authorization': 'Bearer ' + token,
       },
@@ -43,7 +43,7 @@ export default function Deposits() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [setOrders]);
   let revenue = orders.revenue ? orders.revenue.toFixed(2) : '';
 
   return (
@@ -58,7 +58,8 @@ export default function Deposits() {
       <div>
         <Link color="primary"
           href="/admin/revenuehistory"
-          onClick={''}>
+          //onClick={''}
+          >
           View more balance
         </Link>
       </div>

@@ -88,7 +88,7 @@ const OrderHome = () => {
       const config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:5500/tables',
+        url: 'http://192.168.3.156:5500/tables',
         headers: {
           'Authorization': 'Bearer ' + token,
         },
@@ -102,7 +102,7 @@ const OrderHome = () => {
         .catch((error) => {
           console.log(error);
         });
-    }, []);
+    }, [setTables]);
     // get table list
     const availableTables = tables && tables.filter(table => table.tableStatus === 'available');
     const usedTables = tables && tables.filter(table => table.tableStatus === 'used');

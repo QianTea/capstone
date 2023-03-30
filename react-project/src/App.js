@@ -63,7 +63,6 @@ function App() {
         <Route path="/admin" element={<Layout />}>
           <Route path="/admin/login" element={<Login />} />
           <Route path='/admin/logout' element={<Logout />} />
-
           <Route path="/admin/home" element={<DashboardContent />} />
           <Route path='/admin/orderhistory' element={<AdminOrdersHistory />} />
           <Route path='/admin/revenuehistory' element={<RevenueHistory />} />

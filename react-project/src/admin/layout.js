@@ -11,22 +11,23 @@ const Layout = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [pages, setPages] = useState([]);
+    console.log('layout run');
     useEffect(() => {
         const currentPath = location.pathname;
         let isLoggedIn = loginService();
         if (!isLoggedIn) {
-            navigate('/admin/login');
-            setPages((p) => [{ 'label': 'login', value: 'admin/login' }]);
+            if (currentPath != '/admin/login') navigate('/admin/login');
+            setPages([{ 'label': 'login', value: 'admin/login' }]);
         } else {
-            setPages(p => [{ value: 'admin/home', label: 'Home' },
+            setPages([{ value: 'admin/home', label: 'Home' },
             { value: 'admin/store', label: 'StoreInfo' },
             { value: 'admin/menu', label: 'Menu' },
             { value: 'admin/employee', label: 'Employee' },
 
             { value: 'admin/logout', label: 'logout', }]);
         }
-        if (currentPath == '/admin') navigate('/admin/home');
-    }, [navigate, location]);
+        if (currentPath == '/admin/layout') navigate('/admin/home');
+    }, [navigate, location, setPages]);
     return (
         <>
             <ResponsiveAppBar pages={pages} />

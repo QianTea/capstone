@@ -31,7 +31,7 @@ export default function Login() {
     axios({
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://localhost:5500/auth/login',
+      url: 'http://192.168.3.156:5500/auth/login',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -39,10 +39,12 @@ export default function Login() {
     })
       .then(function (response) {
         let data = response.data;
+        console.log('login return');
         if (data.status == 200) {
           localStorage.setItem('token', data.data.token);
           localStorage.setItem('isLoggedIn', true);
-          navigate('/admin');
+          console.log('go to admin');
+          navigate('/admin/home');
         } else {
           alert(data.message);
         }
@@ -70,7 +72,7 @@ export default function Login() {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://localhost:5500/auth/forgot-password',
+      url: 'http://192.168.3.156:5500/auth/forgot-password',
       headers: { 
         'Content-Type': 'application/json'
       },

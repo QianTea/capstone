@@ -162,7 +162,7 @@ export default function AdminOrdersHistory() {
                 page={page}
                 onPageChange={handleChangePage}
             />
-            <Link color="primary" href="/admin/home" onClick={''} sx={{ mt: 3 }}>
+            <Link color="primary" href="/admin/home" sx={{ mt: 3 }}>
                 Back to home
             </Link>
         </div>

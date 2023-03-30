@@ -10,7 +10,7 @@ const EmpLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('isLoggedIn');
         navigate('/order/login');
-    }, []);
+    }, [navigate]);
     return null;
 }
 export default EmpLogout;

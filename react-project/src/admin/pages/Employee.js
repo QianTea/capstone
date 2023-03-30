@@ -66,7 +66,7 @@ const Employee = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get('http://localhost:5500/staff-roles');
+            const result = await axios.get('http://192.168.3.156:5500/staff-roles');
             setRoleList(result.data.map((item) => ({
                 _id: item._id,
                 name: item.name,
@@ -75,7 +75,7 @@ const Employee = () => {
             })));
         };
         fetchData();
-    }, []);
+    }, [setRoleList]);
 
     //API - get employee
     const [employeeList, setEmployeeList] = useState({
@@ -116,7 +116,7 @@ const Employee = () => {
     });
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get('http://localhost:5500/staffs');
+            const result = await axios.get('http://192.168.3.156:5500/staffs');
             setEmployeeList(result.data.map((item) => ({
                 _id: item._id,
                 name: item.name,
@@ -130,7 +130,7 @@ const Employee = () => {
             })));
         };
         fetchData();
-    }, []);
+    }, [setEmployeeList]);
     // delete role function
     const handleRoleDelete = (id) => {
         const newList = roleList.filter((role) => role.id !== id);

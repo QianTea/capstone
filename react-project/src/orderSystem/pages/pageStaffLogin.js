@@ -40,7 +40,7 @@ export default function StaffLogin() {
     axios({
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://localhost:5500/auth/login',
+      url: 'http://192.168.3.156:5500/auth/login',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -51,7 +51,7 @@ export default function StaffLogin() {
         if (data.status == 200) {
           localStorage.setItem('token', data.data.token);
           localStorage.setItem('isLoggedIn', true);
-          navigate('/order');
+          navigate('/order/home');
         } else {
           alert(data.message);
         }
