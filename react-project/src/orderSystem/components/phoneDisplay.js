@@ -150,7 +150,7 @@ const PhoneDisplay = (props) => {
     const getTotal = () => {
         if (props.data.length <= 0) return `${defaultTotal.toFixed(2)}`;
         props.data.forEach(v => {
-            defaultTotal += v.quality * v.dineInPrice;
+            defaultTotal += v.quality * v.takeOutPrice;
         });
         return `${defaultTotal.toFixed(2)}`;
     }
@@ -237,13 +237,56 @@ const PhoneDisplay = (props) => {
         axios.request(config)
             .then((response) => {
                 console.log(response.data);
+                if (response.data.status == 201) {
+                    orderPrintOut(response.data.data);
+                    link('/order/home');
+                }
+                alert(response.data.message);
                 console.log(token);
             })
             .catch((error) => {
                 console.log(error);
             });
-            link('/order/home');
+           
     }
+
+    const orderPrintOut = (data) => {
+        const token = localStorage.getItem('token');
+        const order = {
+            orderType: data.orderType,
+            table: data.table,
+            totalcost: data.totalCost,
+            pickupTime: data.customer ? data.customer.takeOutTime : '',
+            orderTime: new Date(Date.now()).toISOString(),
+            orderid: data._id.substring(data._id.length - 5),
+            customerName: data.customer ? data.customer.name : '',
+            customerPhone: data.customer ? data.customer.phone: '',
+            orderfood: data.food ? data.food.map(v => {return {foodname: v.altName, quantity: v.quality}}) : [] 
+        };
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:5500/print',
+
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            data: order
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.data.status == 200) {
+                    //link('/order/home');
+                }
+            })
+            .catch((error) => {
+                alert(error);
+            });
+
+    }
+
     const orderDone = () => {
 
     }
@@ -275,7 +318,7 @@ const PhoneDisplay = (props) => {
                                 style={styles.backIcon} />
                         </IconButton>
                     </Grid>
-                    {/* Head: Order Type:  Dine in */}
+                    {/* Head: Order Type:  Phone */}
                     <Grid item xs={5} style={styles.orderTypeTxt} >
                         Phone
                     </Grid>

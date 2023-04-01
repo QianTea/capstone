@@ -132,7 +132,7 @@ const tables = [
     { label: 'Table 10', value: '10' },
 ];
 
-// default export TakeoutDisplay
+// default export tDisplay
 const DineInDisplay = (props) => {
     // back button
     const link = useNavigate();
@@ -225,6 +225,23 @@ const DineInDisplay = (props) => {
     const taxRef = useRef(null);
     const beforeTaxRef = useRef(null);
 
+
+    // {
+    //     "orderfood": [
+    //         {"foodname": "try", "quantity": 30},
+    //         {"foodname": "try1", "quantity": 13},
+    //         {"foodname": "try2", "quantity": 30}
+    //     ],
+    //     "table": "3",
+    //     "orderTime": "time here",
+    //     "orderid":"#cccc",
+    //     "totalcost":323,
+    //     "customerName":"qqq",
+    //     "customerPhone":"31313133",
+    //     "pickupTime":"",
+    //     "orderType":"Dine-In"
+    
+    // }
     const orderPrint = () => {
         // get order data
         let totalCost = parseFloat(totalCostRef.current?.textContent);
@@ -249,6 +266,7 @@ const DineInDisplay = (props) => {
             method: 'post',
             maxBodyLength: Infinity,
             url: 'http://localhost:5500/orders',
+
             headers: {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
@@ -258,13 +276,53 @@ const DineInDisplay = (props) => {
 
         axios.request(config)
             .then((response) => {
-                console.log(response.data);
-                console.log(token);
+                if (response.data.status == 201) {
+                    orderPrintOut(response.data.data);
+                    link('/order/home');
+                } else {
+                    alert(response.data.message);
+                }
             })
             .catch((error) => {
-                console.log(error);
+                alert(error);
             });
-            link('/order/home');
+            
+    }
+
+    const orderPrintOut = (data) => {
+        const order = {
+            orderType: data.orderType,
+            table: data.table,
+            totalcost: data.totalCost,
+            pickupTime: "",
+            orderTime: new Date(Date.now()).toISOString(),
+            orderid: data._id.substring(data._id.length - 5),
+            customerName: data.customer ? data.customer.name : '',
+            customerPhone: data.customer ? data.customer.phone: '',
+            orderfood: data.food ? data.food.map(v => {return {foodname: v.altName, quantity: v.quality}}) : [] 
+        };
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:5500/print',
+
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            data: order
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.data.status == 200) {
+                    //link('/order/home');
+                }
+            })
+            .catch((error) => {
+                alert(error);
+            });
+
     }
 
 
@@ -455,30 +513,6 @@ const DineInDisplay = (props) => {
                     </Grid>
                 </Grid>
 
-                {/* Buttons: Done-order status & Pay-pmy status */}
-                {/* <Grid container style={styles.space}>
-                    <Grid item xs={3}>
-                        <Button
-                            onClick={orderDone}
-                            style={styles.button}
-                            variant="contained"
-                            fullWidth
-                            color='success'
-                        >
-                            Done
-                        </Button>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <Button
-                            onClick={orderPaid}
-                            style={styles.button}
-                            variant="contained"
-                            fullWidth
-                        >
-                            Pay &nbsp;&nbsp; $ {getTaxAndTotal()}
-                        </Button>
-                    </Grid>
-                </Grid> */}
             </ThemeProvider>
 
             {/* Pop-up Window */}

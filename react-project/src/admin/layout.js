@@ -26,7 +26,7 @@ const Layout = () => {
 
             { value: 'admin/logout', label: 'logout', }]);
         }
-        if (currentPath == '/admin/layout') navigate('/admin/home');
+        if (currentPath == '/admin') navigate('/admin/home');
     }, [navigate, location, setPages]);
     return (
         <>

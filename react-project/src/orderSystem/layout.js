@@ -28,12 +28,11 @@ const OrderLayout = () => {
             { value: 'order/dine-in-order', label: 'Dine-In' },
             { value: 'order/take-out-order', label: 'Take Out' },
             { value: 'order/phone-order', label: 'Phone' },
-            { value: 'order/current-orders', label: 'Tables' },
             { value: 'order/current-orders', label: 'Current' },
             { value: 'order/orders-history', label: 'History' },
             { value: 'order/logout', label: 'logout'  }]);
         }
-        if (currentPath == '/order/layout') navigate('/order/home');
+        if (currentPath == '/order') navigate('/order/home');
     }, [navigate, location, setPages]);
     return (
         <div style={styles.page}>
