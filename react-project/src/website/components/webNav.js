@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+// API
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 // mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -53,6 +55,15 @@ const storeInfo = {
 
 // top navigation bar of store website
 const WebNav = () => {
+        // get store info
+        const [storeInfo, setStoreInfo] = useState({});
+    useEffect(() => {
+        const fetchData = async () => {
+            const resultInfo = await axios.get('http://localhost:5500/website');
+            setStoreInfo(resultInfo.data.data);
+        };
+        fetchData();
+    }, [setStoreInfo]);
     return (
         <ThemeProvider theme={mdTheme}>
             <div>
@@ -61,11 +72,11 @@ const WebNav = () => {
                     <span style={styles.logo}>
                         <Link to="/home">
                             <img style={styles.logo}
-                                alt={storeInfo.name}
-                                src={storeInfo.logo} />
+                                alt={storeInfo.storeName}
+                                src={storeInfo.logoImage} />
                         </Link>
                         <Link to="/home" style={styles.name}>
-                            {storeInfo.name}
+                            {storeInfo.storeName}
                         </Link>
                     </span>
 

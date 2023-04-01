@@ -1,4 +1,8 @@
-import * as React from 'react';
+import React from 'react';
+import { useState, useEffect, useRef } from 'react';
+// api
+import axios from 'axios';
+//mui
 import Link from '@mui/material/Link';
 // mui - table
 import Table from '@mui/material/Table';
@@ -80,16 +84,34 @@ export default function AdminOrdersHistory() {
     // 15 rows a page
     const [page, setPage] = React.useState(0);
     const rowsPerPage = 10;
-
     const handleChangePage = (event, newPage) => {
-        setPage(newPage);
+        
+        
+        const config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://localhost:5500/admin-orders?page=${newPage + 1}&limit=${rowsPerPage}`,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+        };
+
+        axios
+        .request(config)
+        .then((response) => {
+            setOrders(response.data.data);
+            setPage(newPage);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     };
     // change order type style
     const getOrderTypeCellStyle = (orderType) => {
         switch (orderType) {
-            case 'Dine In':
+            case 'DineIn':
                 return { ...styles.orderType, ...styles.dineIn };
-            case 'Take Out':
+            case 'TakeOut':
                 return { ...styles.orderType, ...styles.takeOut };
             case 'Phone':
                 return { ...styles.orderType, ...styles.phone };
@@ -97,17 +119,35 @@ export default function AdminOrdersHistory() {
                 return {};
         }
     };
+    // api
+    const token = localStorage.getItem('token');
+    const [orders, setOrders] = useState([]);
+    useEffect(() => {
+        const config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://localhost:5500/admin-orders?page=${page}&limit=${rowsPerPage}`,
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+        };
+
+        axios
+            .request(config)
+            .then((response) => {
+                setOrders(response.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [setOrders]);
+    const formatTime = (timeString) => {
+        const time = new Date(timeString);
+        return time.toLocaleTimeString();
+    };
     return (
         <div style={styles.container}>
             <div style={styles.title}>Orders History</div>
-            <TablePagination
-                rowsPerPageOptions={[15]}
-                component="div"
-                count={allOrders.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-            />
             <Table size="small">
                 <TableHead>
                     <TableRow>
@@ -123,9 +163,7 @@ export default function AdminOrdersHistory() {
                         <TableCell align="center" style={styles.tableCell}>
                             Table
                         </TableCell>
-                        <TableCell align="center" style={styles.tableCell}>
-                            Payment Type
-                        </TableCell>
+
                         <TableCell align="center" style={styles.tableCell}>
                             Sale Amount
                         </TableCell>
@@ -135,29 +173,27 @@ export default function AdminOrdersHistory() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {allOrders
-                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    {orders.orders && orders.orders
                         .map((order) => (
-                            <TableRow key={order.id}>
-                                <TableCell align="center">{order.id}</TableCell>
-                                <TableCell align="center">{order.datetime}</TableCell>
+                            <TableRow key={order._id}>
+                                <TableCell align="center">{order._id.slice(-4)}</TableCell>
+                                <TableCell align="center">{formatTime(order.completedTime)}</TableCell>
                                 <TableCell align="center">
                                     <div style={getOrderTypeCellStyle(order.orderType)}>
                                         {order.orderType}
                                     </div>
                                 </TableCell>
                                 <TableCell align="center">{order.table}</TableCell>
-                                <TableCell align="center">{order.pmtType}</TableCell>
-                                <TableCell align="center">{`$${order.amount}`}</TableCell>
-                                <TableCell align="center">{order.server}</TableCell>
+                                <TableCell align="center">{`$${order.totalCost}`}</TableCell>
+                                <TableCell align="center">{order.staff}</TableCell>
                             </TableRow>
                         ))}
                 </TableBody>
             </Table>
             <TablePagination
-                rowsPerPageOptions={[15]}
+                rowsPerPageOptions={rowsPerPage}
                 component="div"
-                count={allOrders.length}
+                count={orders.count}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

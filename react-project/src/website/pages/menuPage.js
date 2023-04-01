@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
+// API
+import axios from 'axios';
 //mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -127,27 +130,37 @@ const menuItems = [
 ];
 // show products, group by categories
 function ProductList() {
+    const [products, setProducts] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios.get('http://localhost:5500/website/getCategoryProducts');
+            setProducts(result.data.data);
+            console.log(products);
+        };
+        fetchData();
+    }, [setProducts]);
+
     return (
         <div>
-            {menuItems.map(m => (
+            {products && products.map(m => (
                 <div>
                     {/* category name & description */}
-                    <h2 style={styles.categoryH}>{m.cateName}</h2>
+                    <h2 style={styles.categoryH}>{m.name}</h2>
                     <p style={styles.categoryD}>{m.description}</p>
                     {/* products list under the category */}
                     <div style={styles.menu}>
-                        {(m.products).map(p => (
+                        {m.products && m.products.map(p => (
                             // each product
                             <div style={styles.item}>
                                 {/* && = if 前为true，运行&&后的代码 */}
-                                {p.image && <img src={p.image} alt={p.name} style={styles.image} />}
+                                <img src='../homeTreat.png' alt={p.name} style={styles.image} />
                                 <div style={styles.details}>
                                     <p style={styles.name}>
                                         {p.name} 
-                                        <p style={styles.description}>{p.description}</p>
+                                        {/* <p style={styles.description}>{p.description}</p> */}
                                         <span style={styles.priceStrike}></span>
                                     </p>
-                                    <p style={styles.price}>{p.price}</p>
+                                    <p style={styles.price}>${p.takeOutPrice}</p>
                                 </div>
                             </div>
                         ))}
@@ -160,6 +173,7 @@ function ProductList() {
 
 
 const WebMenu = () => {
+
     return (
         <ThemeProvider theme={mdTheme}>
             <div style={styles.page}>

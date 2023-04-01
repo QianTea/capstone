@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+// API
+import axios from 'axios';
 // mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -29,31 +31,39 @@ const styles = {
     },
 };
 // data
-const storeInfo = {
-    name: 'Riverside Fish Hut',
-    phone: ' (519) 653-0788',
-    address: {
-        Street: 'Unit-B 157 King Street West',
-        City: 'Cambridge', Province: 'ON',
-        PostalCode: 'N3H 1B5', Country: 'Canada',
-    }
-};
+// const storeInfo = {
+//     name: 'Riverside Fish Hut',
+//     phone: ' (519) 653-0788',
+//     address: {
+//         Street: 'Unit-B 157 King Street West',
+//         City: 'Cambridge', Province: 'ON',
+//         PostalCode: 'N3H 1B5', Country: 'Canada',
+//     }
+// };
+
+
 // footer of store website
 const WebFooter = () => {
+        // get store info
+        const [storeInfo, setStoreInfo] = useState({});
+
+            useEffect(() => {
+                const fetchData = async () => {
+                    const resultInfo = await axios.get('http://localhost:5500/website');
+                    setStoreInfo(resultInfo.data.data);
+                };
+                fetchData();
+            }, [setStoreInfo]);
     return (
         <ThemeProvider theme={mdTheme}>
             <div style={styles.footer}>
                 <div style={styles.footerLinks}>
-                    <p>{storeInfo.name}</p>
-                    <p>Tel:{storeInfo.phone}</p>
+                    <p>{storeInfo.storeName}</p>
+                    <p>Tel:{storeInfo.phoneNumber}</p>
                     <p>
-                        {storeInfo.address.Street}, {storeInfo.address.City},
-                        {storeInfo.address.Province} {storeInfo.address.PostalCode},
-                        {storeInfo.address.Country}
+                        {storeInfo.address}
                     </p>
-                    <span>&copy; 2023 {storeInfo.name}</span>
-                    <a href="#" style={styles.footerLink}>Privacy Policy</a>
-                    <a href="#" style={styles.footerLink}>Terms of Use</a>
+                    <span>&copy; 2023 {storeInfo.storeName}</span>
                 </div>
             </div>
         </ThemeProvider >

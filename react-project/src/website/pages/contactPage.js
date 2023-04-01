@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+// API
+import axios from 'axios';
 // mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // styles
@@ -75,7 +77,19 @@ const storeInfo = {
     }
 };
 const WebContact = () => {
-
+    // get store info
+    const [storeInfo, setStoreInfo] = useState({});
+        // get business hour
+    const [businessHour, setBusinessHour] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            const resultInfo = await axios.get('http://localhost:5500/website');
+            const resultTime = await axios.get('http://localhost:5500/website/business-hours');
+            setStoreInfo(resultInfo.data.data);
+            setBusinessHour(resultTime.data.data);
+        };
+        fetchData();
+    }, [setStoreInfo, setBusinessHour]);
     return (
         <ThemeProvider theme={mdTheme}>
             <div style={styles.page}>
@@ -92,19 +106,15 @@ const WebContact = () => {
                     {/* Address */}
                     <div style={special.itemBH}>
                         <h2>Address</h2>
-                        <p>{storeInfo.address.Street},</p>
-                        <p>{storeInfo.address.City},</p>
-                        <p>
-                            {storeInfo.address.Province} {storeInfo.address.PostalCode},
-                            {storeInfo.address.Country}
-                        </p>
+                        <p>{storeInfo.address},</p>
+   
                         <p>{'\u00A0'}</p>
                         <p>{'\u00A0'}</p>
                     </div>
                     {/* Contact */}
                     <div style={special.itemBH}>
                         <h2>Phone</h2>
-                        <p>{storeInfo.phone}</p>
+                        <p>{storeInfo.phoneNumber}</p>
                     </div>
 
                     {/* business hour */}
@@ -112,36 +122,14 @@ const WebContact = () => {
                         <h2>Find Us</h2>
                         <table style={table.table}>
                             <tbody>
+                             {businessHour && businessHour.map((item, index) => (
                                 <tr>
-                                    <td>Monday</td>
-                                    <td>Closed</td>
+                                    <td>{`${item.dayOfWeek} `}</td>
+                                    <td>{item.businessTime}</td>
                                 </tr>
-                                <tr>
-                                    <td>Tuesday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Wednesday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Thursday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Friday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Saturday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Sunday</td>
-                                    <td>Closed</td>
-                                </tr>
+                                ))}
                             </tbody>
-                        </table>
+                        </table> 
                     </div>
                     {/* map */}
                     <div style={special.itemMap}>

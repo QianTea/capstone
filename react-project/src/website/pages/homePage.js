@@ -1,6 +1,10 @@
-import React from "react";
-//mui
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
+// API
+import axios from 'axios';
+// mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { TableCell,TableRow } from "@mui/material";
 
 // styles
 const mdTheme = createTheme();
@@ -27,13 +31,13 @@ const body = {
         textTransform: 'uppercase',
         paddingTop: '90px',
         paddingLeft: '40px',
-        lineHeight: '0.5', 
+        lineHeight: '0.5',
     },
     subtitle: {
         fontSize: '20px',
         letterSpacing: '1px',
         paddingLeft: '40px',
-        lineHeight: '0.5', 
+        lineHeight: '0.5',
     },
     overlay: {
         backgroundImage: 'linear-gradient(to right, rgba(0, 0, 0, 0.4) 50%, transparent 50%)',
@@ -50,7 +54,7 @@ const about = {
         textTransform: 'uppercase',
         lineHeight: '0.8',
     },
-     introduction: {
+    introduction: {
         fontSize: '30px',
         lineHeight: '1',
     },
@@ -97,12 +101,21 @@ const table = {
         margin: "0 auto",
     },
 }
-// data
-const storeInfo = {
-    name:'Riverside Fish Hut',
-     introduction:'Founded in 2012, Riverside Fish Hut is known for revolutionizing the way people eat and enjoy food. Serving classic fish and chips in a cozy riverside setting, with a patio during the summer! Follow us on Facebook!',
-};
+
 const WebHome = () => {
+    // get store info
+    const [storeInfo, setStoreInfo] = useState({});
+        // get business hour
+    const [businessHour, setBusinessHour] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            const resultInfo = await axios.get('http://localhost:5500/website');
+            const resultTime = await axios.get('http://localhost:5500/website/business-hours');
+            setStoreInfo(resultInfo.data.data);
+            setBusinessHour(resultTime.data.data);
+        };
+        fetchData();
+    }, [setStoreInfo, setBusinessHour]);
 
     return (
         <ThemeProvider theme={mdTheme}>
@@ -121,8 +134,8 @@ const WebHome = () => {
                 <div >
                     <p style={about.title}>About</p>
                     <div >
-                        <p style={about. introduction}>
-                            {storeInfo. introduction}
+                        <p style={about.introduction}>
+                            {storeInfo.description}
                         </p>
                     </div>
                 </div>
@@ -169,38 +182,16 @@ const WebHome = () => {
                     {/* business hour */}
                     <div style={special.itemBH}>
                         <h2>Find Us</h2>
-                        <table style={table.table}>
+                         <table style={table.table}>
                             <tbody>
+                             {businessHour && businessHour.map((item, index) => (
                                 <tr>
-                                    <td>Monday</td>
-                                    <td>Closed</td>
+                                    <td>{`${item.dayOfWeek} `}</td>
+                                    <td>{item.businessTime}</td>
                                 </tr>
-                                <tr>
-                                    <td>Tuesday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Wednesday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Thursday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Friday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Saturday</td>
-                                    <td>11:30am - 7:30pm</td>
-                                </tr>
-                                <tr>
-                                    <td>Sunday</td>
-                                    <td>Closed</td>
-                                </tr>
+                                ))}
                             </tbody>
-                        </table>
+                        </table> 
                     </div>
                 </div>
                 {/* footer */}
