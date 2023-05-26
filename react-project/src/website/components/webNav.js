@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 // API
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 // mui
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useTheme, useMediaQuery } from "@mui/material";
+
+import Grid from "@mui/material";
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -14,53 +17,30 @@ import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 
 // style
 const mdTheme = createTheme();
+
 const styles = {
-    // header: {
-    //     display: 'flex',
-    //     justifyContent: 'space-between',
-    //     alignItems: 'center',
-    //     backgroundColor: '#1B1B22',
-    //     padding: '1rem 2rem',
-    //     position: 'fixed',
-    //     top: 0,
-    //     left: 0,
-    //     right: 0,
-    //     zIndex: 999,
-    //     textAlign: 'left',
-    // },
+    nameContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     logo: {
-        flex: 1,
-        height: '5rem',
+        marginTop: '0.5rem',
+        height: '4rem',
     },
     name: {
         color: '#FFD700',
         textDecoration: 'none',
-        textAlign: 'left',
-        fontSize: '2rem',
+        textAlign: 'center',
+        fontSize: '3rem',
         paddingLeft: '1rem',
-        paddingBottom: '1rem',
-    },
-    li: {
-        display: 'flex',
-        // flex: 1,
-        // justifyContent: 'flex-end',
-        // display: 'inline-block',
-        // marginRight: '5rem',
-    },
-    a: {
-        color: '#fff',
-        textDecoration: 'none',
-        fontSize: '1.5 rem',
     },
 }
 
 function LinkTab(props) {
     return (
         <Tab
-            component="a"
-            onClick={(event) => {
-                event.preventDefault();
-            }}
+            component={NavLink}
             {...props}
         />
     );
@@ -82,69 +62,66 @@ const WebNav = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    // small screen style
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const nameFontSize = isSmallScreen ? '2rem' : '3rem';
+    const tabSpacing = isSmallScreen ? '1rem' : '3rem'; // 在小屏幕和大屏幕上定义不同的间距
+    const tabFontSize = isSmallScreen ? '0.8rem' : '1.3rem'; // 在小屏幕和大屏幕上定义不同的字号大小
+    const iconFontSize = isSmallScreen ? '2rem' : '3rem';
     return (
         <ThemeProvider theme={mdTheme}>
-            <div>
-                <nav style={styles.header}>
+            <div style={{ width: '100%' }}>
 
-                    {/* logo image - link to home page*/}
-                    <Link to="/home">
+                {/* logo image - link to home page*/}
+                <Link to="/home" style={{ textDecoration: 'none', }}>
+                    <div style={styles.nameContainer}>
                         <img style={styles.logo}
                             alt={storeInfo.storeName}
                             src={storeInfo.logoImage} />
-                        <span style={styles.name}>
+                        <span style={{ ...styles.name, fontSize: nameFontSize }}>
                             {storeInfo.storeName}
                         </span>
-                    </Link>
 
-                    <ul >
-                        {/* link to home page */}
-                        <li style={styles.li}>
-                            <Link to="/home" style={styles.a}>
-                                Home
-                            </Link>
-                        </li>
-                        {/* link to menu page */}
-                        <li style={styles.li}>
-                            <Link to="/menu" style={styles.a}>
-                                Menu
-                            </Link>
-                        </li>
-                        {/* link to contact page */}
-                        <li style={styles.li}>
-                            <Link to="/contact" style={styles.a}>
-                                Contact
-                            </Link>
-                        </li>
-                    </ul>
-                    <Box sx={{ width: '100%' }}>
-            <Tabs
-                value={value}
-                onChange={handleChange}
-                textColor="inherit"
-                indicatorColor="primary"
-                aria-label="nav tabs example"
-                centered
-            >
-                <LinkTab
-                    icon={<StorefrontTwoToneIcon />}
-                    label="Page Home"
-                    href="/drafts"
-                />
-                <LinkTab
-                    icon={<SetMealTwoToneIcon />}
-                    label="Page Menu"
-                    href="/trash"
-                />
-                <LinkTab
-                    icon={<InfoTwoToneIcon />}
-                    label="Page Contact"
-                    href="/spam"
-                />
-            </Tabs>
-        </Box>
-                </nav>
+                    </div>
+                </Link>
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    textColor="inherit"
+                    indicatorColor="primary"
+                    centered
+                    sx={{
+                        '& .MuiTab-root': {
+                            marginLeft: tabSpacing,
+                            marginRight: tabSpacing,
+                            marginTop: '0.5rem',
+                            marginBottom: '0.5rem',
+                            fontSize: tabFontSize,
+                        },
+                        '& .MuiSvgIcon-root': {
+                            fontSize: iconFontSize, // 设置图标的大小
+                        },
+                    }}
+                >
+                    <LinkTab
+                        icon={<StorefrontTwoToneIcon />}
+                        label="Home"
+                        to="/home"
+                    />
+                    <LinkTab
+                        icon={<SetMealTwoToneIcon />}
+                        label="Menu"
+                        to="/menu"
+                    />
+                    <LinkTab
+                        icon={<InfoTwoToneIcon />}
+                        label="Contact"
+                        to="/contact"
+                    />
+                </Tabs>
             </div>
+
         </ThemeProvider >
     )
 }

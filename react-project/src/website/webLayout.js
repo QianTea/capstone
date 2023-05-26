@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 // Components
 import WebNav from "./components/webNav";
-import NavTabs from "./components/navTab";
 import WebFooter from "./pages/webFooter";
 // navigation
 import { useNavigate,useLocation } from "react-router-dom";
@@ -30,17 +29,14 @@ const WebLayout = () => {
         if (currentPath == '/') navigate('/home');
     }, [navigate, location]);
     return (
-        // < div style={styles.page}>
-        //     <WebNav />
-        //     <div style={styles.body}>
-        //         <Outlet />
-        //     </div>
-        //     <WebFooter sx={{ mt: 8, mb: 4 }} />
-        // </div>
-        <div style={styles.page}>
+        < div style={styles.page}>
             <WebNav />
-            <NavTabs/>
+            <div style={styles.body}>
+                <Outlet />
+            </div>
+            <WebFooter sx={{ mt: 8, mb: 4 }} />
         </div>
+  
     )
 }
 
