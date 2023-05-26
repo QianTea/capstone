@@ -12,11 +12,11 @@ const styles = {
         backgroundColor: '#24242D',
         color: '#fff',
         textAlign: 'center',
-        paddingTop: '100px',
+        paddingTop: '6.25rem',
     },
     heading: {
         fontSize: '3rem',
-        margin: '30px 0',
+        margin: '2rem 0',
     },
     categoryH: {
         color: '#FFD700',

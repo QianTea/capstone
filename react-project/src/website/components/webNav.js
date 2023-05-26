@@ -13,7 +13,7 @@ const styles = {
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: '#1B1B22',
-        padding: '10px 20px',
+        padding: '1rem 2rem',
         position: 'fixed',
         top: 0,
         left: 0,
@@ -23,15 +23,15 @@ const styles = {
     },
     logo: {
         flex: 1,
-        height: '50px',
+        height: '5rem',
     },
     name: {
         color: '#FFD700',
         textDecoration: 'none',
         textAlign: 'left',
-        fontSize: '30px',
-        paddingLeft: '10px',
-        paddingBottom: '50px',
+        fontSize: '2rem',
+        paddingLeft: '1rem',
+        paddingBottom: '1rem',
         
     },
     li: {
@@ -39,19 +39,15 @@ const styles = {
         flex: 1,
         justifyContent: 'flex-end',
         display: 'inline-block',
-        marginRight: '200px',
+        marginRight: '5rem',
     },
     a: {
         color: '#fff',
         textDecoration: 'none',
-        fontSize: '24px',
+        fontSize: '1.5 rem',
     },
 }
-//data-give me link for the img, not base64
-const storeInfo = {
-    name: 'Riverside Fish Hut',
-    logo: ' logo.png',
-};
+
 
 // top navigation bar of store website
 const WebNav = () => {
