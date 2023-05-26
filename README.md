@@ -1,5 +1,8 @@
 # capstone - UI Development Plan
- A restaurant website that includes an admin panel, through which customers can upload and customize store name, logo, menu, price, and online order links (such as skipp/uber eat)
+ A restaurant website that includes an admin panel, through which customers can upload and customize store name, logo, menu, price
+Future Features:
+- online order links (such as skipp/uber eat)
+- day/night mode
 
 ## Restaurant website 
 UI: https://github.com/users/QianTea/projects/1/views/1?pane=issue&itemId=21166867
